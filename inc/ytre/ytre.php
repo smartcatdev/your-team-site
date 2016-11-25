@@ -8,8 +8,11 @@ function ytre_scripts() {
         wp_enqueue_style( 'ytre-style', get_stylesheet_uri() );
 
         wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/inc/css/bootstrap.min.css', array(), YTRE_VERSION );
+        wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), YTRE_VERSION );
+        wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
         wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
         
+        wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
         wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
         
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
@@ -25,15 +28,37 @@ add_action( 'wp_enqueue_scripts', 'ytre_scripts' );
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
  */
 function ytre_widgets_init() {
-	register_sidebar( array(
-		'name'          => esc_html__( 'Sidebar', 'ytre' ),
-		'id'            => 'sidebar-1',
-		'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
-		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</section>',
-		'before_title'  => '<h2 class="widget-title">',
-		'after_title'   => '</h2>',
-	) );
+    
+    register_sidebar( array(
+            'name'          => esc_html__( 'Sidebar', 'ytre' ),
+            'id'            => 'sidebar-1',
+            'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
+            'before_widget' => '<section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section>',
+            'before_title'  => '<h2 class="widget-title">',
+            'after_title'   => '</h2>',
+    ) );
+
+    register_sidebar( array(
+            'name'          => esc_html__( 'Footer - Frontpage', 'ytre' ),
+            'id'            => 'sidebar-footer-frontpage',
+            'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
+            'before_widget' => '<div class="col-sm-4"><section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section></div>',
+            'before_title'  => '<h4 class="widget-title">',
+            'after_title'   => '</h4>',
+    ) );
+
+    register_sidebar( array(
+            'name'          => esc_html__( 'Footer', 'ytre' ),
+            'id'            => 'sidebar-footer',
+            'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
+            'before_widget' => '<div class="col-sm-4"><section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section></div>',
+            'before_title'  => '<h4 class="widget-title">',
+            'after_title'   => '</h4>',
+    ) );
+    
 }
 add_action( 'widgets_init', 'ytre_widgets_init' );
 
@@ -60,22 +85,39 @@ function ytre_custom_css() { ?>
         
         /* --- PRIMARY COLOR --- */
 
-            #placeholder-style-rule {
+            .logo-container,
+            #jumbotron-tagline {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
-            #placeholder-style-rule {
+            ul#primary-menu li.current-menu-item a,
+            ul#primary-menu li:hover a {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
+            }
+            
+            div#jumbotron-content,
+            ul#primary-menu li:hover a {
+                border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
         /* --- SECONDARY COLOR --- */
         
-            #placeholder-style-rule {
+            div#jumbotron-buttons a.button {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
         
-            #placeholder-style-rule {
+            .jumbo-title span {
                 color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
+            }
+        
+        /* --- SECONDARY ACCENT COLOR --- */
+        
+            div#jumbotron-buttons a.button {
+                border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
+            }
+        
+            #placeholder-style-rule {
+                color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
             
     </style>
@@ -94,18 +136,30 @@ function ytre_custom_js() { ?>
     
         jQuery(document).ready( function( $ ) {
             
+            /**
+             * Jumbotron and Video Background
+             */
             $('#jumbotron-section').tubular({ 
                 videoId: 'AK-MUzWdpjU',
             });
             $('#tubular-container').appendTo('#jumbotron-section');
             $('#tubular-shield').appendTo('#jumbotron-section');
-            
             $(window).load(function () {
                 $('#tubular-container').delay(650).animate({
                     opacity: 1
                 }, 500 );
             });
-            
+
+            /**
+             * OwlCarousel Init 
+             */
+            $("#testimonials").owlCarousel({
+                slideSpeed : 1000,
+                paginationSpeed : 1000,
+                singleItem: true,
+                autoPlay : true
+            });    
+        
             /*
             * Handle Blog Roll Masonry
             */
@@ -249,7 +303,36 @@ function ytre_render_jumbotron() { ?>
                         
                         <div class="col-sm-12">
                             
-                            <h1><?php _e( 'Contact a Your Team Member Now', 'ytre' ) ?></h1>
+                            <h2 class="jumbo-title">
+                                <?php _e( 'Contact a ', 'ytre' ); ?> 
+                                <span><?php _e( 'Your Team', 'ytre' ); ?></span>
+                                <?php _e( ' member now.', 'ytre' ); ?>
+                            </h2>
+                            
+                            <div id="jumbotron-buttons">
+                                
+                                <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
+                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>">
+                                        <span class="fa fa-mobile"></span>
+                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>
+                                    </a>
+                                <?php endif; ?>
+                                
+                                <?php if ( get_theme_mod( 'ytre_jumbotron_button_2_label', __( 'Email', 'ytre' ) ) != '' ) : ?>
+                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_2_url', '#' ) ); ?>">
+                                        <span class="fa fa-envelope-o"></span>
+                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Email', 'ytre' ) ); ?>
+                                    </a>
+                                <?php endif; ?>
+                                
+                                <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
+                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_3_url', '#' ) ); ?>">
+                                        <span class="fa fa-commenting-o"></span>
+                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Live Chat', 'ytre' ) ); ?>
+                                    </a>
+                                <?php endif; ?>
+                                
+                            </div>
                             
                         </div>
                         
@@ -262,9 +345,100 @@ function ytre_render_jumbotron() { ?>
         </div>
 
     </div>
+    
+    <div id="jumbotron-tagline" class="container-fluid">
+        
+        <div class="row">
+            
+            <div class="col-sm-12">
+                
+                <?php echo get_theme_mod( 'ytre_jumbotron_tagline', __( 'Your Team... Making Dreams a Reality', 'ytre' ) ); ?>
+                
+            </div>
+            
+        </div>
+        
+    </div>
 
 <?php }
 add_action( 'ytre_jumbotron', 'ytre_render_jumbotron' );
+
+/**
+ * Render the Featured Listings.
+ */
+function ytre_render_featured_listings() { ?>
+        
+    <div id="featured-listings-section">
+       
+        
+        <div id="featured-listings-widgets">
+            
+            
+            
+        </div>
+        
+    </div>
+
+<?php }
+add_action( 'ytre_featured_listings', 'ytre_render_featured_listings' );
+
+/**
+ * Render the footer.
+ */
+function ytre_render_footer() { ?>
+        
+<div id="footer-sidebar-wrapper" class="container-fluid">
+
+        <div class="row">
+
+            <div class="col-md-12">
+
+                <div class="container">
+                    
+                    <div class="row">
+
+                        <?php if ( is_front_page() ) : ?>
+                        
+                            <?php if ( is_active_sidebar( 'sidebar-footer-frontpage' ) ) : ?>
+                                <div class="col-md-12">
+
+                                    <div id="footer-widget-area">
+
+                                        <?php get_sidebar( 'footer-frontpage' ); ?>
+
+                                    </div>
+
+                                </div>
+                            <?php endif; ?>
+                        
+                        <?php else : ?>
+                        
+                            <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
+                                <div class="col-md-12">
+
+                                    <div id="footer-widget-area">
+
+                                        <?php get_sidebar( 'footer' ); ?>
+
+                                    </div>
+
+                                </div>
+                            <?php endif; ?>
+                        
+                        <?php endif; ?>
+                       
+                    </div>
+                    
+                </div>
+                
+            </div>
+    
+        </div>
+            
+    </div>
+    
+<?php }
+add_action( 'ytre_footer', 'ytre_render_footer' );
 
 /**
  * Get the skin colors from the Customizer.
@@ -273,9 +447,10 @@ function ytre_get_skin_colors() {
     
     $skin_color_array[] = null;
     
-    $skin_color_array[ 'primary' ]      = get_theme_mod( 'ytre_theme_color_primary', '#3492c6' );
-    $skin_color_array[ 'secondary' ]    = get_theme_mod( 'juno_theme_color_secondary', '#ef5858' );
-    $skin_color_array[ 'dark' ]         = get_theme_mod( 'juno_theme_color_dark', '#050e1a' );
+    $skin_color_array[ 'primary' ]              = get_theme_mod( 'ytre_theme_color_primary', '#3492c6' );
+    $skin_color_array[ 'secondary' ]            = get_theme_mod( 'ytre_theme_color_secondary', '#ef5858' );
+    $skin_color_array[ 'secondary_accent' ]     = get_theme_mod( 'ytre_theme_color_secondary_accent', '#b52c2c' );
+    $skin_color_array[ 'dark' ]                 = get_theme_mod( 'ytre_theme_color_dark', '#050e1a' );
     
     return $skin_color_array;
     

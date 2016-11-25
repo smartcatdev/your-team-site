@@ -23,7 +23,6 @@ a {
 .logo-container {
     position: absolute;
     top: 70px;
-    background: #3492c6;
     width: 275px;
     z-index: 999;
     left: 0;
@@ -33,51 +32,33 @@ a {
 
 /** Main / Primary Menu
 **/
-/*#primary-menu li {
-    text-transform: uppercase;
-    margin-right: 30px;
-    font-family: 'Montserrat';
-    letter-spacing: .125em;
-    font-size: 12px;
-}
-#primary-menu li a {
-    color: #050e1a;
-}*/
 ul#primary-menu li a {
     font-family: 'Montserrat', Helvetica, sans-serif;
     text-transform: uppercase;
     font-size: 11px;
     letter-spacing: .25em;
-    color: #050e1a;
+    color: #1c1c1c;
     border-bottom: 1px solid rgba(0,0,0,0.0);
     transition: 0.2s all ease-in-out;
     -moz-transition: 0.2s all ease-in-out;
     -webkit-transition: 0.2s all ease-in-out;
-    padding: 8px 12px 14px 14px;
+    padding: 8px 2px 8px 2px;
     display: inline-block;
     margin-right: 30px;
 }
 
-ul#primary-menu li.current-menu-item a,
 ul#primary-menu li:hover a {
-    color: #3492c6; 
-}
-
-ul#primary-menu li:hover a {
+    transition: 0.4s all ease-in-out;
     -moz-transition: 0.4s all ease-in-out;
     -webkit-transition: 0.4s all ease-in-out;
     padding-bottom: 8px;
-    border-bottom-color: #3492c6; 
 }
-
-
 
 /** Tubular JS   
 **/
 #jumbotron-section {
     height: 400px;
     background-color: #000000;
-    border-top: 10px solid #3492c6;
 }
 div#jumbotron-content {
     height: 400px;
@@ -87,6 +68,7 @@ div#jumbotron-content {
     position: absolute;
     z-index: 100;
     color: #fff;
+/*    border-top: 10px solid;*/
 }
 #jumbotron-content .inner {
     display: table-cell;
@@ -101,9 +83,44 @@ div#tubular-container {
 }
 div#tubular-shield {
     height: 400px !important;
+    background-color: rgba(0,0,0,.33);
 }
 iframe#tubular-player {
     max-width: initial;
     top: -50% !important;
 }
-
+div#jumbotron-buttons {
+    margin-top: 20px;
+}
+div#jumbotron-buttons a.button {
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: rgba(255,255,255,.80);
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: 5px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    text-align: center;
+}
+div#jumbotron-buttons a.button:hover {
+    color: #fff;
+}
+div#jumbotron-buttons a.button span {
+    font-size: 20px;
+    vertical-align: top;
+    margin-right: 5px;
+}
+#jumbotron-tagline {
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    font-weight: 300;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    font-size: 20px;
+}

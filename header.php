@@ -56,11 +56,7 @@
             </div>
                         
         </div><!-- .site-branding -->
-
         
-
-        <?php do_action( 'ytre_jumbotron' ); ?>
-                
     </header><!-- #masthead -->
 
     <div id="content" class="site-content">
