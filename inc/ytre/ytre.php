@@ -5,20 +5,33 @@
  */
 function ytre_scripts() {
 	
-        wp_enqueue_style( 'ytre-style', get_stylesheet_uri() );
+    wp_enqueue_style( 'ytre-style', get_stylesheet_uri() );
 
-        wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/inc/css/bootstrap.min.css', array(), YTRE_VERSION );
-        wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), YTRE_VERSION );
-        wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
-        wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
+    // Load Fonts from array
+    $fonts = ytre_fonts();
+
+    // Primary Font Enqueue
+    if( array_key_exists ( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif'), $fonts ) ) :
+        wp_enqueue_style( 'google-font-primary', '//fonts.googleapis.com/css?family=' . $fonts[ get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ], array(), YTRE_VERSION );
+    endif;
+
+    // Body Font Enqueue
+    if( array_key_exists ( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif'), $fonts ) ) :
+        wp_enqueue_style( 'google-font-body', '//fonts.googleapis.com/css?family=' . $fonts[ get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ], array(), YTRE_VERSION );
+    endif;
         
-        wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
-        wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
-        
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-		wp_enqueue_script( 'comment-reply' );
-	}
-        
+    wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/inc/css/bootstrap.min.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
+
+    wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
+
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+            wp_enqueue_script( 'comment-reply' );
+    }
+
 }
 add_action( 'wp_enqueue_scripts', 'ytre_scripts' );
 
@@ -91,12 +104,14 @@ function ytre_custom_css() { ?>
             }
             
             ul#primary-menu li.current-menu-item a,
-            ul#primary-menu li:hover a {
+            ul#primary-menu li:hover a,
+            .listing-tile .listing-price {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             div#jumbotron-content,
-            ul#primary-menu li:hover a {
+            ul#primary-menu li:hover a,
+            .listing-tile:hover .listing-details {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
@@ -135,7 +150,22 @@ function ytre_custom_js() { ?>
     <script type="text/javascript">
     
         jQuery(document).ready( function( $ ) {
-            
+
+            /**
+             * OwlCarousel Init 
+             */
+            $("#featured-listings").owlCarousel({
+                slideSpeed : 400,
+                paginationSpeed : 1000,
+                autoPlay : true,
+                items : 4,
+                itemsDesktop : [767,2],
+                itemsMobile : [499,1],
+                pagination : false,
+                navigation : true,
+                navigationText : ["Prev","Next"]
+            });    
+
             /**
              * Jumbotron and Video Background
              */
@@ -150,16 +180,6 @@ function ytre_custom_js() { ?>
                 }, 500 );
             });
 
-            /**
-             * OwlCarousel Init 
-             */
-            $("#testimonials").owlCarousel({
-                slideSpeed : 1000,
-                paginationSpeed : 1000,
-                singleItem: true,
-                autoPlay : true
-            });    
-        
             /*
             * Handle Blog Roll Masonry
             */
@@ -368,12 +388,84 @@ add_action( 'ytre_jumbotron', 'ytre_render_jumbotron' );
  */
 function ytre_render_featured_listings() { ?>
         
-    <div id="featured-listings-section">
+    <?php
+
+    $args = array (
+        'posts_per_page'    => 8,
+        'post_status'       => 'publish',
+        'post_type'         => 'property',
+        'tax_query'         => array(
+            array(
+                'taxonomy' => 'tax_feature',
+                'field'    => 'slug',
+                'terms'    => 'featured',
+            ),
+	),
+    );
+
+    $feat_listings = wp_get_recent_posts( $args ); ?>
+    
+    <div id="featured-listings-section" class="container">
+        
+        <h2 id="featured-listing-heading">
+            <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
+        </h2>
        
+        <ul id="featured-listings" class="owl-carousel owl-theme">
+
+            <?php foreach( $feat_listings as $listing ) : ?>
+
+                <li>
+                    
+                    <div class="listing-tile">
+    
+                        <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
+                            <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
+                                <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
+                            </a>
+                        <?php endif; ?>
+
+                        <div class="listing-details">
+
+                            <h3 class="listing-title">
+                                <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
+                                    <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
+                                </a>
+                            </h3>
+                            
+                            <h4 class="listing-price">
+                                <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
+                                <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
+                            </h4>
+
+                            <div class="listing-meta">
+
+                                <?php $words = get_theme_mod( 'ytre_featured_listings_trim', '50' ); ?>
+                                
+                                <div class="listing-content">
+                                    <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
+                                </div>
+
+                                <div class="listing-agent">
+                                    <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
+                                    <?php echo esc_html( $agent[0] ); ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                </li>
+
+            <?php endforeach; ?>
+
+            <?php wp_reset_postdata(); ?>
+
+        </ul>
         
         <div id="featured-listings-widgets">
-            
-            
             
         </div>
         
