@@ -57,6 +57,12 @@
                         
         </div><!-- .site-branding -->
         
+        <div id="header-search">
+            <div class="inner">
+                <?php get_search_form(); ?>
+            </div>
+        </div>
+        
     </header><!-- #masthead -->
 
     <div id="content" class="site-content">

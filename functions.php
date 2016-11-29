@@ -114,3 +114,8 @@ require get_template_directory() . '/inc/jetpack.php';
  * Load main theme file.
  */
 require get_template_directory() . '/inc/ytre/ytre.php';
+
+/**
+ * Load main theme extras file.
+ */
+require get_template_directory() . '/inc/ytre/more.php';

@@ -11,9 +11,9 @@ get_header(); ?>
     
     <main id="main" class="site-main" role="main">
        
-        <?php do_action( 'ytre_jumbotron' ); ?>
-
-        <?php do_action( 'ytre_featured_listings' ); ?>
+        <?php if ( get_theme_mod( 'ytre_jumbotron_visibility_toggle', 'show' ) == 'show' ) { do_action( 'ytre_jumbotron' ); } ?>
+        
+        <?php if ( get_theme_mod( 'ytre_featured_listings_visibility_toggle', 'show' ) == 'show' ) { do_action( 'ytre_featured_listings' ); } ?>
         
     </main><!-- #main -->
     

@@ -53,6 +53,16 @@ function ytre_widgets_init() {
     ) );
 
     register_sidebar( array(
+            'name'          => esc_html__( 'Featured Listings - Below', 'ytre' ),
+            'id'            => 'sidebar-featured-listings',
+            'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
+            'before_widget' => '<div class="col-sm-4"><section id="%1$s" class="widget %2$s">',
+            'after_widget'  => '</section></div>',
+            'before_title'  => '<h4 class="widget-title">',
+            'after_title'   => '</h4>',
+    ) );
+    
+    register_sidebar( array(
             'name'          => esc_html__( 'Footer - Frontpage', 'ytre' ),
             'id'            => 'sidebar-footer-frontpage',
             'description'   => esc_html__( 'Add widgets here.', 'ytre' ),
@@ -85,11 +95,22 @@ function ytre_custom_css() { ?>
         /* ---------- FONT FAMILIES ---------- */
         
         body {
-            font-family: <?php echo esc_attr( get_theme_mod( 'juno_font_primary', 'Lato, sans-serif' ) ); ?>;
+            font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
-        h1,h2,h3,h4,h5,h6 {
-            font-family: <?php echo esc_attr( get_theme_mod( 'juno_font_secondary', 'Montserrat, sans-serif' ) ); ?>;
+        h1,h2,h3,h4,h5,h6,
+        ul#primary-menu li a {
+            font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ); ?>;
+        }
+
+        /* ---------- FONT SIZES ---------- */
+        
+        ul#primary-menu li a {
+            font-size: <?php echo esc_attr( get_theme_mod( 'ytre_nav_menu_font_size', 11 ) ); ?>px;
+        }
+        
+        #jumbotron-content .jumbo-title {
+            font-size: <?php echo esc_attr( get_theme_mod( 'ytre_jumbotron_title_size', 30 ) ); ?>px;
         }
         
         /* ---------- THEME COLORS ---------- */
@@ -99,25 +120,30 @@ function ytre_custom_css() { ?>
         /* --- PRIMARY COLOR --- */
 
             .logo-container,
-            #jumbotron-tagline {
+            #jumbotron-tagline,
+            footer#colophon {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             ul#primary-menu li.current-menu-item a,
             ul#primary-menu li:hover a,
-            .listing-tile .listing-price {
+            .listing-tile .listing-price,
+            h2#featured-listing-heading {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             div#jumbotron-content,
             ul#primary-menu li:hover a,
-            .listing-tile:hover .listing-details {
+            .listing-tile:hover .listing-details,
+            .search-form input.search-field:focus {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
         /* --- SECONDARY COLOR --- */
         
-            div#jumbotron-buttons a.button {
+            div#jumbotron-buttons a.button,
+            div#featured-listings-widgets .widget,
+            .search-form input.search-submit {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
         
@@ -127,13 +153,22 @@ function ytre_custom_css() { ?>
         
         /* --- SECONDARY ACCENT COLOR --- */
         
-            div#jumbotron-buttons a.button {
+            div#jumbotron-buttons a.button,
+            div#featured-listings-widgets .widget,
+            .search-form input.search-submit {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
         
             #placeholder-style-rule {
                 color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
+            
+        /* --- JUMBOTRON TINT --- */
+        
+        div#tubular-shield {
+            height: 400px !important;
+            background-color: rgba( 0, 0, 0, <?php echo esc_attr( get_theme_mod( 'ytre_jumbotron_dark_tint', .5 ) ); ?> );
+        }
             
     </style>
     
@@ -179,75 +214,7 @@ function ytre_custom_js() { ?>
                     opacity: 1
                 }, 500 );
             });
-
-            /*
-            * Handle Blog Roll Masonry
-            */
-//            function doMasonry() {
-//
-//                var $grid = $( "#masonry-blog-wrapper" ).imagesLoaded(function () {
-//                    $grid.masonry({
-//                        itemSelector: '.blog-roll-item',
-//                        columnWidth: '.grid-sizer',
-//                        percentPosition: true,
-//                        gutter: '.gutter-sizer',
-//                        transitionDuration: '.75s'
-//                    });
-//                });
-//
-//                if ( $( window ).width() >= 992 ) {  
-//
-//                    $('.juno-blog-content .gutter-sizer').css('width', '2%');
-//                    $('.juno-blog-content .grid-sizer').css('width', '32%');
-//                    $('.juno-blog-content .blog-roll-item').css('width', '32%');
-//
-//                } else if ( $( window ).width() < 992 && $( window ).width() >= 768 ) {
-//
-//                    $('.juno-blog-content .gutter-sizer').css('width', '2%');
-//                    $('.juno-blog-content .grid-sizer').css('width', '48%');
-//                    $('.juno-blog-content .blog-roll-item').css('width', '48%');
-//
-//                } else {
-//
-//                    $('.juno-blog-content .gutter-sizer').css('width', '0%');
-//                    $('.juno-blog-content .grid-sizer').css('width', '100%');
-//                    $('.juno-blog-content .blog-roll-item').css('width', '100%');
-//
-//                }
-//
-//            }
-
-            /**
-            * Call Masonry on window resize and load
-            */
-//            $( window ).resize( function() {
-//                doMasonry();
-//            });
-//            doMasonry();
-            
-            /*
-            * Initialize the homepage slider module (only if the element exists on the page)
-            */
-//            if ( $( "#camera_slider" ).length ) {
-//                
-//                <?php $video_slider = get_theme_mod( 'ytre_jumbotron_type', 'video' ) == 'video' ? true : false ; ?>
-//                
-//                $( "#camera_slider" ).camera({ 
-//                    height: <?php echo esc_js( get_theme_mod( 'ytre_jumbotron_height', '400' ) ); ?> + 'px';,
-//                    hover: true,
-//                    transPeriod: 1000,
-//                    time: <?php echo esc_js( get_theme_mod( 'ytre_jumbotron_slide_delay', '7500' ) ); ?>,
-//                    fx: 'simpleFade',
-//                    pagination: <?php echo $video_slider ? esc_js( 'false') : esc_js( 'true' ); ?>,
-//                    playPause: false,
-//                    loader: 'none',
-//                    navigation: false,
-//                    autoAdvance: <?php echo $video_slider ? esc_js( 'false') : esc_js( 'true' ); ?>,
-//                    mobileAutoAdvance: <?php echo $video_slider ? esc_js( 'false') : esc_js( 'true' ); ?>,
-//                });
-//
-//            }
-            
+           
         });
     
     </script>
@@ -332,23 +299,29 @@ function ytre_render_jumbotron() { ?>
                             <div id="jumbotron-buttons">
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>">
+                                    <a class="button" 
+                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>"
+                                       <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                         <span class="fa fa-mobile"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>
                                     </a>
                                 <?php endif; ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_2_label', __( 'Email', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_2_url', '#' ) ); ?>">
+                                    <a class="button" 
+                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_2_url', '#' ) ); ?>"
+                                       <?php echo get_theme_mod( 'ytre_jumbotron_button_2_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                         <span class="fa fa-envelope-o"></span>
-                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Email', 'ytre' ) ); ?>
+                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_2_label', __( 'Email', 'ytre' ) ); ?>
                                     </a>
                                 <?php endif; ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button" href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_3_url', '#' ) ); ?>">
+                                    <a class="button" 
+                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_3_url', '#' ) ); ?>"
+                                       <?php echo get_theme_mod( 'ytre_jumbotron_button_3_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                         <span class="fa fa-commenting-o"></span>
-                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Live Chat', 'ytre' ) ); ?>
+                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ); ?>
                                     </a>
                                 <?php endif; ?>
                                 
@@ -407,66 +380,78 @@ function ytre_render_featured_listings() { ?>
     
     <div id="featured-listings-section" class="container">
         
-        <h2 id="featured-listing-heading">
-            <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
-        </h2>
+        <div class="row">
+        
+            <div class="col-sm-12">
+            
+                <h2 id="featured-listing-heading">
+                    <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
+                </h2>
        
-        <ul id="featured-listings" class="owl-carousel owl-theme">
+                <ul id="featured-listings" class="owl-carousel owl-theme">
 
-            <?php foreach( $feat_listings as $listing ) : ?>
+                    <?php foreach( $feat_listings as $listing ) : ?>
 
-                <li>
-                    
-                    <div class="listing-tile">
-    
-                        <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
-                            <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
-                            </a>
-                        <?php endif; ?>
+                        <li>
 
-                        <div class="listing-details">
+                            <div class="listing-tile">
 
-                            <h3 class="listing-title">
-                                <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                    <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
-                                </a>
-                            </h3>
-                            
-                            <h4 class="listing-price">
-                                <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
-                                <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
-                            </h4>
+                                <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
+                                    <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
+                                        <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
+                                    </a>
+                                <?php endif; ?>
 
-                            <div class="listing-meta">
+                                <div class="listing-details">
 
-                                <?php $words = get_theme_mod( 'ytre_featured_listings_trim', '50' ); ?>
-                                
-                                <div class="listing-content">
-                                    <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
-                                </div>
+                                    <h3 class="listing-title">
+                                        <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
+                                            <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
+                                        </a>
+                                    </h3>
 
-                                <div class="listing-agent">
-                                    <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
-                                    <?php echo esc_html( $agent[0] ); ?>
+                                    <h4 class="listing-price">
+                                        <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
+                                        <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
+                                    </h4>
+
+                                    <div class="listing-meta">
+
+                                        <?php $words = get_theme_mod( 'ytre_featured_listings_trim', 50 ); ?>
+
+                                        <div class="listing-content">
+                                            <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
+                                        </div>
+
+                                        <div class="listing-agent">
+                                            <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
+                                            <?php echo esc_html( $agent[0] ); ?>
+                                        </div>
+
+                                    </div>
+
                                 </div>
 
                             </div>
 
-                        </div>
+                        </li>
+
+                    <?php endforeach; ?>
+
+                    <?php wp_reset_postdata(); ?>
+
+                </ul>
+        
+                <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
+                    <div id="featured-listings-widgets">
+
+                        <?php get_sidebar( 'featured-listings' ); ?>
 
                     </div>
-                    
-                </li>
-
-            <?php endforeach; ?>
-
-            <?php wp_reset_postdata(); ?>
-
-        </ul>
+                <?php endif; ?>
         
-        <div id="featured-listings-widgets">
-            
+            </div>
+        
         </div>
         
     </div>
@@ -545,5 +530,38 @@ function ytre_get_skin_colors() {
     $skin_color_array[ 'dark' ]                 = get_theme_mod( 'ytre_theme_color_dark', '#050e1a' );
     
     return $skin_color_array;
+    
+}
+
+/**
+ * Returns all posts as an array.
+ * Pass true to include Pages
+ * 
+ * @param boolean $include_pages
+ * @return array of posts
+ */
+function ytre_all_posts_array( $include_pages = false ) {
+    
+    $posts = get_posts( array(
+        'post_type'        => $include_pages ? array( 'post', 'page' ) : 'post',
+        'posts_per_page'   => -1,
+        'post_status'      => 'publish',
+        'orderby'          => 'title',
+        'order'            => 'ASC',
+    ));
+
+    $posts_array = array(
+        'none'  => __( 'None', 'ytre' ),
+    );
+    
+    foreach ( $posts as $post ) :
+        
+        if ( ! empty( $post->ID ) ) :
+            $posts_array[ $post->ID ] = $post->post_title;
+        endif;
+        
+    endforeach;
+    
+    return $posts_array;
     
 }
