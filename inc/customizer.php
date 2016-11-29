@@ -22,7 +22,7 @@ function ytre_customize_register( $wp_customize ) {
     require_once('customizer/settings-appearance.php');
 
     // Extras
-    // require_once('customizer/settings-extras.php');    
+    require_once('customizer/settings-extras.php');    
     
     $wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
     $wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';

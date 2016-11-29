@@ -1,8 +1,9 @@
 <?php
 
-register_widget( 'Smartcat_Contact_Info_Widget' );
+register_widget( 'Your_Team_Contact_Info_Widget' );
+register_widget( 'Your_Team_Google_Maps_Widget' );
 
-class Smartcat_Contact_Info_Widget extends WP_Widget {
+class Your_Team_Contact_Info_Widget extends WP_Widget {
 
     public function __construct() {
 
@@ -104,6 +105,85 @@ class Smartcat_Contact_Info_Widget extends WP_Widget {
         $instance['scmod_contact_info_phone']   = !empty( $new_instance['scmod_contact_info_phone'] ) ? strip_tags( $new_instance['scmod_contact_info_phone'] ) : '';
         $instance['scmod_contact_info_email']   = !empty( $new_instance['scmod_contact_info_email'] ) ? strip_tags( $new_instance['scmod_contact_info_email'] ) : '';
         $instance['scmod_contact_info_address'] = !empty( $new_instance['scmod_contact_info_address'] ) ? strip_tags( $new_instance['scmod_contact_info_address'] ) : '';
+        
+        return $instance;
+        
+    }
+
+}
+
+class Your_Team_Google_Maps_Widget extends WP_Widget {
+
+    public function __construct() {
+
+        parent::__construct(
+            'ytre-google-maps-widget',
+            __( 'Google Maps Widget', 'ytre' ),
+            array(
+                'classname'   => 'ytre-google-maps',
+                'description' => __( 'Display a map to the address set in Customizer', 'ytre' ),
+            )
+        );
+
+    }
+
+    public function widget( $args, $instance ) { ?>
+
+        <div class="maps-widget <?php echo isset( $instance['ytre_google_maps_width'] ) ? 'col-sm-' . $instance['ytre_google_maps_width'] : 'col-sm-12'; ?>">
+
+            <h4 class="widget-title">
+                <?php echo !empty( $instance['ytre_google_maps_title'] ) ? esc_html( $instance['ytre_google_maps_title'] ) : ''; ?>
+            </h4>
+            
+            <div id="ytre-google-map"></div>
+    
+        </div>
+        
+    <?php }
+
+    public function form( $instance ) {
+
+        $widths = array(
+            '3'     => '1/4',
+            '4'     => '1/3',
+            '6'     => '1/2',
+            '12'    => __( 'Full', 'ytre' ),
+        );
+       
+        // Set default values
+        $instance = wp_parse_args( (array) $instance, array( 
+            'ytre_google_maps_title'      => __( 'Contact Info', 'ytre'),
+            'ytre_google_maps_width'      => '12',
+        ) );
+
+        // Retrieve an existing value from the database
+        $ytre_google_maps_title   = !empty( $instance['ytre_google_maps_title'] ) ? $instance['ytre_google_maps_title'] : '';
+        $ytre_google_maps_width   = !empty( $instance['ytre_google_maps_width'] ) ? $instance['ytre_google_maps_width'] : 'full';
+        
+        // Title - Text
+        echo '<p>';
+        echo '	<label for="' . $this->get_field_id( 'ytre_google_maps_title' ) . '" class="ytre_google_maps_title_label">' . __( 'Title', 'ytre' ) . '</label>';
+        echo '	<input type="text" id="' . $this->get_field_id( 'ytre_google_maps_title' ) . '" name="' . $this->get_field_name( 'ytre_google_maps_title' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr( $ytre_google_maps_title ) . '">';
+        echo '</p>';
+
+        // Widget Width - Select/Option
+        echo '<p>';
+        echo '	<label for="' . $this->get_field_id( 'ytre_google_maps_width' ) . '" class="ytre_google_maps_width_label">' . __( 'Widget Width', 'ytre' ) . '</label>';
+        echo '	<select id="' . $this->get_field_id( 'ytre_google_maps_width' ) . '" name="' . $this->get_field_name( 'ytre_google_maps_width' ) . '" class="widefat">';
+            foreach( $widths as $key => $value ) :
+                echo '<option value="' . $key . '" ' . selected( $ytre_google_maps_width, $key, false ) . '> ' . $value . '</option>';
+            endforeach;
+        echo '	</select>';
+        echo '</p>';
+
+    }
+
+    public function update( $new_instance, $old_instance ) {
+
+        $instance = $old_instance;
+
+        $instance['ytre_google_maps_title']   = !empty( $new_instance['ytre_google_maps_title'] ) ? strip_tags( $new_instance['ytre_google_maps_title'] ) : '';
+        $instance['ytre_google_maps_width']   = !empty( $new_instance['ytre_google_maps_width'] ) ? strip_tags( $new_instance['ytre_google_maps_width'] ) : '12';
         
         return $instance;
         
