@@ -302,6 +302,9 @@ div#ytre-google-map > div > div > div:nth-child(2),
 div#ytre-google-map > div > div > div:last-of-type {
     display: none;
 }
+#map-view .gm-bundled-control {
+    display: none; 
+}
 
 /** Widgets
 **/
@@ -314,4 +317,159 @@ h4.widget-title {
     border-bottom: thin solid;
     padding: 5px 0;
     margin-bottom: 20px;
+}
+
+/** Listing Shortcode
+**/
+/* --- BLOG ROLL MASONRY COLUMNS --- */
+.grid-sizer, .gutter-sizer { }
+
+.grid-sizer,
+.epl-listing-post { 
+    width: 23.5%; 
+}
+.gutter-sizer {
+    width: 2%;
+}
+.epl-property-blog {
+    transition: none;
+}
+.property-box {
+    width: 100%;
+}
+.property-box.property-content {
+    padding: 10px 20px 20px 20px;
+    border: 1px solid #e3e3e3;
+}
+.property-box.property-featured-image-wrapper {
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.property-box .epl-blog-image img {
+    width: 100%;
+    height: auto;
+}
+.property-box .entry-title {
+    font-weight: 100;
+    letter-spacing: -.025em;
+    margin: 10px 0 10px 0;
+    padding-right: 10px;
+    font-size: 22px;
+}
+.property-box .entry-title a {
+	color: #1c1c1c;
+}
+.property-box .price {
+    font-size: 20px;
+    opacity: .8;
+    border-top: thin solid #cfcfcf;
+    padding-top: 10px;
+    font-weight: 300;
+    color: #3492c6;
+    margin-top: 10px;
+}
+span.status-sticker {
+    padding: 5px 10px !important;
+}
+.property-box .entry-content {
+    margin-top: 10px;
+    font-weight: 300;
+    color: #3c3c3c;
+}
+.property-box .property-address a {
+    font-weight: 400;
+    color: #3c3c3c;
+    padding-top: 10px;
+    display: inline-block;
+    margin: 0;
+    font-family: Montserrat;
+}
+.property-box .property-feature-icons {
+    margin-top: 10px;
+}
+
+.icon.beds,
+.icon.bath,
+.icon.parking,
+.icon.air,
+.icon.pool {
+    background: none !important;
+    padding: 5px 10px 5px 0;
+}
+.icon.beds .icon-value,
+.icon.bath .icon-value,
+.icon.parking .icon-value,
+.icon.air .icon-value,
+.icon.pool .icon-value {
+    margin-left: 4px;
+    color: #3492c6;
+}
+.icon.beds::before {
+    content: '\f236';
+    font-family: FontAwesome;
+    color: #3492c6;
+}
+.icon.bath::before {
+    content: '\f2cd';
+    font-family: FontAwesome;
+    color: #3492c6;
+}
+.icon.parking::before {
+    content: '\f1b9';
+    font-family: FontAwesome;
+    color: #3492c6;
+}
+.icon.air::before {
+    content: '\f2ca';
+    font-family: FontAwesome;
+    color: #3492c6;
+}
+.icon.pool::before {
+    content: '\f1cd';
+    font-family: FontAwesome;
+    color: #3492c6;
+}
+
+/** Buttons for Map/List View
+**/
+#view-toggle-buttons {
+    text-align: right;
+    padding: 10px 0;
+    border-bottom: thin solid #e3e3e3;
+    margin-bottom: 40px;
+}
+#view-wrapper {
+   min-height: 1000px;
+}
+#map-view {
+    display: none;
+    opacity: 0;
+}
+.view-toggle-button {
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: rgba(255,255,255,.80);
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: 5px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    text-align: center;
+    margin-bottom: 5px;
+    background-color: #ef5858 !important;
+    border-color: #b82e2e;
+    opacity: .66;
+    cursor: pointer;
+}
+.view-toggle-button:hover {
+    opacity: .85;
+}
+.view-toggle-button.active {
+    opacity: 1;
+    color: #fff;
 }

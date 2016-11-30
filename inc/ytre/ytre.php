@@ -23,15 +23,19 @@ function ytre_scripts() {
     wp_enqueue_style( 'bootstrap', get_template_directory_uri() . '/inc/css/bootstrap.min.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'animate', get_template_directory_uri() . '/inc/css/animate.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
 
+//    wp_dequeue_script( 'epl-am-map-api' );
+    
     // Google Maps JavaScript API
-    if ( get_theme_mod( 'ytre_google_maps_api_key', '' ) != '' ) :
-        wp_enqueue_script( 'ytre-google-maps-js', '//maps.googleapis.com/maps/api/js?key=' . get_theme_mod( 'ytre_google_maps_api_key', '' ), array('jquery'), YTRE_VERSION, true );    
-    endif;
+//    if ( get_theme_mod( 'ytre_google_maps_api_key', '' ) != '' ) :
+//        wp_enqueue_script( 'ytre-google-maps-js', '//maps.googleapis.com/maps/api/js?key=' . get_theme_mod( 'ytre_google_maps_api_key', '' ), array('jquery'), YTRE_VERSION, true );    
+//    endif;
     
     if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
             wp_enqueue_script( 'comment-reply' );
@@ -221,71 +225,125 @@ function ytre_custom_js() { ?>
                 }, 500 );
             });
            
-            <?php if ( get_theme_mod( 'ytre_google_maps_api_key', '' ) != '' ) : ?>
+            <?php if ( false ) : ?>
+            <?php // if ( get_theme_mod( 'ytre_google_maps_api_key', '' ) != '' ) : ?>
            
                 if ( $('#ytre-google-map').length > 0 ) {
            
-                    google.maps.event.addDomListener( window, 'load', init );
-
-                    function init() {
-
-                        var geocoder = new google.maps.Geocoder();
-                        var address = '<?php echo esc_attr( get_theme_mod( 'ytre_google_maps_address', 'Kingston, ON' ) ); ?>';
-
-                        geocoder.geocode( { 'address' : address }, function( results, status ) {
-
-                            if ( status == google.maps.GeocoderStatus.OK ) {
-
-                                var the_latitude = results[0].geometry.location.lat();
-                                var the_longitude = results[0].geometry.location.lng();
-
-                                // Basic options for a simple Google Map
-                                // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
-                                var mapOptions = {
-
-                                    // How zoomed in you want the map to start at (always required)
-                                    zoom: 15,
-
-                                    // no scroll zooming
-                                    scrollwheel: false,
-
-                                    // The latitude and longitude to center the map (always required)
-                                    center: new google.maps.LatLng(
-                                        the_latitude, 
-                                        the_longitude
-                                    ),
-
-                                    // How you would like to style the map. 
-                                    // This is where you would paste any style found on Snazzy Maps.
-                                    styles: <?php echo get_theme_mod( 'ytre_google_maps_style', '[{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#818a89"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#7c8382"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#818a89"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#818a89"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#222322"},{"lightness":17},{"weight":"0.46"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#191919"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#818a89"},{"lightness":17}]}]'); ?>
-
-                                };
-
-                                // Get the HTML DOM element that will contain your map 
-                                // We are using a div with id="map" seen below in the <body>
-                                var mapElement = document.getElementById('ytre-google-map');
-
-                                // Create the Google Map using our element and options defined above
-                                var map = new google.maps.Map(mapElement, mapOptions);
-
-                                // Let's also add a marker while we're at it
-                                var image = '<?php echo esc_url( get_theme_mod( 'ytre_google_maps_icon', get_template_directory_uri() . '/inc/images/map-pointer.png' ) ); ?>';
-                                var marker = new google.maps.Marker({
-                                    position: new google.maps.LatLng( the_latitude, the_longitude ),
-                                    map: map,
-                                    title: '<?php echo esc_attr( get_theme_mod( 'ytre_google_maps_title', '' ) ); ?>',
-                                    icon: image
-                                });
-
-                            }
-
-                        }); 
-
-                    }
+//                    google.maps.event.addDomListener( window, 'load', init );
+//
+//                    function init() {
+//
+//                        var geocoder = new google.maps.Geocoder();
+//                        var address = '<?php echo esc_attr( get_theme_mod( 'ytre_google_maps_address', 'Kingston, ON' ) ); ?>';
+//
+//                        geocoder.geocode( { 'address' : address }, function( results, status ) {
+//
+//                            if ( status == google.maps.GeocoderStatus.OK ) {
+//
+//                                var the_latitude = results[0].geometry.location.lat();
+//                                var the_longitude = results[0].geometry.location.lng();
+//
+//                                // Basic options for a simple Google Map
+//                                // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+//                                var mapOptions = {
+//
+//                                    // How zoomed in you want the map to start at (always required)
+//                                    zoom: 15,
+//
+//                                    // no scroll zooming
+//                                    scrollwheel: false,
+//
+//                                    // The latitude and longitude to center the map (always required)
+//                                    center: new google.maps.LatLng(
+//                                        the_latitude, 
+//                                        the_longitude
+//                                    ),
+//
+//                                    // How you would like to style the map. 
+//                                    // This is where you would paste any style found on Snazzy Maps.
+//                                    styles: <?php echo get_theme_mod( 'ytre_google_maps_style', '[{"featureType":"all","elementType":"geometry.stroke","stylers":[{"color":"#818a89"}]},{"featureType":"all","elementType":"labels.text","stylers":[{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40},{"visibility":"off"}]},{"featureType":"all","elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#7c8382"},{"lightness":16}]},{"featureType":"all","elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"featureType":"road","elementType":"geometry.fill","stylers":[{"color":"#818a89"}]},{"featureType":"road","elementType":"geometry.stroke","stylers":[{"color":"#818a89"}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#222322"},{"lightness":17},{"weight":"0.46"}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#191919"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"water","elementType":"geometry","stylers":[{"color":"#818a89"},{"lightness":17}]}]'); ?>
+//
+//                                };
+//
+//                                // Get the HTML DOM element that will contain your map 
+//                                // We are using a div with id="map" seen below in the <body>
+//                                var mapElement = document.getElementById('ytre-google-map');
+//
+//                                // Create the Google Map using our element and options defined above
+//                                var map = new google.maps.Map(mapElement, mapOptions);
+//
+//                                // Let's also add a marker while we're at it
+//                                var image = '<?php echo esc_url( get_theme_mod( 'ytre_google_maps_icon', get_template_directory_uri() . '/inc/images/map-pointer.png' ) ); ?>';
+//                                var marker = new google.maps.Marker({
+//                                    position: new google.maps.LatLng( the_latitude, the_longitude ),
+//                                    map: map,
+//                                    title: '<?php echo esc_attr( get_theme_mod( 'ytre_google_maps_title', '' ) ); ?>',
+//                                    icon: image
+//                                });
+//
+//                            }
+//
+//                        }); 
+//
+//                    }
                     
                 }
 
             <?php endif; ?>
+
+            /*
+            * Handle Blog Roll Masonry
+            */
+            function doMasonry() {
+
+                var $grid = $( ".epl-shortcode-listing" ).imagesLoaded(function () {
+                    $grid.masonry({
+                        itemSelector: '.epl-listing-post',
+                        columnWidth: '.grid-sizer',
+                        percentPosition: true,
+                        gutter: '.gutter-sizer',
+                        transitionDuration: '.75s'
+                    });
+                });
+
+                if ( $( window ).width() >= 992 ) {  
+
+                    $('.gutter-sizer').css('width', '2%');
+                    $('.grid-sizer').css('width', '23.5%');
+                    $('.epl-shortcode-listing .epl-listing-post').css('width', '23.5%');
+
+                } else if ( $( window ).width() < 992 && $( window ).width() >= 768 ) {
+
+                    $('.gutter-sizer').css('width', '2%');
+                    $('.grid-sizer').css('width', '48%');
+                    $('.epl-shortcode-listing .epl-listing-post').css('width', '48%');
+
+                } else {
+
+                    $('.gutter-sizer').css('width', '0%');
+                    $('.grid-sizer').css('width', '100%');
+                    $('.epl-shortcode-listing .epl-listing-post').css('width', '100%');
+
+                }
+                    
+            }
+
+            /**
+            * Call Masonry on window resize and load
+            */
+            $('.gutter-sizer').prependTo('.epl-shortcode-listing');
+            $('.grid-sizer').prependTo('.epl-shortcode-listing');
+            $( window ).resize( function() {
+                doMasonry();
+            });
+            doMasonry();
+            
+            $('#listing-toggle a').click( function (e) {
+                e.preventDefault();
+                doMasonry();
+                $(this).tab('show');
+            });
            
         });
     
@@ -439,13 +497,8 @@ function ytre_render_featured_listings() { ?>
         'posts_per_page'    => 8,
         'post_status'       => 'publish',
         'post_type'         => 'property',
-        'tax_query'         => array(
-            array(
-                'taxonomy' => 'tax_feature',
-                'field'    => 'slug',
-                'terms'    => 'featured',
-            ),
-	),
+        'meta_key'          => 'single_property_is_featured',
+        'meta_value'             => 'featured',
     );
 
     $feat_listings = wp_get_recent_posts( $args ); ?>

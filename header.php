@@ -22,6 +22,9 @@
 <body <?php body_class(); ?>>
 <div id="page" class="site">
     
+    <div class="grid-sizer"></div>
+    <div class="gutter-sizer"></div>
+    
     <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'ytre' ); ?></a>
 
     <header id="masthead" class="site-header" role="banner">

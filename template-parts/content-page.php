@@ -9,35 +9,52 @@
 
 ?>
 
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-	<header class="entry-header">
-		<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
-	</header><!-- .entry-header -->
+<div id="single-page-container" class="container">
 
-	<div class="entry-content">
-		<?php
-			the_content();
+    <div class="row">
 
-			wp_link_pages( array(
-				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'ytre' ),
-				'after'  => '</div>',
-			) );
-		?>
-	</div><!-- .entry-content -->
+        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-	<?php if ( get_edit_post_link() ) : ?>
-		<footer class="entry-footer">
-			<?php
-				edit_post_link(
-					sprintf(
-						/* translators: %s: Name of current post */
-						esc_html__( 'Edit %s', 'ytre' ),
-						the_title( '<span class="screen-reader-text">"', '"</span>', false )
-					),
-					'<span class="edit-link">',
-					'</span>'
-				);
-			?>
-		</footer><!-- .entry-footer -->
-	<?php endif; ?>
-</article><!-- #post-## -->
+            <div class="col-sm-12">
+                
+                <div id="single-title-box">
+
+                    <h2 class="entry-title"><?php the_title(); ?></h2>
+
+                </div>
+
+            </div>
+            
+            <div class="col-sm-12">
+            
+                <div class="row">
+
+                    <div class="col-sm-12">
+
+                        <div class="entry-content">
+
+                            <?php the_content(); ?>
+
+                            <?php
+                                wp_link_pages( array(
+                                    'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'juno' ),
+                                    'after'  => '</div>',
+                                ) );
+                            ?>
+
+                        </div><!-- .entry-content -->
+
+                        <?php the_post_navigation(); ?>
+
+                    </div>
+                   
+                </div>
+            
+            </div>
+            
+        </article>
+        
+    </div>
+    
+</div>
+

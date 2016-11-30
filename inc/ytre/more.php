@@ -1,5 +1,142 @@
 <?php
 
+add_filter( 'manage_edit-property_columns', 'ytre_add_featured_column' );
+function ytre_add_featured_column( $columns ) {
+   
+    $columns[ 'is_featured' ] = 'Featured?';
+    return $columns;
+    
+}
+add_filter( 'manage_property_posts_custom_column', 'ytre_populate_featured_column', 10, 2 );
+function ytre_populate_featured_column( $column_name, $post_id ) {
+   
+    switch( $column_name ) {
+        case 'is_featured':
+            if ( get_post_meta( $post_id, 'single_property_is_featured', true ) == 'featured' ) :
+                echo '<div class="edit-screen-feat-toggle" id="is_featured-' . $post_id . '">' . '<span meta-id="'. $post_id .'" class="dashicons dashicons-star-filled" style="cursor: pointer;"></span>' . '</div>';
+            else : 
+                echo '<div class="edit-screen-feat-toggle" id="is_featured-' . $post_id . '">' . '<span meta-id="'. $post_id .'" class="dashicons dashicons-star-empty" style="cursor: pointer;"></span>' . '</div>';
+            endif;
+            break;
+    }    
+    
+}
+//add_filter( 'manage_edit-property_sortable_columns', 'ytre_make_sortable_columns' );
+//function ytre_make_sortable_columns( $sortable_columns ) {
+//
+//   /**
+//    * Array index and column name must match.
+//    * 
+//    * The value of the array item is the
+//    * identifier of the column data's meta field.
+//    */
+//   $sortable_columns[ 'is_featured' ] = 'single_property_is_featured';
+//
+//   return $sortable_columns;
+//   
+//}
+//add_action( 'pre_get_posts', 'manage_wp_posts_be_qe_pre_get_posts', 1 );
+//function manage_wp_posts_be_qe_pre_get_posts( $query ) {
+//
+//   /**
+//    * We only want our code to run in the main WP query
+//    * AND if an orderby query variable is designated.
+//    */
+//   if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
+//
+//      switch( $orderby ) {
+//
+//         // If we're ordering by 'film_rating'
+//         case 'single_property_is_featured':
+//
+//            // set our query's meta_key, which is used for custom fields
+//            $query->set( 'meta_key', 'single_property_is_featured' );
+//				
+//            /**
+//             * Tell the query to order by our custom field/meta_key's
+//             * value, in this film rating's case: PG, PG-13, R, etc.
+//             *
+//             * If your meta value are numbers, change 'meta_value'
+//             * to 'meta_value_num'.
+//             */
+//            $query->set( 'orderby', 'meta_value' );
+//				
+//            break;
+//
+//      }
+//
+//   }
+//
+//}
+
+
+add_action( 'admin_footer', 'toggle_featured_property' );
+function toggle_featured_property() {
+  
+    $ajax_nonce = wp_create_nonce( 'featured_property_nonce' ); ?>
+    
+    <script>
+      
+        jQuery( document ).ready( function( $ ) {
+            
+            $( '.edit-screen-feat-toggle span' ).on( 'click', function(){
+                
+                var clicked_star = $(this);
+                
+                var data = {
+                    action: 'update_featured_property',
+                    security: '<?php echo $ajax_nonce; ?>',
+                    post_id: $(this).attr( 'meta-id' ),
+                };
+
+                $.post( ajaxurl, data, function( response ) {
+                    
+                    console.log( 'Got this from the server: ' + response );
+                    
+                    if ( response == 0 ) {
+                        clicked_star.addClass('dashicons-star-filled').removeClass('dashicons-star-empty');
+                    } 
+                    if ( response == 1 ) {
+                        clicked_star.addClass('dashicons-star-empty').removeClass('dashicons-star-filled');
+                    }
+                                        
+                });
+                
+            });
+            
+        });
+    
+    </script>
+    
+<?php }
+
+add_action( 'wp_ajax_update_featured_property', 'update_featured_property_callback' );
+function update_featured_property_callback() {
+    
+    global $wpdb; // this is how you get access to the database
+    check_ajax_referer( 'featured_property_nonce', 'security' );
+    
+    $the_id = sanitize_text_field($_POST['post_id']);
+    $status = get_post_meta( $the_id, 'single_property_is_featured', true );
+    
+    if ( !isset( $status ) || $status == '' ) :
+    
+        update_post_meta( $the_id, 'single_property_is_featured', 'featured' );
+        echo 0;
+        
+    else :
+        
+        update_post_meta( $the_id, 'single_property_is_featured', '' );
+        echo 1;
+    
+    endif;
+    
+    die(); // this is required to return a proper result
+    
+}
+
+
+
 register_widget( 'Your_Team_Contact_Info_Widget' );
 register_widget( 'Your_Team_Google_Maps_Widget' );
 
