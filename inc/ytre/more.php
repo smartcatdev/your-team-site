@@ -1,5 +1,12 @@
 <?php
 
+function ytre_add_ajax_url() { ?>
+    <script type="text/javascript">
+        var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
+    </script>
+<?php }
+add_action('wp_head', 'ytre_add_ajax_url', 0);
+
 add_filter( 'manage_edit-property_columns', 'ytre_add_featured_column' );
 function ytre_add_featured_column( $columns ) {
    
@@ -84,7 +91,7 @@ function toggle_featured_property() {
                 var clicked_star = $(this);
                 
                 var data = {
-                    action: 'update_featured_property',
+                    action: 'ytre_update_featured_property',
                     security: '<?php echo $ajax_nonce; ?>',
                     post_id: $(this).attr( 'meta-id' ),
                 };
@@ -110,8 +117,8 @@ function toggle_featured_property() {
     
 <?php }
 
-add_action( 'wp_ajax_update_featured_property', 'update_featured_property_callback' );
-function update_featured_property_callback() {
+add_action( 'wp_ajax_ytre_update_featured_property', 'ytre_update_featured_property_callback' );
+function ytre_update_featured_property_callback() {
     
     global $wpdb; // this is how you get access to the database
     check_ajax_referer( 'featured_property_nonce', 'security' );
@@ -135,7 +142,23 @@ function update_featured_property_callback() {
     
 }
 
-
+add_action( 'wp_ajax_nopriv_ytre_map_view', 'ytre_render_map_view' );
+add_action( 'wp_ajax_ytre_map_view', 'ytre_render_map_view' );
+function ytre_render_map_view() {
+    
+    $atts = array(
+        'coords'		=>	'44.2951665,-76.654035', //First property in center by default
+        'zoom'			=>	'13', //for set map zoom level
+        'height'		=>	'750', //for set map height level, pass integer value
+    );
+    
+    error_log(1);
+    echo epl_advanced_map($atts);
+    error_log(2);
+    
+    die();
+    
+}
 
 register_widget( 'Your_Team_Contact_Info_Widget' );
 register_widget( 'Your_Team_Google_Maps_Widget' );

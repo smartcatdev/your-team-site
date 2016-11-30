@@ -56,7 +56,7 @@ get_header(); ?>
                                             </div>
 
                                             <div id="map-view">
-                                                <?php echo do_shortcode('[advanced_map coords="44.2951665,-76.654035" zoom="13" height="750"]'); ?>
+                                                <?php // echo do_shortcode('[advanced_map coords="44.2951665,-76.654035" zoom="13" height="750"]'); ?>
                                             </div>
                                             
                                         </div>

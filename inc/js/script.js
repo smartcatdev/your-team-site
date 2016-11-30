@@ -6,13 +6,12 @@ jQuery(document).ready( function( $ ) {
             $('#view-toggle-list').removeClass('active');
             $(this).addClass('active');
             
-            $('#list-view').stop().fadeOut( 300, function(){
-                $('#map-view').fadeIn( 0, function(){
-                    google.maps.event.trigger(myGmap.gmap3("get"), "resize");
-                    set_markers( "http://localhost/wp-content/plugins/epl-advanced-mapping/images/" );
-                }).animate({
-                    opacity: 1
-                }, 300 );
+            var data = {
+                action: 'ytre_map_view',
+            };
+            $.post( ajaxurl, data, function( response ) {
+//                $('#map-view').html(response);
+                console.log(response);
             });
             
         } 
