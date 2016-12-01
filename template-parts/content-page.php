@@ -8,53 +8,35 @@
  */
 
 ?>
+<div id="single-page-container">
 
-<div id="single-page-container" class="container">
+    <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-    <div class="row">
+        <div id="single-title-box">
 
-        <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+            <h2 class="entry-title"><?php the_title(); ?></h2>
 
-            <div class="col-sm-12">
-                
-                <div id="single-title-box">
+        </div>
 
-                    <h2 class="entry-title"><?php the_title(); ?></h2>
+        <div class="container">
+            
+            <div class="row">
+
+                <div class="col-sm-12">
+
+                    <div class="entry-content">
+
+                        <?php the_content(); ?>
+
+                    </div><!-- .entry-content -->
 
                 </div>
 
             </div>
             
-            <div class="col-sm-12">
+        </div>
             
-                <div class="row">
-
-                    <div class="col-sm-12">
-
-                        <div class="entry-content">
-
-                            <?php the_content(); ?>
-
-                            <?php
-                                wp_link_pages( array(
-                                    'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'juno' ),
-                                    'after'  => '</div>',
-                                ) );
-                            ?>
-
-                        </div><!-- .entry-content -->
-
-                        <?php the_post_navigation(); ?>
-
-                    </div>
-                   
-                </div>
-            
-            </div>
-            
-        </article>
+    </article>
         
-    </div>
-    
 </div>
 

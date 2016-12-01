@@ -27,6 +27,7 @@ function ytre_scripts() {
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
 
@@ -210,6 +211,16 @@ function ytre_custom_js() { ?>
                 navigation : true,
                 navigationText : ["Prev","Next"]
             });    
+            
+            if ( $('#property-gallery').length ) {
+            
+                Galleria.loadTheme('<?php echo esc_js( get_template_directory_uri() ); ?>/inc/js/galleria/themes/classic/galleria.classic.min.js');
+                Galleria.configure({
+                    imageCrop: true,
+                });
+                Galleria.run('#property-gallery');
+                
+            }
 
             /**
              * Jumbotron and Video Background
@@ -690,3 +701,5 @@ function ytre_all_posts_array( $include_pages = false ) {
     return $posts_array;
     
 }
+
+remove_filter( 'the_content', 'wpautop' );
