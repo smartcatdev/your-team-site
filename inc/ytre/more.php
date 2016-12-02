@@ -350,3 +350,116 @@ class Your_Team_Google_Maps_Widget extends WP_Widget {
     }
 
 }
+
+new Ytre_Property_Images_Meta_Box();
+class Ytre_Property_Images_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
+        }
+        
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
+        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
+        
+    }
+
+    public function add_metabox() {
+
+        add_meta_box( 'ytre_property_images_meta', __( 'Property Images', 'ytre' ), array ( $this, 'render_ytre_property_images_metabox' ), array( 'property' ), 'normal', 'high' );
+        
+    }
+
+    public function render_ytre_property_images_metabox( $post ) {
+
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'ytre_property_images_meta_box_nonce_action', 'ytre_property_images_meta_box_nonce' );
+
+        // Retrieve an existing value from the database.
+        $property_images      = get_post_meta( $post->ID, 'property_image_set' );
+
+        // Set default values.
+        if ( empty( $property_images ) )    { $property_images = array(); } 
+        
+        // Form fields
+        echo '<table class="form-table">';
+        
+        if ( !empty( $property_images ) ) :
+        
+            /**
+             * Multiple Images Set 
+             */
+            $ctr = 1;
+            foreach ( $property_images[0] as $image ) :
+
+                echo '	<tr>';
+                echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="property_image_set_label">' . __( 'Image #' . $ctr, 'ytre' ) . '</label></th>';    
+                echo '		<td>';
+                echo '		    <div class="form-group smartcat-uploader">';
+                echo '	                <input type="text" id="property_image_set" name="property_image_set[]" value="' . esc_url($image) . '" class="property_image_set_field">';
+                echo '		    </div>';
+                echo '		</td>';
+                echo '		<td>';
+                echo '              <div><img src="' . esc_url($image) . '" style="height: 100px; margin: 1px 3px; border-radius: 4px;"></div>';
+                echo '		</td>';
+                echo '		<td>';
+                echo '              <div class="delete-uploaded-row"><span class="dashicons dashicons-trash"></span></div>';
+                echo '		</td>';
+                echo '	</tr>';
+
+                $ctr++;
+
+            endforeach;
+            
+            /**
+             * Add New Image Field
+             */
+            echo '	<tr>';
+            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
+            echo '	</tr>';
+            
+        else :
+            
+            /**
+             * Add New Image Field
+             */
+            echo '	<tr>';
+            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
+            echo '	</tr>';
+            
+        endif;
+        
+        echo '</table>';
+        
+    }
+    
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name     = isset( $_POST[ 'ytre_property_images_meta_box_nonce' ] ) ? $_POST[ 'ytre_property_images_meta_box_nonce' ] : '';
+        $nonce_action   = 'ytre_property_images_meta_box_nonce_action';
+
+        // Check if a nonce is set and valid
+        if ( !isset( $nonce_name ) ) { return; }
+        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
+            
+        // Sanitize user input.
+        
+        if ( isset( $_POST[ 'property_image_set' ] ) ) :
+            $property_images = $_POST[ 'property_image_set' ];
+        else : 
+            $property_images = array();
+        endif;
+
+        // Update the meta field in the database
+        update_post_meta( $post_id, 'property_image_set', $property_images );
+        
+    }
+    
+}

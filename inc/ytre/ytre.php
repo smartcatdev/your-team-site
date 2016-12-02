@@ -46,6 +46,16 @@ function ytre_scripts() {
 add_action( 'wp_enqueue_scripts', 'ytre_scripts' );
 
 /**
+ * Media Uploader Enqueue
+ */
+function ytre_load_admin_libs() {
+    wp_enqueue_media();
+    wp_enqueue_script( 'wp-media-uploader', get_template_directory_uri() . '/inc/js/wp_media_uploader.js', array( 'jquery' ), YTRE_VERSION );
+    wp_enqueue_script( 'ytre-main-admin-script', get_template_directory_uri() . '/inc/js/admin_script.js', array( 'jquery' ), YTRE_VERSION );
+}
+add_action( 'admin_enqueue_scripts', 'ytre_load_admin_libs' );
+
+/**
  * Register widget area.
  *
  * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar

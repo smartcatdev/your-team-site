@@ -52,14 +52,37 @@
 
                     <div class="entry-content">
 
-                        <div id="prop-galleria-wrap">
-                                                        
-                            <div id="property-gallery">
-                                <img src="<?php echo get_the_post_thumbnail_url(); ?>" data-title="Another title" data-description="My <i>HTML</i> description">
-                                <img src="<?php echo get_template_directory_uri() . '/inc/images/rough-trans-logo.png'; ?>" data-title="My title" data-description="My description">
-                            </div>
+                        <?php $property_images = get_post_meta( $post->ID, 'property_image_set', true ); ?>
+                        
+                        <?php if ( empty( $property_images ) ) : ?>
                             
-                        </div>
+                            <?php if ( has_post_thumbnail() ) : ?>
+                        
+                                <div id="prop-galleria-wrap" class="single">
+
+                                    <img src="<?php echo esc_url(get_the_post_thumbnail_url()); ?>">
+
+                                </div>
+
+                            <?php endif; ?>
+                        
+                        <?php else : ?>
+                        
+                            <div id="prop-galleria-wrap">
+
+                                <div id="property-gallery">
+                                    
+                                    <?php foreach ( $property_images as $image ) : ?>
+                                    
+                                        <img src="<?php echo esc_url($image); ?>">
+                                    
+                                    <?php endforeach; ?>
+     
+                                </div>
+
+                            </div>
+                        
+                        <?php endif; ?>
                         
                         <div id="property-excerpt">
                             <h4 class="prop-sub-heading"><?php _e('Description', 'ytre' ); ?></h4>
