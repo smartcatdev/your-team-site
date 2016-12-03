@@ -27,6 +27,7 @@ function ytre_scripts() {
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'bootstrap-tabs-js', get_template_directory_uri() . '/inc/js/bootstrap.tabs.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
@@ -125,7 +126,8 @@ function ytre_custom_css() { ?>
         h1,h2,h3,h4,h5,h6,
         ul#primary-menu li a,
         .property-box .property-address a,
-        #listing-agent-sidebar .epl-author-position.author-position {
+        #listing-agent-sidebar .epl-author-position.author-position,
+        #listing-agent-sidebar .epl-author-contact.author-contact {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ); ?>;
         }
 
@@ -175,24 +177,33 @@ function ytre_custom_css() { ?>
         /* --- SECONDARY COLOR --- */
         
             div#jumbotron-buttons a.button,
+            a.primary-button,
             div#featured-listings-widgets .widget,
             .search-form input.search-submit,
             .view-toggle-button,
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
-            .galleria-info-text {
+            .galleria-info-text {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
+            }
+            
+            .nav-pills>li>a,
+            .nav-pills>li.active>a,
+            .nav-pills>li.active:hover>a{
+                background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?> !important;
             }
         
         /* --- SECONDARY ACCENT COLOR --- */
         
             div#jumbotron-buttons a.button,
+            a.primary-button,
             div#featured-listings-widgets .widget,
             .search-form input.search-submit,
             .view-toggle-button,
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
-            .galleria-info-text {
+            .galleria-info-text,
+            .nav-pills>li>a {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
         
