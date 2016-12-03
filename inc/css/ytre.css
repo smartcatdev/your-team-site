@@ -373,7 +373,6 @@ h4.widget-title {
     border-top: thin solid #cfcfcf;
     padding-top: 10px;
     font-weight: 300;
-    color: #3492c6;
     margin-top: 10px;
 }
 span.status-sticker {
@@ -390,7 +389,6 @@ span.status-sticker {
     padding-top: 10px;
     display: inline-block;
     margin: 0;
-    font-family: Montserrat;
 }
 .property-box .property-feature-icons {
     margin-top: 10px;
@@ -410,32 +408,31 @@ span.status-sticker {
 .icon.air .icon-value,
 .icon.pool .icon-value {
     margin-left: 4px;
-    color: #3492c6;
 }
 .icon.beds::before {
     content: '\f236';
     font-family: FontAwesome;
-    color: #3492c6;
 }
 .icon.bath::before {
     content: '\f2cd';
     font-family: FontAwesome;
-    color: #3492c6;
 }
 .icon.parking::before {
     content: '\f1b9';
     font-family: FontAwesome;
-    color: #3492c6;
 }
 .icon.air::before {
     content: '\f2ca';
     font-family: FontAwesome;
-    color: #3492c6;
 }
 .icon.pool::before {
     content: '\f1cd';
     font-family: FontAwesome;
-    color: #3492c6;
+}
+#list-view .epl-inspection-times, 
+#list-view .property-box .entry-content, 
+#list-view .property-address {
+    display: none;
 }
 
 /** Buttons for Map/List View
@@ -468,8 +465,6 @@ p.listing-page-blurb {
     -webkit-transition: 0.3s all ease-in-out;
     text-align: center;
     margin-bottom: 5px;
-    background-color: #ef5858 !important;
-    border-color: #b82e2e;
     opacity: .66;
     cursor: pointer;
 }
@@ -488,7 +483,6 @@ p.listing-page-blurb {
 /** Page Template
 **/
 div#single-title-box {
-    background-color: #3492c6;
     color: #fff;
     padding: 30px 0;
     text-align: center;
@@ -497,25 +491,21 @@ div#single-title-box .entry-title {
     margin: 0;
 }
 
-
 /** Single Property Template
 **/
 .single-property .entry-content {
     margin: 0;
 }
 #single-property-title {
-/*    background-color: #3492c6;*/
-/*    color: #fff;*/
     padding: 75px 0 0 0;
 }
 #property-heading {
-    border-bottom: 2px solid #3492c6;
+    border-bottom: 2px solid;
     padding-bottom: 10px;
 }
 #property-heading .entry-title {
     display: inline-block;
     margin: 0;
-    font-family: Lato;
     font-weight: 300;
     margin-bottom: 15px;
 }
@@ -523,9 +513,7 @@ div#single-title-box .entry-title {
     display: inline-block;
     margin: 0;
     float: right;
-    font-family: Lato;
     font-weight: 300;
-    color: #3492c6;
     margin-bottom: 10px;
 }
 @media (max-width: 991px) {
@@ -550,12 +538,8 @@ div#property-gallery {
 .galleria-images {
     background: #3c3c3c;
 }
-.galleria-theme-classic .galleria-info-text {
-    background-color: #3492c6;
-}
 .galleria-theme-classic .galleria-info-description {
     color: #fff;
-    font-family: Lato;
     font-style: normal;
     font-weight: 300;
 }
@@ -594,11 +578,10 @@ div#prop-header-wrap {
     margin: 0;
 }
 #listing-agent-sidebar ul.epl-author-tabs li {
-    background-color: #ef5858 !important;
     display: inline-block;
     padding: 0 10px;
     border-radius: 4px;
-    color: rgba(255,255,255,.80) !important;
+    color: #fff !important;
     font-size: 14px;
     font-weight: 300;
     border-bottom: 2px solid;
@@ -609,7 +592,6 @@ div#prop-header-wrap {
     text-align: center;
     border-left: none;
     border-top: none;
-    border-color: #b52c2c !important;
     height: 35px;
     line-height: 33px;
     opacity: .66;
@@ -643,10 +625,8 @@ div#prop-header-wrap {
     width: 100%;
 }
 #listing-agent-sidebar .epl-author-box .epl-author-title a {
-    font-family: Lato;
     font-size: 22px;
     font-weight: 300;
-    color: #3492c6;
 }
 #listing-agent-sidebar .epl-author-description {
     margin-top: 20px;
@@ -654,7 +634,6 @@ div#prop-header-wrap {
 }
 #listing-agent-sidebar .epl-author-position.author-position {
     margin-top: 5px;
-    font-family: Montserrat;
 }
 #listing-agent-sidebar .epl-author-slogan.author-slogan {
     width: 100%;
@@ -672,20 +651,15 @@ div#prop-header-wrap {
     height: 35px !important;
     width: 35px !important;
     vertical-align: top;
-    background-color: #ef5858 !important;
     opacity: 1 !important;
-    border-color: #b52c2c;
     background-position: -662px 1px !important;
 }
 .galleria-info-text {
-    background-color: #ef5858 !important;
-    border-color: #b52c2c !important;
     border-radius: 4px;
     border-right: 2px solid;
     border-bottom: 2px solid;
 }
 .galleria-theme-classic .galleria-info-title {
-    font-family: Lato;
     font-size: 18px;
     font-weight: 300;
 }

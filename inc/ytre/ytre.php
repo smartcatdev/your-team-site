@@ -115,12 +115,19 @@ function ytre_custom_css() { ?>
         /* ---------- FONT FAMILIES ---------- */
         
         body,
-        .listing-tile .listing-price {
+        .listing-tile .listing-price,
+        .galleria-theme-classic .galleria-info-title,
+        #property-heading .entry-title,
+        #property-heading .property-price,
+        .galleria-theme-classic .galleria-info-description,
+        #listing-agent-sidebar .epl-author-box .epl-author-title a {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
         h1,h2,h3,h4,h5,h6,
-        ul#primary-menu li a {
+        ul#primary-menu li a,
+        .property-box .property-address a,
+        #listing-agent-sidebar .epl-author-position.author-position {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ); ?>;
         }
 
@@ -142,21 +149,37 @@ function ytre_custom_css() { ?>
 
             .logo-container,
             #jumbotron-tagline,
-            footer#colophon {
+            footer#colophon,
+            div#single-title-box,
+            .galleria-theme-classic .galleria-info-text {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             ul#primary-menu li.current-menu-item a,
             ul#primary-menu li:hover a,
             .listing-tile .listing-price,
-            h2#featured-listing-heading {
+            h2#featured-listing-heading,
+            .icon.beds .icon-value,
+            .icon.bath .icon-value,
+            .icon.parking .icon-value,
+            .icon.air .icon-value,
+            .icon.pool .icon-value,
+            .icon.beds::before,
+            .icon.bath::before,
+            .icon.parking::before,
+            .icon.air::before,
+            .icon.pool::before,
+            #property-heading .property-price,
+            #listing-agent-sidebar .epl-author-box .epl-author-title a,
+            .property-box .price {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             div#jumbotron-content,
             ul#primary-menu li:hover a,
             .listing-tile:hover .listing-details,
-            .search-form input.search-field:focus {
+            .search-form input.search-field:focus,
+            #property-heading {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
@@ -164,7 +187,11 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             div#featured-listings-widgets .widget,
-            .search-form input.search-submit {
+            .search-form input.search-submit,
+            .view-toggle-button,
+            #listing-agent-sidebar ul.epl-author-tabs li,
+            .galleria-info-link,
+            .galleria-info-text {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
         
@@ -176,7 +203,11 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             div#featured-listings-widgets .widget,
-            .search-form input.search-submit {
+            .search-form input.search-submit,
+            .view-toggle-button,
+            #listing-agent-sidebar ul.epl-author-tabs li,
+            .galleria-info-link,
+            .galleria-info-text {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
         
