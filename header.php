@@ -29,7 +29,7 @@
 
     <header id="masthead" class="site-header" role="banner">
             
-        <div class="site-branding container">
+        <div class="site-branding container-fluid">
             
             <div class="row">
                         
@@ -37,6 +37,12 @@
 
                     <div class="inner">
                 
+                        <div class="logo-container">
+
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/ytre-logo.png' ); ?>" />
+
+                        </div>
+                        
                         <div class="align-wrap">
                             
                             <nav id="site-navigation" class="main-navigation" role="navigation">
@@ -44,12 +50,6 @@
                                 <?php wp_nav_menu( array( 'theme_location' => 'primary', 'menu_id' => 'primary-menu' ) ); ?>
                             </nav><!-- #site-navigation -->
                         
-                        </div>
-                        
-                        <div class="logo-container">
-
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/rough-trans-logo.png' ); ?>" />
-
                         </div>
                             
                     </div>

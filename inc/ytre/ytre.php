@@ -117,8 +117,6 @@ function ytre_custom_css() { ?>
         body,
         .listing-tile .listing-price,
         .galleria-theme-classic .galleria-info-title,
-        #property-heading .entry-title,
-        #property-heading .property-price,
         .galleria-theme-classic .galleria-info-description,
         #listing-agent-sidebar .epl-author-box .epl-author-title a {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
@@ -147,7 +145,6 @@ function ytre_custom_css() { ?>
         
         /* --- PRIMARY COLOR --- */
 
-            .logo-container,
             #jumbotron-tagline,
             footer#colophon,
             div#single-title-box,
@@ -159,19 +156,10 @@ function ytre_custom_css() { ?>
             ul#primary-menu li:hover a,
             .listing-tile .listing-price,
             h2#featured-listing-heading,
-            .icon.beds .icon-value,
-            .icon.bath .icon-value,
-            .icon.parking .icon-value,
-            .icon.air .icon-value,
-            .icon.pool .icon-value,
-            .icon.beds::before,
-            .icon.bath::before,
-            .icon.parking::before,
-            .icon.air::before,
-            .icon.pool::before,
-            #property-heading .property-price,
+            #property-heading .entry-title,
             #listing-agent-sidebar .epl-author-box .epl-author-title a,
-            .property-box .price {
+            .property-box .price,
+            .jumbo-title span {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -179,7 +167,8 @@ function ytre_custom_css() { ?>
             ul#primary-menu li:hover a,
             .listing-tile:hover .listing-details,
             .search-form input.search-field:focus,
-            #property-heading {
+            #property-heading,
+            header#masthead {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
@@ -193,10 +182,6 @@ function ytre_custom_css() { ?>
             .galleria-info-link,
             .galleria-info-text {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
-            }
-        
-            .jumbo-title span {
-                color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
         
         /* --- SECONDARY ACCENT COLOR --- */
@@ -561,72 +546,76 @@ function ytre_render_featured_listings() { ?>
         
             <div class="col-sm-12">
             
-                <h2 id="featured-listing-heading">
-                    <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
-                </h2>
-       
-                <ul id="featured-listings" class="owl-carousel owl-theme">
+                <div class="inner">
+                
+                    <!--<h2 id="featured-listing-heading">
+                        <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
+                    </h2>-->
 
-                    <?php foreach( $feat_listings as $listing ) : ?>
+                    <ul id="featured-listings" class="owl-carousel owl-theme">
 
-                        <li>
+                        <?php foreach( $feat_listings as $listing ) : ?>
 
-                            <div class="listing-tile">
+                            <li>
 
-                                <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
-                                    <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                        <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
-                                    </a>
-                                <?php endif; ?>
+                                <div class="listing-tile">
 
-                                <div class="listing-details">
-
-                                    <h3 class="listing-title">
+                                    <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
                                         <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                            <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
+                                            <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
                                         </a>
-                                    </h3>
+                                    <?php endif; ?>
 
-                                    <h4 class="listing-price">
-                                        <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
-                                        <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
-                                    </h4>
+                                    <div class="listing-details">
 
-                                    <div class="listing-meta">
+                                        <h3 class="listing-title">
+                                            <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
+                                                <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
+                                            </a>
+                                        </h3>
 
-                                        <?php $words = get_theme_mod( 'ytre_featured_listings_trim', 50 ); ?>
+                                        <h4 class="listing-price">
+                                            <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
+                                            <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
+                                        </h4>
 
-                                        <div class="listing-content">
-                                            <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
-                                        </div>
+                                        <div class="listing-meta">
 
-                                        <div class="listing-agent">
-                                            <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
-                                            <?php echo esc_html( $agent[0] ); ?>
+                                            <?php $words = get_theme_mod( 'ytre_featured_listings_trim', 50 ); ?>
+
+                                            <!--<div class="listing-content">
+                                                <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
+                                            </div>-->
+
+                                            <!--<div class="listing-agent">
+                                                <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
+                                                <?php echo esc_html( $agent[0] ); ?>
+                                            </div>-->
+
                                         </div>
 
                                     </div>
 
                                 </div>
 
-                            </div>
+                            </li>
 
-                        </li>
+                        <?php endforeach; ?>
 
-                    <?php endforeach; ?>
+                        <?php wp_reset_postdata(); ?>
 
-                    <?php wp_reset_postdata(); ?>
+                    </ul>
 
-                </ul>
-        
-                <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
-                    <div id="featured-listings-widgets">
+                    <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
+                        <div id="featured-listings-widgets">
 
-                        <?php get_sidebar( 'featured-listings' ); ?>
+                            <?php get_sidebar( 'featured-listings' ); ?>
 
-                    </div>
-                <?php endif; ?>
-        
+                        </div>
+                    <?php endif; ?>
+            
+                </div>
+                    
             </div>
         
         </div>
