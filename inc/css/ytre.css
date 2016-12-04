@@ -80,6 +80,7 @@ div#header-search .inner {
     -webkit-transition: 0.4s all ease-in-out;
     height: 35px;
 }
+div#floating-filter-search input[type="submit"],
 .search-form input.search-submit {
     display: inline-block;
     padding: 0 10px;
@@ -196,6 +197,7 @@ div#jumbotron-buttons a.button span {
 @media (max-width:599px) {
     div#jumbotron-buttons a.button {
         width: 100%;
+        margin-left: 0;
     }
     .jumbo-title {
         text-align: center;
@@ -216,7 +218,6 @@ h2#featured-listing-heading {
     text-align: center;
     margin: 0 25px;
     padding: 50px 0 10px 0;
-    /* border-bottom: thin solid #009edc; */
 }
 div#featured-listings-section .inner {
     background-color: #fff;
@@ -558,7 +559,6 @@ div#single-property-content {
 }
 #single-property-title {
     padding: 75px 0 0 0;
-    background-color: #009edc;
     z-index: 9;
     position: relative;
 }
@@ -821,5 +821,94 @@ div#property-details .tab-content {
         margin: 2px 0;
         width: 100%;
         float: none;
+    }
+}
+
+/** Floating Search Filter Box
+**/
+div#floating-filter-search {
+    position: fixed;
+    right: 0;
+    top: 25%;
+    z-index: 9999;
+    padding: 10px 0;
+}
+#floating-filter-search .epl-search-forms-wrapper.epl-search-default {
+
+}
+div#floating-filter-search .edge-block {
+    width: 15px;
+    height: 100%;
+    position: absolute;
+    right: 0;
+    top: 0;
+    border-radius: 8px 0 0 8px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    cursor: pointer;
+    min-height: 170px;
+    z-index: 9999;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+div#floating-filter-search form {
+    padding: 5px 0 5px 10px;
+}
+#floating-filter-search div.search-field-wrap {
+    margin: 5px 10px 5px 0;
+    background-color: #fff;
+    border-radius: 4px 0 0 4px;
+    padding: 10px 30px 10px 15px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    overflow: hidden;
+    white-space: nowrap;
+}
+div#floating-filter-search .epl-search-submit {
+    margin: 0px 0px 10px 0px;
+    background-color: #fff;
+    border-radius: 4px 0 0 4px;
+    padding: 10px 25px 10px 15px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    display: none;
+    overflow: hidden;
+    white-space: nowrap;
+}
+div#floating-filter-search .inner {
+    display: none;
+}
+div#floating-filter-search input[type="submit"] {
+    margin: 10px 0 0 0;
+}
+#floating-filter-search p.title {
+    margin: 0;
+    cursor: pointer;
+}
+div#floating-filter-search label {
+    font-family: Montserrat;
+    margin-top: 10px !important;
+    display: block;
+    margin-bottom: 2px;
+}
+.search-field-wrap .inner {
+    display: none;
+}
+#floating-filter-search .epl-search-form .in-field {
+    border-radius: 4px;
+}
+#floating-filter-search div.epl-property_category,
+#floating-filter-search div.epl-property_bedrooms_max,
+#floating-filter-search div.epl-search-other {
+    display: none;
+}
+
+@media (max-width:767px) {
+    div#floating-filter-search {
+        display: none;
     }
 }

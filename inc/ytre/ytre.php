@@ -150,7 +150,9 @@ function ytre_custom_css() { ?>
             #jumbotron-tagline,
             footer#colophon,
             div#single-title-box,
-            .galleria-theme-classic .galleria-info-text {
+            .galleria-theme-classic .galleria-info-text,
+            #single-property-title,
+            div#floating-filter-search .edge-block {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -180,6 +182,7 @@ function ytre_custom_css() { ?>
             a.primary-button,
             div#featured-listings-widgets .widget,
             .search-form input.search-submit,
+            div#floating-filter-search input[type="submit"],
             .view-toggle-button,
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
@@ -199,6 +202,7 @@ function ytre_custom_css() { ?>
             a.primary-button,
             div#featured-listings-widgets .widget,
             .search-form input.search-submit,
+            div#floating-filter-search input[type="submit"],
             .view-toggle-button,
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
