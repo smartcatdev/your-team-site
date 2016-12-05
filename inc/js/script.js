@@ -1,6 +1,21 @@
 jQuery(document).ready( function( $ ) {
 
     /**
+     * Init ImageMap Resizer
+     */
+    $('map').imageMapResize();
+    
+    /**
+     * Team Photo Hotspot Effect
+     */
+    $('#ytre-team-photo .inner map area').mouseenter( function() {
+        
+        $('#team-photo-display-name').stop().text( $( this ).attr('title') );
+        
+    });
+
+
+    /**
      * Store the Location field, remove it, and re-add it wrapped in tab div
      */
     var location_field = $('#floating-filter-search div.epl-property_location');

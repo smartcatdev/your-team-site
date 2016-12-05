@@ -384,6 +384,7 @@ h4.widget-title {
     padding: 10px 20px 20px 20px;
     border: 1px solid #e3e3e3;
     background-color: #fff;
+    height: 240px;
 }
 .property-box.property-featured-image-wrapper {
     padding: 0;
@@ -409,7 +410,6 @@ h4.widget-title {
     opacity: 1;
     border-top: thin solid #cfcfcf;
     padding-top: 10px;
-    font-weight: 300;
     margin-top: 10px;
 }
 span.status-sticker {
@@ -755,7 +755,7 @@ div#prop-galleria-wrap.single img {
 }
 div#property-details {
     background-color: #fff;
-    padding: 10px 20px 10px 20px;
+    padding: 20px 20px 10px 20px;
 }
 div#property-details ul.nav {
     margin: 0;
@@ -911,4 +911,110 @@ div#floating-filter-search label {
     div#floating-filter-search {
         display: none;
     }
+}
+
+/** Archive / Filter Search Results Template
+**/
+div#archive-loop-epl {
+    margin-top: 0;
+}
+.epl-archive-utility-wrapper {
+    display: none;
+}
+.epl-archive-default h3.archive-page-subtitle {
+    text-align: left;
+}
+.epl-archive-default .view-toggle-button {
+    visibility: hidden;
+}
+
+
+/** Our Team Template
+**/
+div#sc_our_team.grid2 {
+    margin-top: 30px;
+}
+
+.grid2 .sc_team_member {
+    display: block;
+    -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.25);
+}
+
+.grid2 .sc_team_member_inner {
+    background-color: #ffffff;
+    color: #1c1c1c;
+    font-size: 14px;
+}
+
+.grid2 .sc_team_member_inner .image-container {
+    height: 300px;
+    background-position: 50%;
+    background-size: cover;
+    position: relative;
+    border-bottom: 10px solid;
+}
+
+.grid2 .sc_team_member_inner .sc_team_content {
+    padding: 30px;
+}
+
+.grid2 .sc_team_member_inner .image-container .image-corner {
+    width: 75px;
+    height: 0px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.grid2 .sc_team_member_inner .image-container i.icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    color: #fff;
+    opacity: 0;
+    font-size: 20px;
+}
+
+.grid2 .sc_team_member .sc_team_member_name {
+    padding: 30px 30px 0px 30px;
+}
+
+.grid2 .sc_team_member .sc_team_member_jobtitle {
+    padding: 0px 30px 0px 30px;
+}
+
+.grid2 .sc_team_member .sc_team_member_name a {
+/*    color: #fff !important;*/
+}
+
+div#ytre-team-photo {
+    padding: 20px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+}
+
+div#ytre-team-photo .inner {
+    position: relative;
+}
+
+h3#team-photo-display-name {
+    text-align: center;
+    background-color: rgba(0,158,220,.75);
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 0;
+    padding: 1.5% 0 2% 0;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 50% 50% 0 0;
 }

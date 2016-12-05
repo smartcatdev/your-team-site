@@ -28,6 +28,7 @@ function ytre_scripts() {
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'bootstrap-tabs-js', get_template_directory_uri() . '/inc/js/bootstrap.tabs.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'imageMapResizer', get_template_directory_uri() . '/inc/js/imageMapResizer.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
@@ -126,6 +127,7 @@ function ytre_custom_css() { ?>
         h1,h2,h3,h4,h5,h6,
         ul#primary-menu li a,
         .property-box .property-address a,
+        .property-box .price,
         #listing-agent-sidebar .epl-author-position.author-position,
         #listing-agent-sidebar .epl-author-contact.author-contact {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ); ?>;
@@ -163,7 +165,9 @@ function ytre_custom_css() { ?>
             #property-heading .entry-title,
             #listing-agent-sidebar .epl-author-box .epl-author-title a,
             .property-box .price,
-            .jumbo-title span {
+            .jumbo-title span,
+            .epl-archive-default h3.archive-page-subtitle,
+            .grid2 .sc_team_member .sc_team_member_name a {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -172,7 +176,8 @@ function ytre_custom_css() { ?>
             .listing-tile:hover .listing-details,
             .search-form input.search-field:focus,
             #property-heading,
-            header#masthead {
+            header#masthead,
+            .grid2 .sc_team_member_inner .image-container {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
@@ -349,7 +354,7 @@ function ytre_custom_js() { ?>
             */
             function doMasonry() {
 
-                var $grid = $( ".epl-shortcode-listing" ).imagesLoaded(function () {
+                var $grid = $( ".epl-shortcode-listing,#archive-loop-epl" ).imagesLoaded(function () {
                     $grid.masonry({
                         itemSelector: '.epl-listing-post',
                         columnWidth: '.grid-sizer',
@@ -384,8 +389,8 @@ function ytre_custom_js() { ?>
             /**
             * Call Masonry on window resize and load
             */
-            $('.gutter-sizer').prependTo('.epl-shortcode-listing');
-            $('.grid-sizer').prependTo('.epl-shortcode-listing');
+            $('.gutter-sizer').prependTo('.epl-shortcode-listing,#archive-loop-epl');
+            $('.grid-sizer').prependTo('.epl-shortcode-listing,#archive-loop-epl');
             $( window ).resize( function() {
                 doMasonry();
             });
