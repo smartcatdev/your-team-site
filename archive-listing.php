@@ -34,8 +34,10 @@ get_header(); ?>
                                 <div id="view-toggle-buttons">                                  
 
                                     <a href="#" id="view-toggle-list" class="view-toggle-button active">
+                                        <?php _e( 'List View', 'ytre' ); ?>
                                     </a>
                                     <a href="/listings-map/" id="view-toggle-map" class="view-toggle-button">
+                                        <?php _e( 'Map View', 'ytre' ); ?>
                                     </a> 
                                     <h3 class="archive-page-subtitle">
                                         <?php echo get_theme_mod( 'ytre_archive_page_results_title', __( 'We Found a Match!', 'ytre' ) ); ?>
@@ -75,8 +77,10 @@ get_header(); ?>
                                 <div id="view-toggle-buttons">                                  
 
                                     <a href="#" id="view-toggle-list" class="view-toggle-button active">
+                                        <?php _e( 'List View', 'ytre' ); ?>
                                     </a>
                                     <a href="/listings-map/" id="view-toggle-map" class="view-toggle-button">
+                                        <?php _e( 'Map View', 'ytre' ); ?>
                                     </a> 
                                     <h3 class="archive-page-subtitle">
                                         <?php apply_filters( 'epl_property_search_not_found_title' , _e('Listing not Found', 'easy-property-listings') ); ?>
