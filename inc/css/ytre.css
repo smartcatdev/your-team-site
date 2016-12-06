@@ -1018,3 +1018,143 @@ h3#team-photo-display-name {
     width: 100%;
     border-radius: 50% 50% 0 0;
 }
+
+p.team-page-blurb {
+    margin: 75px 0 50px 0;
+    text-align: center;
+    font-weight: 300;
+    font-size: 20px;
+}
+
+/** SlickNav Menu
+**/
+.slicknav_menu {
+    display: none;
+    background: none;
+}
+#slicknav-menu-toggle {
+    display: none;
+}
+.slicknav_menu .slicknav_icon {
+    display: none;
+}
+a.slicknav_btn {
+    float: left;
+    font-family: Montserrat;
+    background: none;
+}
+div#slicknav-menu-toggle i {
+    color: rgba(255,255,255,.75);
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 14px;
+    line-height: 24px;
+    width: 28px;
+    height: 28px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 2px solid rgba(255,255,255,.75);
+}
+div#slicknav-menu-toggle i:hover {
+    color: #fff;
+    border-color: #fff;
+}
+ul.slicknav_nav ul.sub-menu {
+    box-shadow: none;
+    position: relative;
+    float: none;
+    left: 0 !important;
+    top: inherit;
+    margin-left: 0;
+}
+
+ul.slicknav_nav {
+    text-align: left;
+    padding-left: 15px;
+}
+
+ul.slicknav_nav ul.sub-menu li a {
+    width: auto;
+}
+
+ul.slicknav_nav ul.sub-menu ul.sub-menu {
+    margin-left: 15px;
+    border: none;
+}
+
+div.slicknav_menu {
+    padding: 10px 0 0 0;
+}
+
+div.slicknav_menu li {
+    display: block;
+    margin-left: 0;
+    float: none;
+}
+
+.slicknav_nav > li > .slicknav_item {
+    margin-left: 0;
+    padding-left: 0;   
+}
+
+.slicknav_nav a {
+    color: #fff;
+    opacity: .90;
+    text-transform: uppercase;
+    letter-spacing: .25em;
+    font-size: 11px;
+    font-family: Montserrat;
+    transition: 0.2s all ease-in-out;
+    -moz-transition: 0.2s all ease-in-out;
+    -webkit-transition: 0.2s all ease-in-out;
+} 
+
+ul.slicknav_nav a:hover {
+    opacity: 1;
+    color: #fff !important;
+}
+
+.slicknav_nav a:hover {
+    background: none;
+}
+
+.slicknav_nav .slicknav_row:hover {
+    background: none;
+}
+
+div#header-search,
+div#header-search .inner {
+    display: none ;
+}
+
+.slicknav_menu .slicknav_menutxt {
+    font-weight: 300 !important;
+    text-shadow: none !important;
+    font-size: 11px;
+    letter-spacing: .25em;
+}
+@media (max-width: 767px) {
+    
+    #branding-content div.align-wrap {
+        display: none;
+    }
+
+    .slicknav_menu {
+        display:block;
+    }
+    
+    div#header-search {
+        position: relative;
+        display: block;
+        width: 100%;
+        min-height: auto;
+    }
+    
+    #branding-content .logo-container {
+        padding-left: 0;
+    }
+    
+    
+}
+

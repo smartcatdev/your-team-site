@@ -1,6 +1,20 @@
 jQuery(document).ready( function( $ ) {
 
     /**
+     * SlickNav Mobile Menu
+     */
+    $( function() { 
+        
+        $( '#primary-menu' ).slicknav({
+            prependTo:'#header-search',
+            duration: 500,
+            openedSymbol: "&#45;",	
+            closedSymbol: "&#43;",
+        }); 
+       
+    });
+
+    /**
      * Init ImageMap Resizer
      */
     $('map').imageMapResize();
@@ -13,7 +27,6 @@ jQuery(document).ready( function( $ ) {
         $('#team-photo-display-name').stop().text( $( this ).attr('title') );
         
     });
-
 
     /**
      * Store the Location field, remove it, and re-add it wrapped in tab div

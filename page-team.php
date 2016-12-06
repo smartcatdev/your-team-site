@@ -27,6 +27,12 @@ get_header(); ?>
 
                         <div class="col-sm-12">
                         
+                            <?php if ( get_theme_mod( 'ytre_team_photo_head_blurb', __( 'Learn as much or as little as you want to know about Your Team right here.', 'ytre' ) ) ) : ?>
+                                <p class="team-page-blurb">
+                                    <?php echo get_theme_mod( 'ytre_team_photo_head_blurb', __( 'Learn as much or as little as you want to know about Your Team right here.', 'ytre' ) ); ?>
+                                </p>
+                            <?php endif; ?>
+                            
                             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
                                 <div class="entry-content">
@@ -51,90 +57,6 @@ get_header(); ?>
                                             </h3>
                                         
                                         </div>
-                                        
-                                    </div>
-                                    
-                                    <div id="sc_our_team" class="grid2 sc-col3 masonry">
-    
-                                        <div class="grid-sizer"></div>
-                                        <div class="gutter-sizer"></div>
-                                        
-                                        <?php
-                                            $args = array(
-                                                'post_type' => 'team_member',
-                                                'meta_key' => 'sc_member_order',
-                                                'orderby' => 'meta_value_num',
-                                                'order' => 'ASC',
-                                                'posts_per_page' => -1,
-                                            );
-                                            $members = new WP_Query( $args );
-                                        ?>
-    
-                                        <?php if ( $members->have_posts() ) : ?>
-                                        
-                                            <?php while ( $members->have_posts() ) : $members->the_post(); ?>
-                                        
-                                                <div itemscope itemtype="http://schema.org/Person" class="sc_team_member">
-                                                    
-                                                    <div class="sc_team_member_inner">
-
-                                                        <?php $image_src = has_post_thumbnail() ? get_the_post_thumbnail_url( get_the_ID(), 'large' ) : get_template_directory_uri() . '/inc/images/ytre-logo.png'; ?>
-                                                        
-                                                        <div class="image-container wp-post-image" style="background-image: url(<?php echo esc_url( $image_src ); ?>);" data-url="<?php echo esc_url( $image_src ); ?>">
-
-                                                            <div class="image-corner" style="background-image: url(<?php echo esc_url( get_template_directory_uri() . '/inc/images/our-team-triangle.png' ); ?>);">
-                                                            </div>
-
-                                                            <a href="<?php esc_url( get_the_permalink() ); ?>" rel="bookmark" class="<?php // echo $this->check_clicker( $single_template ); ?>">
-                                                                <i class="fa fa-external-link icon"></i>
-                                                            </a>
-
-                                                        </div>
-
-                                                        <div itemprop="name" class="sc_team_member_name">
-                                                            <a href="<?php esc_url( get_the_permalink() ); ?>" rel="bookmark">
-                                                                <?php the_title(); ?>
-                                                            </a>
-                                                        </div>
-
-                                                        <?php if ( get_post_meta( get_the_ID(), 'team_member_title', true ) ) : ?>
-                                                            <div itemprop="jobtitle" class="sc_team_member_jobtitle">
-                                                                <?php echo get_post_meta( get_the_ID(), 'team_member_title', true ); ?>
-                                                            </div>
-                                                        <?php endif; ?>
-
-                                                        <?php if ( get_post_meta( get_the_ID(), 'team_member_qoute', true ) ) : ?>
-                                                            <div class="sc_personal_quote hidden">                                                                
-                                                                <span class="sc_team_icon-quote-left"></span>
-                                                                <span class="sc_personal_quote_content"><?php echo get_post_meta(get_the_ID(), 'team_member_qoute', true ); ?></span>
-                                                            </div>  
-                                                        <?php endif; ?>
-
-                                                        <div class="sc_team_content">
-                                                            <?php echo wp_trim_words( get_the_content(), 100 ); ?>
-                                                        </div>
-
-                                                        <div class='icons hidden'>
-
-                                                            <?php // $this->set_social( get_the_ID() ); ?>
-
-                                                        </div>
-
-                                                    </div>
-
-                                                </div>
-                                        
-                                            <?php endwhile; ?>
-                                            
-                                            <?php wp_reset_postdata(); ?>
-                                            
-                                        <?php else : ?>
-                                            
-                                            <?php _e( 'There are no team members to display', 'ytre' ); ?>
-                                            
-                                        <?php endif; ?>
-                                        
-                                        <div class="clear"></div>
                                         
                                     </div>
                                     

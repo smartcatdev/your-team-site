@@ -24,11 +24,13 @@ function ytre_scripts() {
     wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'animate', get_template_directory_uri() . '/inc/css/animate.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'slickNav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'bootstrap-tabs-js', get_template_directory_uri() . '/inc/js/bootstrap.tabs.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'imageMapResizer', get_template_directory_uri() . '/inc/js/imageMapResizer.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'slickNav-js', get_template_directory_uri() . '/inc/js/jquery.slicknav.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
@@ -154,7 +156,8 @@ function ytre_custom_css() { ?>
             div#single-title-box,
             .galleria-theme-classic .galleria-info-text,
             #single-property-title,
-            div#floating-filter-search .edge-block {
+            div#floating-filter-search .edge-block,
+            div#header-search {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
