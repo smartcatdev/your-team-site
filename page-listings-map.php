@@ -31,16 +31,40 @@ get_header(); ?>
 
                                 <div class="entry-content">
 
-                                    <div id="view-toggle-buttons">                                  
-                                        <a href="/listings-list/" id="view-toggle-list" class="view-toggle-button">
+                                    <div id="view-toggle-buttons">                               
+                                        
+                                        <?php 
+                                        
+                                        // TODO: Build a string of $_GET parameter to juggle back and forth between List and Map view, if present
+                                        
+                                        if ( isset( $_GET ) ) :
+                                            
+                                            $gets = '?';
+                                            if ( isset( $_GET['property_location'] ) ) :
+                                                $gets .= 'property_location=' . $_GET['property_location'];
+                                            endif;
+                                            
+                                        else :
+                                        
+                                            $gets = '';
+                                            
+                                        endif;
+                                        
+                                        ?>
+                                        
+                                        <a href="<?php echo esc_url( home_url( '/listings-list/' . $gets ) ); ?>" id="view-toggle-list" class="view-toggle-button">
                                             List View 
                                          </a>
                                          <a href="#" id="view-toggle-map" class="view-toggle-button active">
                                             Map View
                                          </a>
+                                        
+                                        <?php // TODO: Add a "Clear Filters" button that reloads current page minus any $_GET params that would be used to filter ?>
+                                        
                                         <p class="listing-page-blurb">
                                             Browse our listings on your own below or enter some must-haves and let us select the listings you should see.
                                         </p>
+                                        
                                     </div>
                                     <div id="map-wrapper">
                                         
@@ -89,6 +113,8 @@ get_header(); ?>
                                             );
 
                                         endif;
+                                        
+                                        // TODO: ADD OTHER CONDITIONAL ADDITIONS TO $args BASED ON FILTERING FROM STICKY WIDGET
                                         
                                         $results = new WP_Query( $args );
 
@@ -202,20 +228,6 @@ get_header(); ?>
                                                 });
                                                 
                                             </script>
-                                            
-                                            <?php 
-                                            
-                                            if( $results->have_posts() ) :
-
-                                                $post_counter = 1;
-
-                                                while( $results->have_posts()) : $results->the_post(); ?>
-                                            
-                                                    <img src="<?php echo has_post_thumbnail() ? get_the_post_thumbnail_url() : ''; ?>">
-                                                    
-                                                <?php endwhile; ?>
-                                            
-                                            <?php endif; ?>
                                             
                                         </div>
                                         
