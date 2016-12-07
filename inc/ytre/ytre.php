@@ -558,10 +558,10 @@ function ytre_render_featured_listings() { ?>
         'post_status'       => 'publish',
         'post_type'         => 'property',
         'meta_key'          => 'single_property_is_featured',
-        'meta_value'             => 'featured',
+        'meta_value'        => 'featured',
     );
 
-    $feat_listings = wp_get_recent_posts( $args ); ?>
+    $feat_listings = new WP_Query( $args ); ?>
     
     <div id="featured-listings-section" class="container">
         
@@ -575,59 +575,89 @@ function ytre_render_featured_listings() { ?>
                         <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
                     </h2>-->
 
-                    <ul id="featured-listings" class="owl-carousel owl-theme">
+                    <?php if ( $feat_listings->have_posts() ) : ?>
+                    
+                        <ul id="featured-listings" class="owl-carousel owl-theme">
 
-                        <?php foreach( $feat_listings as $listing ) : ?>
+                            <?php while ( $feat_listings->have_posts() ) : $feat_listings->the_post(); ?>
 
-                            <li>
+                                <li>
 
-                                <div class="listing-tile">
+                                    <div class="featured-property-tile">
 
-                                    <?php if ( has_post_thumbnail( $listing['ID'] ) ) : ?>
-                                        <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                            <img alt="<?php esc_attr_e( get_the_title( $listing['ID'] ) ); ?>" src="<?php echo esc_url( get_the_post_thumbnail_url( $listing['ID'], 'full' ) ); ?>" />
-                                        </a>
-                                    <?php endif; ?>
+                                        <?php if ( has_post_thumbnail() ) : ?>
+                                        
+                                            <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
+                                            
+                                                <div class="price-banner">
+                                                    
+                                                    <h4 class="listing-price">
+                                                        <?php echo '$' . number_format( get_post_meta( get_the_ID(), 'property_price', true ), 0, ".", "," ); ?>
+                                                    </h4>
+                                                    
+                                                </div>
+                                            
+                                            </div>
+                                        
+                                        <?php endif; ?>
 
-                                    <div class="listing-details">
+                                        <div class="prop-details">
 
-                                        <h3 class="listing-title">
-                                            <a href="<?php echo get_the_permalink( $listing['ID'] ); ?>">
-                                                <?php esc_html_e( get_the_title( $listing['ID'] ) ); ?>
-                                            </a>
-                                        </h3>
+                                            <h3 class="prop-heading">
+                                                <a href="<?php echo esc_url( get_the_permalink() ); ?>">
+                                                    <?php echo get_post_meta( get_the_ID(), 'property_heading', true ); ?>
+                                                </a>
+                                            </h3>
 
-                                        <h4 class="listing-price">
-                                            <?php $prices = get_post_meta( $listing['ID'], 'property_price' ); ?>
-                                            <?php echo '$' . number_format( $prices[0], 0, ".", "," ); ?>
-                                        </h4>
+                                            <div class="prop-meta">
 
-                                        <div class="listing-meta">
+                                                <div class="bedrooms">
+                                                    <h4 class="prop-label">
+                                                        <span class="fa fa-bed"></span>
+                                                        <?php _e( 'Bedrooms', 'ytre' ); ?>
+                                                        <div class="value">
+                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_bedrooms', true ) ); ?>    
+                                                        </div>
+                                                    </h4>
+                                                </div>
+                                                
+                                                <div class="bathrooms">
+                                                    <h4 class="prop-label">
+                                                        <span class="fa fa-bathtub"></span>
+                                                        <?php _e( 'Bathrooms', 'ytre' ); ?>
+                                                        <div class="value">
+                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_bathrooms', true ) ); ?>    
+                                                        </div>
+                                                    </h4>
+                                                </div>
+                                                
+                                                <div class="parking">
+                                                    <h4 class="prop-label">
+                                                        <span class="fa fa-car"></span>
+                                                        <?php _e( 'Parking', 'ytre' ); ?>
+                                                        <div class="value">
+                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_garage', true ) ) + intval( get_post_meta( get_the_ID(), 'property_carport', true ) ); ?>    
+                                                        </div>
+                                                    </h4>
+                                                </div>
 
-                                            <?php $words = get_theme_mod( 'ytre_featured_listings_trim', 50 ); ?>
-
-                                            <!--<div class="listing-content">
-                                                <?php esc_html_e( wp_trim_words( strip_shortcodes( strip_tags( $listing['post_excerpt'] ) ), $words, '...' ) ); ?>    
-                                            </div>-->
-
-                                            <!--<div class="listing-agent">
-                                                <?php $agent = get_post_meta( $listing['ID'], 'property_agent' ); ?>
-                                                <?php echo esc_html( $agent[0] ); ?>
-                                            </div>-->
+                                            </div>
 
                                         </div>
 
+                                        <?php var_dump( get_post_meta(get_the_ID(), '', true)); ?>
+                                        
                                     </div>
 
-                                </div>
+                                </li>
 
-                            </li>
+                            <?php endwhile; ?>
 
-                        <?php endforeach; ?>
+                            <?php wp_reset_postdata(); ?>
 
-                        <?php wp_reset_postdata(); ?>
-
-                    </ul>
+                        </ul>
+                    
+                    <?php endif; ?>
 
                     <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
                         <div id="featured-listings-widgets">

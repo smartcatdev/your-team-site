@@ -220,11 +220,11 @@ h2#featured-listing-heading {
     padding: 50px 0 10px 0;
 }
 div#featured-listings-section .inner {
-    background-color: #fff;
+/*    background-color: #fff;*/
     margin-top: -120px;
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+/*    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);*/
 }
 div#featured-listings-widgets {
     padding: 25px 25px 10px 25px;
@@ -241,6 +241,7 @@ ul#featured-listings {
     margin: 0 0 30px 0;
     padding: 25px 15px;
     border-radius: 8px;
+    list-style: none;
 }
 @media (max-width:499px) {
     ul#featured-listings {
@@ -1158,3 +1159,80 @@ div#header-search .inner {
     
 }
 
+/** New Featured Listings Design
+**/
+.featured-property-tile {
+    margin: 15px;
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+}
+
+.featured-property-tile .prop-image {
+    height: 220px;
+    background-size: cover;
+    background-position: 50%;
+    position: relative;
+    overflow: hidden;
+}
+
+.prop-image .price-banner {
+    position: absolute;
+    right: 0;
+    bottom: 20px;
+    color: #fff;
+    background-color: #00a8e9;
+    border-bottom: thick solid #0070a7;
+    padding: 10px 15px 5px 30px;
+    border-radius: 4px 0 0px 8px;
+    -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
+}
+
+.prop-image .price-banner .listing-price {
+    margin: 0;
+}
+
+.prop-details {
+    padding: 25px 15px;
+}
+
+.prop-details .prop-heading {
+    margin: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0 0 25px 0;
+    border-bottom: thin solid #cfcfcf;
+}
+
+.prop-details .prop-heading a {
+    color: #3c3c3c;
+}
+
+.prop-meta .prop-label {
+    position: relative;
+    line-height: 30px;
+    font-size: 14px;
+    color: #666666;
+    border-bottom: thin solid #cfcfcf;
+    padding-bottom: 10px;
+}
+
+.prop-meta .prop-label .value {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 30px;
+    width: 30px;
+    line-height: 27px;
+    border: 2px solid #cfcfcf;
+    border-radius: 10px;
+    color: #666;
+    text-align: center;
+}
+
+.prop-meta .prop-label span {
+    margin-right: 10px;
+}

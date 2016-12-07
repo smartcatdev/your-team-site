@@ -53,10 +53,11 @@ get_header(); ?>
 
                                         <div id="archive-loop-epl" class="loop-content">
                                             <?php do_action( 'epl_property_loop_start' ); ?>
-                                            <?php while ( have_posts() ) : // The Loop
-                                                            the_post();
-                                                            do_action('epl_property_blog');
-                                                    endwhile; // end of one post
+                                            <?php 
+                                            while ( have_posts() ) : // The Loop
+                                                the_post();
+                                                do_action('epl_property_blog');
+                                            endwhile; // end of one post
                                             ?>
                                             <?php do_action( 'epl_property_loop_end' ); ?>
                                         </div>
