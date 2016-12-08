@@ -68,12 +68,19 @@ jQuery(document).ready( function( $ ) {
     var show_submit = false;
     $('#floating-filter-search .title').on('click', function() {
         
-        $(this).parent().find('.inner').stop().slideToggle(500, function() {
-            if ( !show_submit && $(this).parent().hasClass('search-field-wrap') ) {
-                $('#floating-filter-search .epl-search-submit').stop().delay(500).slideDown(500);
-                show_submit = true;
-            }
-        });
+        
+        if ( ! $(this).parent().hasClass('epl-search-submit') ) {        
+        
+            $(this).parent().find('.inner').stop().slideToggle( 300, function() {
+                
+                if ( !show_submit ) {
+                    $('#floating-filter-search .epl-search-submit').stop().delay(100).slideDown(600);
+                    show_submit = true;    
+                }
+                
+            });
+
+        }
         
     });
         

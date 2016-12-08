@@ -31,18 +31,42 @@ get_header(); ?>
 
                                 <div class="entry-content">
 
+                                    <?php // var_dump( epl_get_option( 'epl_google_api_key' ) ); ?>
+                                    
                                     <div id="view-toggle-buttons">                               
                                         
                                         <?php 
                                         
-                                        // TODO: Build a string of $_GET parameter to juggle back and forth between List and Map view, if present
-                                        
-                                        if ( isset( $_GET ) ) :
+                                        if ( isset( $_GET ) && !empty( $_GET ) ) :
                                             
                                             $gets = '?';
+                                            $existing = array();
+                                        
                                             if ( isset( $_GET['property_location'] ) ) :
-                                                $gets .= 'property_location=' . $_GET['property_location'];
+                                                $existing[] = 'property_location=' . $_GET['property_location'];
                                             endif;
+
+                                            if ( isset( $_GET['property_price_from'] ) ) :
+                                                $existing[] = 'property_price_from=' . $_GET['property_price_from'];
+                                            endif;
+                                            
+                                            if ( isset( $_GET['property_price_to'] ) ) :
+                                                $existing[] = 'property_price_to=' . $_GET['property_price_to'];
+                                            endif;
+                                            
+                                            if ( isset( $_GET['property_bedrooms_min'] ) ) :
+                                                $existing[] = 'property_bedrooms_min=' . $_GET['property_bedrooms_min'];
+                                            endif;
+                                            
+                                            if ( isset( $_GET['property_bathrooms'] ) ) :
+                                                $existing[] = 'property_bathrooms=' . $_GET['property_bathrooms'];
+                                            endif;
+                                            
+                                            foreach ( $existing as $param ) :
+                                                
+                                                $gets .= $param . '&';
+                                                
+                                            endforeach;
                                             
                                         else :
                                         
@@ -52,17 +76,21 @@ get_header(); ?>
                                         
                                         ?>
                                         
-                                        <a href="<?php echo esc_url( home_url( '/listings-list/' . $gets ) ); ?>" id="view-toggle-list" class="view-toggle-button">
-                                            List View 
-                                         </a>
-                                         <a href="#" id="view-toggle-map" class="view-toggle-button active">
-                                            Map View
-                                         </a>
-                                        
-                                        <?php // TODO: Add a "Clear Filters" button that reloads current page minus any $_GET params that would be used to filter ?>
+                                        <a href="<?php echo esc_url( home_url( '/listings-list/' . substr( $gets, 0, -1 ) ) ); ?>" id="view-toggle-list" class="view-toggle-button">
+                                            <?php _e( 'List View', 'ytre' ); ?>
+                                        </a>
+                                        <a href="#" id="view-toggle-map" class="view-toggle-button active">
+                                            <?php _e( 'Map View', 'ytre' ); ?>
+                                        </a>
+                                        <?php global $post; ?>
+                                        <div id="clear-search-filters">
+                                            <a href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>" class="view-toggle-button">
+                                                <?php _e( 'Clear Filters', 'ytre' ); ?>
+                                            </a>
+                                        </div>
                                         
                                         <p class="listing-page-blurb">
-                                            Browse our listings on your own below or enter some must-haves and let us select the listings you should see.
+                                            <?php _e( 'Browse our listings on your own below or enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
                                         </p>
                                         
                                     </div>
@@ -74,9 +102,9 @@ get_header(); ?>
                                         
                                         $coords = '44.2445245,-76.5189882';
                                         $cluster = false;
-                                        $zoom = '15';
+                                        $zoom = '14';
                                         $height = '750';
-                                        $display = 'card';
+                                        $display = 'simple';
 
                                         $args = array(
                                             
@@ -90,9 +118,6 @@ get_header(); ?>
                                             'property_status'	=> '',
                                             'home_open'		=> false,              // False and true
                                             'location'		=> '',
-                                            'posts_per_page'	=> '10',
-                                            'paged'             => '1',
-                                            'epl_nopaging'	=> 'true',
                                             'meta_query'	=> array(
                                                 array(
                                                     'key'       => 'property_address_coordinates',
@@ -104,7 +129,7 @@ get_header(); ?>
                                         );
 
                                         // Add a tax query for Suburb Location if that parameter is passed
-                                        if ( isset( $_GET['property_location'] ) ) :
+                                        if ( !empty( $_GET['property_location'] ) ) :
                                         
                                             $args['tax_query'][] = array(
                                                 'taxonomy'  => 'location',
@@ -114,15 +139,81 @@ get_header(); ?>
 
                                         endif;
                                         
-                                        // TODO: ADD OTHER CONDITIONAL ADDITIONS TO $args BASED ON FILTERING FROM STICKY WIDGET
+                                        // Add a meta query for Min / Max Price Range if Present
+                                        if ( !empty( $_GET['property_price_from'] ) || !empty( $_GET['property_price_to'] ) ) :
+                                        
+                                            if ( !empty( $_GET['property_price_from'] ) && !empty( $_GET['property_price_to'] ) ) :
+                                            
+                                                $args['meta_query'][] = array(
+                                                    array(
+                                                        'key'       => 'property_price',
+                                                        'value'     => array( $_GET['property_price_from'], $_GET['property_price_to'] ),
+                                                        'type'      => 'numeric',
+                                                        'compare'   => 'BETWEEN',
+                                                    ),
+                                                );
+
+                                            elseif ( !empty( $_GET['property_price_from'] ) ) :
+                                            
+                                                $args['meta_query'][] = array(
+                                                    array(
+                                                        'key'       => 'property_price',
+                                                        'value'     => $_GET['property_price_from'],
+                                                        'type'      => 'numeric',
+                                                        'compare'   => '>=',
+                                                    ),
+                                                );
+                                                
+                                            else :
+                                                
+                                                if ( !empty( $_GET['property_price_from'] ) ) :
+                                                
+                                                    $args['meta_query'][] = array(
+                                                        array(
+                                                            'key'       => 'property_price',
+                                                            'value'     => $_GET['property_price_to'],
+                                                            'type'      => 'numeric',
+                                                            'compare'   => '<=',
+                                                        ),
+                                                    );
+                                                
+                                                endif;
+                                                
+                                            endif;
+
+                                        endif;
+                                        
+                                        // Add a meta query for Minimum Bedrooms if that parameter is passed
+                                        if ( !empty( $_GET['property_bedrooms_min'] ) ) :
+                                        
+                                            $args['meta_query'][] = array(
+                                                'key'       => 'property_bedrooms',
+                                                'value'     => $_GET['property_bedrooms_min'],
+                                                'type'      => 'numeric',
+                                                'compare'   => '>='
+                                            );
+
+                                        endif;
+                                        
+                                        // Add a meta query for Minimum Bathrooms if that parameter is passed
+                                        if ( !empty( $_GET['property_bathrooms'] ) ) :
+                                        
+                                            $args['meta_query'][] = array(
+                                                'key'       => 'property_bathrooms',
+                                                'value'     => $_GET['property_bathrooms'],
+                                                'type'      => 'numeric',
+                                                'compare'   => '>='
+                                            );
+
+                                        endif;
                                         
                                         $results = new WP_Query( $args );
 
                                         ?>
                                         
-                                        <div id="list-view">
+                                        <div id="map-view">
                                     
-                                            <div id="epl-advanced-map" class="epl-am-infobox-rounded">
+                                            <div id="epl-advanced-map" class="epl-am-infobox-square">
 
                                                 <input type="hidden" name="slider[zoom]" value="<?php echo esc_attr( $zoom ); ?>" />
                                                 <input type="hidden" name="slider[height]" value="<?php echo esc_attr( $height ); ?>" />

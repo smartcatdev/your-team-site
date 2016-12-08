@@ -142,23 +142,23 @@ function ytre_update_featured_property_callback() {
     
 }
 
-add_action( 'wp_ajax_nopriv_ytre_map_view', 'ytre_render_map_view' );
-add_action( 'wp_ajax_ytre_map_view', 'ytre_render_map_view' );
-function ytre_render_map_view() {
-    
-    $atts = array(
-        'coords'		=>	'44.2951665,-76.654035', //First property in center by default
-        'zoom'			=>	'13', //for set map zoom level
-        'height'		=>	'750', //for set map height level, pass integer value
-    );
-    
-    error_log(1);
-    echo epl_advanced_map($atts);
-    error_log(2);
-    
-    die();
-    
-}
+//add_action( 'wp_ajax_nopriv_ytre_map_view', 'ytre_render_map_view' );
+//add_action( 'wp_ajax_ytre_map_view', 'ytre_render_map_view' );
+//function ytre_render_map_view() {
+//    
+//    $atts = array(
+//        'coords'		=>	'44.2951665,-76.654035', //First property in center by default
+//        'zoom'			=>	'13', //for set map zoom level
+//        'height'		=>	'750', //for set map height level, pass integer value
+//    );
+//    
+//    error_log(1);
+//    echo epl_advanced_map($atts);
+//    error_log(2);
+//    
+//    die();
+//    
+//}
 
 register_widget( 'Your_Team_Contact_Info_Widget' );
 register_widget( 'Your_Team_Google_Maps_Widget' );

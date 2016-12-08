@@ -337,10 +337,10 @@ footer#colophon {
 div#ytre-google-map .gm-style-cc,
 div#ytre-google-map > div > div > div:nth-child(2),
 div#ytre-google-map > div > div > div:last-of-type {
-    display: none;
+/*    display: none;*/
 }
 #map-view .gm-bundled-control {
-    display: none; 
+    /*display: none;*/ 
 }
 #epl-advanced-map {
     border: 15px solid #fff;
@@ -486,6 +486,11 @@ span.status-sticker {
         width: 100%;
         margin-left: 0 !important;
     }
+}
+#clear-search-filters .view-toggle-button {
+    padding: 5px 15px;
+    background-color: #909090;
+    border-color: #3c3c3c;
 }
 p.listing-page-blurb {
     text-align: left;
@@ -880,9 +885,6 @@ div#floating-filter-search .epl-search-submit {
     overflow: hidden;
     white-space: nowrap;
 }
-div#floating-filter-search .inner {
-    display: none;
-}
 div#floating-filter-search input[type="submit"] {
     margin: 10px 0 0 0;
 }
@@ -1163,10 +1165,16 @@ div#header-search .inner {
 **/
 .featured-property-tile {
     margin: 15px;
+    min-height: 500px;
     background-color: #fff;
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+}
+
+#list-view-masonry .featured-property-tile {
+    margin: 0 0 15px 0;
+    min-height: 500px;
 }
 
 .featured-property-tile .prop-image {
@@ -1182,10 +1190,11 @@ div#header-search .inner {
     right: 0;
     bottom: 20px;
     color: #fff;
-    background-color: #00a8e9;
-    border-bottom: thick solid #0070a7;
+/*    background-color: #00a8e9;*/
+    background-color: rgba(0, 168, 233, 0.8);
+    border-bottom: 4px solid #0070a7;
     padding: 10px 15px 5px 30px;
-    border-radius: 4px 0 0px 8px;
+    border-radius: 8px 0 0px 8px;
     -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
@@ -1220,13 +1229,19 @@ div#header-search .inner {
     padding-bottom: 10px;
 }
 
+.prop-meta > div:last-of-type .prop-label {
+    border-bottom: none;
+    padding-bottom: 0;
+    margin-bottom: 0;
+}
+
 .prop-meta .prop-label .value {
     position: absolute;
     right: 0;
     top: 0;
     height: 30px;
     width: 30px;
-    line-height: 27px;
+    line-height: 30px;
     border: 2px solid #cfcfcf;
     border-radius: 10px;
     color: #666;
@@ -1235,4 +1250,51 @@ div#header-search .inner {
 
 .prop-meta .prop-label span {
     margin-right: 10px;
+}
+
+/** Map Filtering 
+**/
+.overlay-featured-marker.infowindow {
+    padding: 0 !important;
+    height: auto !important;
+    overflow: hidden !important;
+}
+.overlay-featured-marker img.property-thumb {
+    height: 220px;
+}
+.overlay-featured-marker.infowindow .title {
+    display: none !important;
+}
+.overlay-featured-marker > .content .property_address_suburb {
+    display: block;
+    margin: 0;
+    font-size: 18px !important;
+    text-transform: uppercase;
+}
+.overlay-featured-marker > .content {
+    margin: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+}
+.overlay-featured-marker > .content .property-info {
+    position: relative;
+    padding: 25px 15px !important;
+}
+.overlay-featured-marker > .content .epl-adv-popup-meta {
+    display: none;
+}
+.overlay-featured-marker > .content .slider-price {
+    position: absolute;
+    right: 0;
+    top: -50px;
+    color: #fff;
+/*    background-color: #00a8e9;*/
+    background-color: rgba(0, 168, 233, 0.8);
+    border-bottom: 4px solid #0070a7;
+    padding: 10px 15px 5px 30px;
+    border-radius: 8px 0 0px 8px;
+    font-size: 18px;
+    -webkit-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 5px 4px rgba(0,0,0,0.25);
 }
