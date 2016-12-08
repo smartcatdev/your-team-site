@@ -133,26 +133,22 @@ get_header(); ?>
                                                 $args['meta_query'][] = array(
                                                     array(
                                                         'key'       => 'property_price',
-                                                        'value'     => $_GET['property_price_from'],
+                                                        'value'     => array( $_GET['property_price_from'], 10000000 ),
                                                         'type'      => 'numeric',
-                                                        'compare'   => '>=',
+                                                        'compare'   => 'BETWEEN',
                                                     ),
                                                 );
                                                 
                                             else :
                                                 
-                                                if ( !empty( $_GET['property_price_from'] ) ) :
-                                                
-                                                    $args['meta_query'][] = array(
-                                                        array(
-                                                            'key'       => 'property_price',
-                                                            'value'     => $_GET['property_price_to'],
-                                                            'type'      => 'numeric',
-                                                            'compare'   => '<=',
-                                                        ),
-                                                    );
-                                                
-                                                endif;
+                                                $args['meta_query'][] = array(
+                                                    array(
+                                                        'key'       => 'property_price',
+                                                        'value'     => array( 50000, $_GET['property_price_to'] ),
+                                                        'type'      => 'numeric',
+                                                        'compare'   => 'BETWEEN',
+                                                    ),
+                                                );
                                                 
                                             endif;
 
