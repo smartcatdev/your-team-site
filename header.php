@@ -51,7 +51,11 @@
                             </nav><!-- #site-navigation -->
                         
                         </div>
-                            
+                
+                        <div id="header-actual-form">
+                            <?php get_search_form(); ?> 
+                        </div>
+                        
                     </div>
                     
                 </div>
@@ -61,9 +65,7 @@
         </div><!-- .site-branding -->
         
         <div id="header-search">
-            <div class="inner">
-                <?php get_search_form(); ?>
-            </div>
+            <!-- SlickNav Appends Here -->
         </div>
         
     </header><!-- #masthead -->

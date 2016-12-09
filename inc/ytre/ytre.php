@@ -167,7 +167,6 @@ function ytre_custom_css() { ?>
             #property-heading .entry-title,
             #listing-agent-sidebar .epl-author-box .epl-author-title a,
             .property-box .price,
-            .jumbo-title span,
             .epl-archive-default h3.archive-page-subtitle,
             .grid2 .sc_team_member .sc_team_member_name a {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
@@ -195,6 +194,10 @@ function ytre_custom_css() { ?>
             .galleria-info-link,
             .galleria-info-text {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
+            }
+            
+            .jumbo-title span {
+                color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
             .nav-pills>li>a,

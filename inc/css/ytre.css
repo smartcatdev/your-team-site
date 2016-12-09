@@ -55,6 +55,20 @@ header#masthead {
 
 /** Header Search
 **/
+#header-actual-form {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+}
+#header-actual-form form {
+    white-space: nowrap;
+}
+@media (max-width:991px) {
+    #header-actual-form {
+        display: none;
+    }
+}
+
 div#header-search {
     position: absolute;
     top: 0;
@@ -190,7 +204,8 @@ div#jumbotron-buttons a.button:hover,
 a.primary-button:hover {
     color: #fff;
 }
-div#jumbotron-buttons a.button span {
+a.primary-button span.fa,
+a.button span.fa {
     font-size: 20px;
     vertical-align: top;
     margin-right: 5px;
@@ -320,8 +335,14 @@ div#featured-listings-widgets .widget {
     color: #fff;
     font-weight: 300;
 }
+div#footer-sidebar-wrapper .widget a,
 div#featured-listings-widgets .widget a {
     color: #fff;
+}
+@media (min-width: 768px) {
+    div#featured-listings-widgets .widget {
+        min-height: 250px;
+    }    
 }
 
 /** Footer
@@ -1005,7 +1026,6 @@ div#ytre-team-photo {
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
-    min-height: 500px;
 }
 
 div#ytre-team-photo .inner {
@@ -1019,14 +1039,19 @@ h3#team-photo-display-name {
     font-weight: 400;
     font-size: 20px;
     margin: 0;
-    padding: 1.5% 0 2% 0;
+    padding: 1.5% 0;
     color: #fff;
     position: absolute;
     bottom: 0;
     width: 100%;
     border-radius: 50% 50% 0 0;
 }
-
+@media (max-width:767px) {
+    h3#team-photo-display-name {
+        font-size: 14px;
+        padding-top: 4%;
+    }
+}
 p.team-page-blurb {
     margin: 75px 0 50px 0;
     text-align: center;
@@ -1393,10 +1418,10 @@ div#scx-widget .scx-chat-btn {
     border-color: #b52c2c;
 }
 #scx-widget .scx-popup .scx-header {
-    border-right: 2px solid;
+/*    border-right: 2px solid;
     border-bottom: 2px solid;
     border-color: #b52c2c;
-    border-radius: 4px 4px 2px 2px;
+    border-radius: 4px 4px 2px 2px;*/
 }
 div#scx-widget .scx-button.scx-primary {
     background-color: #ef5858;
@@ -1417,4 +1442,38 @@ div#scx-widget .scx-button.scx-primary:hover {
 div#scx-widget .scx-chat-btn, 
 div#scx-widget .scx-popup {
     top: 25% !important;
+}
+
+/** Email Signup Widget
+**/
+
+div#featured-listings-widgets .gform_wrapper {
+    margin: 0;
+}
+div#featured-listings-widgets .gform_wrapper input {
+    width: 100%;
+}
+div#featured-listings-widgets .gform_wrapper input[type="submit"] {
+    box-shadow: none;
+    text-shadow: none;
+    border: 2px solid rgba(255,255,255,.8);
+    padding: 10px 0;
+    background: none;
+    color: rgba(255,255,255,.8);
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+div#featured-listings-widgets .gform_wrapper input[type="submit"]:hover {
+    border-color: #fff;
+    color: #fff;
+}
+div#featured-listings-widgets .gform_wrapper label {
+    display: none;
+}
+div#featured-listings-widgets .gform_wrapper .gform_heading {
+    text-align: center;
+}
+div#featured-listings-widgets .gform_wrapper .gform_footer {
+    margin: 0;
 }

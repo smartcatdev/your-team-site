@@ -20,22 +20,28 @@ $plugin = new SmartcatTeamPlugin();
                             
                             <div class="col-sm-4">
                     
-                                <?php if ( has_post_thumbnail() ) : ?>
+                                <div id="ytre-member-photo">
 
-                                    <div id="ytre-member-photo">
+                                    <?php if ( has_post_thumbnail() ) : ?>
 
                                         <?php echo the_post_thumbnail( 'large' ); ?>
 
-                                        <div id="ytre-team-actions">
+                                    <?php endif; ?>
 
-                                            <a class="primary-button">Button One</a>
-                                            <a class="primary-button">Button Two</a>
+                                    <div id="ytre-team-actions">
 
-                                        </div>
+                                        <a href="tel:<?php echo get_post_meta( get_the_ID(), 'team_member_phone', true ); ?>" class="primary-button">
+                                            <span class="fa fa-mobile"></span>
+                                            <?php _e( 'Call', 'ytre' ); ?>
+                                        </a>
+                                        <a href="mailto:<?php echo get_post_meta( get_the_ID(), 'team_member_email', true ); ?>" class="primary-button">
+                                            <span class="fa fa-envelope-o"></span>
+                                            <?php _e( 'Email', 'ytre' ); ?>
+                                        </a>
 
                                     </div>
-
-                                <?php endif; ?>
+                                    
+                                </div>
 
                             </div>
 
@@ -44,7 +50,7 @@ $plugin = new SmartcatTeamPlugin();
                                 <div class="ytre-member-details">
 
                                     <h2 class="name" itemprop="name"><?php echo the_title(); ?></h2>
-                                    <h3 class="title" itemprop="jobtitle"><?php echo get_post_meta(get_the_ID(), 'team_member_title', true); ?></h3>
+                                    <h3 class="title" itemprop="jobtitle"><?php echo get_post_meta( get_the_ID(), 'team_member_title', true ); ?></h3>
 
                                     <div class="ytre-member-content">  
                                         <?php the_content(); ?>
