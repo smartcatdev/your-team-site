@@ -1401,17 +1401,17 @@ div#scx-widget .scx-chat-btn {
 div#scx-widget .scx-button.scx-primary {
     background-color: #ef5858;
     color: rgba(255,255,255,.80);
-    border-color: #b52c2c;
+    border-color: #b52c2c !important;
     border: none;
-    border-right: 2px solid;
-    border-bottom: 2px solid;
+    border-right: 2px solid !important;
+    border-bottom: 2px solid !important;
     transition: 0.3s all ease-in-out;
     -moz-transition: 0.3s all ease-in-out;
     -webkit-transition: 0.3s all ease-in-out;
 }
 div#scx-widget .scx-button.scx-primary:hover {
-    background-color: #ef5858;
-    border-color: #b52c2c;
+    background-color: #ef5858 !important;
+    border-color: #b52c2c !important;
     color: #fff !important;
 }
 div#scx-widget .scx-chat-btn, 
