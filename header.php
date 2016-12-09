@@ -84,6 +84,20 @@
         . ']'); ?>
         
     </div>
+
+    <div id="floating-contact-cta">
+        
+        <div class="edge-block">
+        </div>
+        
+        <div class="inner">
+            <?php _e( 'Ready to list your home with us? Talk to one of our agents today.', 'ytre' ); ?>
+            <a href="<?php echo esc_url( home_url( '/contact-us/' ) ); ?>" class="primary-button">
+                <?php _e( 'Contact Us', 'ytre' ); ?>
+            </a>
+        </div>
+        
+    </div>
     
     <div id="content" class="site-content">
 

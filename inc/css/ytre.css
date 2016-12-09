@@ -857,17 +857,26 @@ div#property-details .tab-content {
 
 /** Floating Search Filter Box
 **/
-div#floating-filter-search {
+div#floating-filter-search,
+div#floating-contact-cta {
     position: fixed;
     right: 0;
     top: 25%;
     z-index: 9999;
     padding: 10px 0;
 }
+div#floating-contact-cta,
+body.page-template-page-team div#floating-filter-search {
+    display: none;
+}
+body.page-template-page-team div#floating-contact-cta {
+    display: block;
+}
 #floating-filter-search .epl-search-forms-wrapper.epl-search-default {
 
 }
-div#floating-filter-search .edge-block {
+div#floating-filter-search .edge-block,
+div#floating-contact-cta .edge-block {
     width: 15px;
     height: 100%;
     position: absolute;
@@ -878,11 +887,16 @@ div#floating-filter-search .edge-block {
     -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     cursor: pointer;
-    min-height: 170px;
     z-index: 9999;
     transition: 0.3s all ease-in-out;
     -moz-transition: 0.3s all ease-in-out;
     -webkit-transition: 0.3s all ease-in-out;
+}
+div#floating-filter-search .edge-block {
+    min-height: 170px;
+}
+div#floating-contact-cta .edge-block {
+    min-height: 190px;
 }
 div#floating-filter-search form {
     padding: 5px 0 5px 10px;
@@ -897,6 +911,21 @@ div#floating-filter-search form {
     box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
     overflow: hidden;
     white-space: nowrap;
+}
+div#floating-contact-cta .inner {
+    margin: 5px 10px 5px 0;
+    background-color: #fff;
+    border-radius: 4px 0 0 4px;
+    padding: 20px 20px 20px 15px;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.5);
+    overflow: hidden;
+    width: 200px;
+}
+div#floating-contact-cta .inner .primary-button {
+    margin: 20px 0 0 0;
+    width: 100%;
 }
 div#floating-filter-search .epl-search-submit {
     margin: 0px 0px 10px 0px;
@@ -1446,7 +1475,6 @@ div#scx-widget .scx-popup {
 
 /** Email Signup Widget
 **/
-
 div#featured-listings-widgets .gform_wrapper {
     margin: 0;
 }

@@ -85,11 +85,20 @@ jQuery(document).ready( function( $ ) {
     });
         
     /**
-     * Hide On Click of Sidebar
+     * Hide Filter Search On Click of Sidebar
      */
     $('div#floating-filter-search .edge-block').on('click', function() {
         
         $(this).parent().find('.epl-search-forms-wrapper.epl-search-default').stop().fadeToggle(300);
+        
+    });
+        
+    /**
+     * Hide Contact CTA On Click of Sidebar
+     */
+    $('#floating-contact-cta .edge-block').on('click', function() {
+        
+        $(this).parent().find('.inner').stop().fadeToggle(300);
         
     });
         

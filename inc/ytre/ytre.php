@@ -156,6 +156,7 @@ function ytre_custom_css() { ?>
             .galleria-theme-classic .galleria-info-text,
             #single-property-title,
             div#floating-filter-search .edge-block,
+            div#floating-contact-cta .edge-block,
             div#header-search {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
