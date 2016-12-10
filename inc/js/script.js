@@ -101,6 +101,20 @@ jQuery(document).ready( function( $ ) {
         $(this).parent().find('.inner').stop().fadeToggle(300);
         
     });
+    
+    /**
+     * Show Hidden Chat Plugin on Home
+     */
+    var chat_visible = false;
+//    $('body.home div#scx-widget').hide();
+    $('#jumbotron-buttons .chat-trigger').on('click', function() {
+        
+        if ( !chat_visible ) {
+            $('body.home div#scx-widget div#scx-btn').show();
+            chat_visible = true;
+        }
+        
+    });
         
 });
 
