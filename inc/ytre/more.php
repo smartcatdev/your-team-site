@@ -28,54 +28,6 @@ function ytre_populate_featured_column( $column_name, $post_id ) {
     }    
     
 }
-//add_filter( 'manage_edit-property_sortable_columns', 'ytre_make_sortable_columns' );
-//function ytre_make_sortable_columns( $sortable_columns ) {
-//
-//   /**
-//    * Array index and column name must match.
-//    * 
-//    * The value of the array item is the
-//    * identifier of the column data's meta field.
-//    */
-//   $sortable_columns[ 'is_featured' ] = 'single_property_is_featured';
-//
-//   return $sortable_columns;
-//   
-//}
-//add_action( 'pre_get_posts', 'manage_wp_posts_be_qe_pre_get_posts', 1 );
-//function manage_wp_posts_be_qe_pre_get_posts( $query ) {
-//
-//   /**
-//    * We only want our code to run in the main WP query
-//    * AND if an orderby query variable is designated.
-//    */
-//   if ( $query->is_main_query() && ( $orderby = $query->get( 'orderby' ) ) ) {
-//
-//      switch( $orderby ) {
-//
-//         // If we're ordering by 'film_rating'
-//         case 'single_property_is_featured':
-//
-//            // set our query's meta_key, which is used for custom fields
-//            $query->set( 'meta_key', 'single_property_is_featured' );
-//				
-//            /**
-//             * Tell the query to order by our custom field/meta_key's
-//             * value, in this film rating's case: PG, PG-13, R, etc.
-//             *
-//             * If your meta value are numbers, change 'meta_value'
-//             * to 'meta_value_num'.
-//             */
-//            $query->set( 'orderby', 'meta_value' );
-//				
-//            break;
-//
-//      }
-//
-//   }
-//
-//}
-
 
 add_action( 'admin_footer', 'toggle_featured_property' );
 function toggle_featured_property() {
@@ -142,26 +94,7 @@ function ytre_update_featured_property_callback() {
     
 }
 
-//add_action( 'wp_ajax_nopriv_ytre_map_view', 'ytre_render_map_view' );
-//add_action( 'wp_ajax_ytre_map_view', 'ytre_render_map_view' );
-//function ytre_render_map_view() {
-//    
-//    $atts = array(
-//        'coords'		=>	'44.2951665,-76.654035', //First property in center by default
-//        'zoom'			=>	'13', //for set map zoom level
-//        'height'		=>	'750', //for set map height level, pass integer value
-//    );
-//    
-//    error_log(1);
-//    echo epl_advanced_map($atts);
-//    error_log(2);
-//    
-//    die();
-//    
-//}
-
 register_widget( 'Your_Team_Contact_Info_Widget' );
-register_widget( 'Your_Team_Google_Maps_Widget' );
 
 class Your_Team_Contact_Info_Widget extends WP_Widget {
 
@@ -265,85 +198,6 @@ class Your_Team_Contact_Info_Widget extends WP_Widget {
         $instance['scmod_contact_info_phone']   = !empty( $new_instance['scmod_contact_info_phone'] ) ? strip_tags( $new_instance['scmod_contact_info_phone'] ) : '';
         $instance['scmod_contact_info_email']   = !empty( $new_instance['scmod_contact_info_email'] ) ? strip_tags( $new_instance['scmod_contact_info_email'] ) : '';
         $instance['scmod_contact_info_address'] = !empty( $new_instance['scmod_contact_info_address'] ) ? strip_tags( $new_instance['scmod_contact_info_address'] ) : '';
-        
-        return $instance;
-        
-    }
-
-}
-
-class Your_Team_Google_Maps_Widget extends WP_Widget {
-
-    public function __construct() {
-
-        parent::__construct(
-            'ytre-google-maps-widget',
-            __( 'Google Maps Widget', 'ytre' ),
-            array(
-                'classname'   => 'ytre-google-maps',
-                'description' => __( 'Display a map to the address set in Customizer', 'ytre' ),
-            )
-        );
-
-    }
-
-    public function widget( $args, $instance ) { ?>
-
-        <div class="maps-widget <?php echo isset( $instance['ytre_google_maps_width'] ) ? 'col-sm-' . $instance['ytre_google_maps_width'] : 'col-sm-12'; ?>">
-
-            <h4 class="widget-title">
-                <?php echo !empty( $instance['ytre_google_maps_title'] ) ? esc_html( $instance['ytre_google_maps_title'] ) : ''; ?>
-            </h4>
-            
-            <div id="ytre-google-map"></div>
-    
-        </div>
-        
-    <?php }
-
-    public function form( $instance ) {
-
-        $widths = array(
-            '3'     => '1/4',
-            '4'     => '1/3',
-            '6'     => '1/2',
-            '12'    => __( 'Full', 'ytre' ),
-        );
-       
-        // Set default values
-        $instance = wp_parse_args( (array) $instance, array( 
-            'ytre_google_maps_title'      => __( 'Contact Info', 'ytre'),
-            'ytre_google_maps_width'      => '12',
-        ) );
-
-        // Retrieve an existing value from the database
-        $ytre_google_maps_title   = !empty( $instance['ytre_google_maps_title'] ) ? $instance['ytre_google_maps_title'] : '';
-        $ytre_google_maps_width   = !empty( $instance['ytre_google_maps_width'] ) ? $instance['ytre_google_maps_width'] : 'full';
-        
-        // Title - Text
-        echo '<p>';
-        echo '	<label for="' . $this->get_field_id( 'ytre_google_maps_title' ) . '" class="ytre_google_maps_title_label">' . __( 'Title', 'ytre' ) . '</label>';
-        echo '	<input type="text" id="' . $this->get_field_id( 'ytre_google_maps_title' ) . '" name="' . $this->get_field_name( 'ytre_google_maps_title' ) . '" class="widefat" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr( $ytre_google_maps_title ) . '">';
-        echo '</p>';
-
-        // Widget Width - Select/Option
-        echo '<p>';
-        echo '	<label for="' . $this->get_field_id( 'ytre_google_maps_width' ) . '" class="ytre_google_maps_width_label">' . __( 'Widget Width', 'ytre' ) . '</label>';
-        echo '	<select id="' . $this->get_field_id( 'ytre_google_maps_width' ) . '" name="' . $this->get_field_name( 'ytre_google_maps_width' ) . '" class="widefat">';
-            foreach( $widths as $key => $value ) :
-                echo '<option value="' . $key . '" ' . selected( $ytre_google_maps_width, $key, false ) . '> ' . $value . '</option>';
-            endforeach;
-        echo '	</select>';
-        echo '</p>';
-
-    }
-
-    public function update( $new_instance, $old_instance ) {
-
-        $instance = $old_instance;
-
-        $instance['ytre_google_maps_title']   = !empty( $new_instance['ytre_google_maps_title'] ) ? strip_tags( $new_instance['ytre_google_maps_title'] ) : '';
-        $instance['ytre_google_maps_width']   = !empty( $new_instance['ytre_google_maps_width'] ) ? strip_tags( $new_instance['ytre_google_maps_width'] ) : '12';
         
         return $instance;
         
@@ -459,6 +313,162 @@ class Ytre_Property_Images_Meta_Box {
 
         // Update the meta field in the database
         update_post_meta( $post_id, 'property_image_set', $property_images );
+        
+    }
+    
+}
+
+
+$labels = array (
+
+    'name'                  => _x( 'Events', 'Post Type General Name', 'ytre' ),
+    'singular_name'         => _x( 'Event', 'Post Type Singular Name', 'ytre' ),
+    'menu_name'             => __( 'Events', 'ytre' ),
+    'name_admin_bar'        => __( 'Events', 'ytre' ),
+    'archives'              => __( 'Archives', 'ytre' ),
+    'parent_item_colon'     => __( 'Parent Item:', 'ytre' ),
+    'all_items'             => __( 'All Events', 'ytre' ),
+    'add_new_item'          => __( 'Add New Event', 'ytre' ),
+    'add_new'               => __( 'Add New', 'ytre' ),
+    'new_item'              => __( 'New Event', 'ytre' ),
+    'edit_item'             => __( 'Edit Event', 'ytre' ),
+    'update_item'           => __( 'Update Event', 'ytre' ),
+    'view_item'             => __( 'View Event', 'ytre' ),
+    'search_items'          => __( 'Search Events', 'ytre' ),
+    'not_found'             => __( 'Not found', 'ytre' ),
+    'not_found_in_trash'    => __( 'Not found in Trash', 'ytre' ),
+    'featured_image'        => __( 'Featured Image', 'ytre' ),
+    'set_featured_image'    => __( 'Set featured image', 'ytre' ),
+    'remove_featured_image' => __( 'Remove featured image', 'ytre' ),
+    'use_featured_image'    => __( 'Use as featured image', 'ytre' ),
+    'insert_into_item'      => __( 'Insert into event', 'ytre' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this event', 'ytre' ),
+    'items_list'            => __( 'Events list', 'ytre' ),
+    'items_list_navigation' => __( 'Jobs list navigation', 'ytre' ),
+    'filter_items_list'     => __( 'Filter events', 'ytre' ),
+
+);
+$args = array (
+
+    'label'                 => __( 'Event', 'ytre' ),
+    'description'           => __( 'Events', 'ytre' ),
+    'labels'                => $labels,
+    'supports'              => array ( 'title', 'editor', 'author', 'thumbnail', ),
+    'hierarchical'          => false,
+    'public'                => true,
+    'show_ui'               => true,
+    'show_in_menu'          => true,
+    'menu_position'         => 5,
+    'menu_icon'             => 'dashicons-calendar-alt',
+    'show_in_admin_bar'     => true,
+    'show_in_nav_menus'     => true,
+    'can_export'            => true,
+    'has_archive'           => true,
+    'exclude_from_search'   => false,
+    'publicly_queryable'    => true,
+    'capability_type'       => 'post',
+
+);
+register_post_type( 'event', $args );
+
+new Your_Team_Event_Meta_Box;
+class Your_Team_Event_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
+        }
+        
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
+        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
+        
+    }
+
+    public function add_metabox() {
+
+        add_meta_box( 'event_meta', __( 'Event Details', 'ytre' ), array ( $this, 'render_event_metabox' ), 'event', 'normal', 'high' );
+        
+    }
+
+    public function render_event_metabox( $post ) {
+
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'event_meta_box_nonce_action', 'event_meta_box_nonce' );
+
+        // Retrieve an existing value from the database.
+        $event_date         = get_post_meta( $post->ID, 'event_meta_date', true );
+        $event_time_start   = get_post_meta( $post->ID, 'event_meta_time_start', true );
+        $event_time_end     = get_post_meta( $post->ID, 'event_meta_time_end', true );
+        $event_location     = get_post_meta( $post->ID, 'event_meta_location', true );
+
+        // Set default values.
+        if ( empty( $event_date ) )         { $event_date = ''; } 
+        if ( empty( $event_time_start ) )   { $event_time_start = ''; }
+        if ( empty( $event_time_end ) )     { $event_time_end = ''; }
+        if ( empty( $event_location ) )     { $event_location = ''; }
+            
+        // Form fields.
+        echo '<table class="form-table">';
+
+        echo '	<tr>';
+        echo '		<th><label for="event_meta_date" class="event_meta_date_label">' . __( 'Date', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="date" id="event_meta_date" name="event_meta_date" class="event_meta_date_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $event_date ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="event_meta_time_start" class="event_meta_time_start_label">' . __( 'Time Start', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="time" id="event_meta_time_start" name="event_meta_time_start" class="event_meta_time_start_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $event_time_start ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="event_meta_time_end" class="event_meta_time_end_label">' . __( 'Time End', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="time" id="event_meta_time_end" name="event_meta_time_end" class="event_meta_time_end_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $event_time_end ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="event_meta_location" class="event_meta_location_label">' . __( 'Location', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="event_meta_location" name="event_meta_location" class="event_meta_location_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $event_location ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '</table>';
+        
+    }
+    
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name = isset( $_POST[ 'event_meta_box_nonce' ] ) ? $_POST[ 'event_meta_box_nonce' ] : '';
+        $nonce_action = 'event_meta_box_nonce_action';
+
+        // Check if a nonce is set and valid
+        if ( !isset( $nonce_name ) ) { return; }
+        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
+            
+        // Sanitize user input.
+        $event_date = isset( $_POST[ 'event_meta_date' ] ) ? sanitize_text_field( $_POST[ 'event_meta_date' ] ) : '';
+        $event_time_start = isset( $_POST[ 'event_meta_time_start' ] ) ? sanitize_text_field( $_POST[ 'event_meta_time_start' ] ) : '';
+        $event_time_end = isset( $_POST[ 'event_meta_time_end' ] ) ? sanitize_text_field( $_POST[ 'event_meta_time_end' ] ) : '';
+        $event_location = isset( $_POST[ 'event_meta_location' ] ) ? sanitize_text_field( $_POST[ 'event_meta_location' ] ) : '';
+
+        // Update the meta field in the database.
+        update_post_meta( $post_id, 'event_meta_date', $event_date );
+        update_post_meta( $post_id, 'event_meta_time_start', $event_time_start );
+        update_post_meta( $post_id, 'event_meta_time_end', $event_time_end );
+        update_post_meta( $post_id, 'event_meta_location', $event_location );
         
     }
     

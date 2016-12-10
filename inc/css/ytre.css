@@ -1505,3 +1505,62 @@ div#featured-listings-widgets .gform_wrapper .gform_heading {
 div#featured-listings-widgets .gform_wrapper .gform_footer {
     margin: 0;
 }
+
+/** 404 Error Template
+**/
+section.error-404.not-found .page-content {
+    padding: 100px 0;
+    text-align: center;
+}
+.title-404 {
+    font-size: 60px;
+}
+
+/** Events Template
+**/
+div#ytre-event {
+    margin: 50px 0;
+}
+#single-event-inner {
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    padding: 20px;
+    background-color: #fff;
+}
+#single-event-inner .rsvp-heading {
+    border-bottom: thin solid #eeeeee;
+    padding-bottom: 15px;
+}
+#single-event-inner .gform_wrapper {
+    max-width: 100%;
+}
+#single-event-inner .gform_wrapper input {
+    width: 100%;
+}
+#single-event-inner .gform_wrapper input[type="submit"] {
+    display: inline-block;
+    padding: 0 10px;
+    border-radius: 4px;
+    color: rgba(255,255,255,.80);
+    font-size: 14px;
+    font-weight: 300;
+    margin-left: 5px;
+    border-bottom: 2px solid;
+    border-right: 2px solid;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    text-align: center;
+    box-shadow: none;
+    text-shadow: none;
+    border-left: none;
+    border-top: none;
+    height: 35px;
+    vertical-align: top;
+    margin: 0;
+    width: 100%;
+}
+#single-event-inner .gform_wrapper input[type="submit"]:hover {
+    color: #fff;
+}

@@ -193,7 +193,8 @@ function ytre_custom_css() { ?>
             .view-toggle-button,
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
-            .galleria-info-text {    
+            .galleria-info-text,
+            #single-event-inner .gform_wrapper input[type="submit"] {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
@@ -218,7 +219,8 @@ function ytre_custom_css() { ?>
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
             .galleria-info-text,
-            .nav-pills>li>a {
+            .nav-pills>li>a,
+            #single-event-inner .gform_wrapper input[type="submit"] {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
         
