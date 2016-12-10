@@ -252,17 +252,21 @@ function ytre_custom_js() { ?>
             /**
              * OwlCarousel Init 
              */
-            $("#featured-listings").owlCarousel({
-                slideSpeed : 400,
-                paginationSpeed : 1000,
-                autoPlay : true,
-                items : 4,
-                itemsDesktop : [767,2],
-                itemsMobile : [499,1],
-                pagination : false,
-                navigation : true,
-                navigationText : ["Prev","Next"]
-            });    
+            if ( $("#featured-listings").length ) {
+            
+                $("#featured-listings").owlCarousel({
+                    slideSpeed : 400,
+                    paginationSpeed : 1000,
+                    autoPlay : true,
+                    items : 4,
+                    itemsDesktop : [767,2],
+                    itemsMobile : [499,1],
+                    pagination : false,
+                    navigation : true,
+                    navigationText : ["Prev","Next"]
+                });    
+
+            }
             
             if ( $('#property-gallery').length ) {
             
@@ -277,16 +281,20 @@ function ytre_custom_js() { ?>
             /**
              * Jumbotron and Video Background
              */
-            $('#jumbotron-section').tubular({ 
-                videoId: 'AK-MUzWdpjU',
-            });
-            $('#tubular-container').appendTo('#jumbotron-section');
-            $('#tubular-shield').appendTo('#jumbotron-section');
-            $(window).load(function () {
-                $('#tubular-container').delay(650).animate({
-                    opacity: 1
-                }, 500 );
-            });
+            if ( $("#jumbotron-section").length ) {
+            
+                $('#jumbotron-section').tubular({ 
+                    videoId: 'AK-MUzWdpjU',
+                });
+                $('#tubular-container').appendTo('#jumbotron-section');
+                $('#tubular-shield').appendTo('#jumbotron-section');
+                $(window).load(function () {
+                    $('#tubular-container').delay(650).animate({
+                        opacity: 1
+                    }, 500 );
+                });
+            
+            }
             
             /**
              * Change the Filter CTA action parameter to the listings page
