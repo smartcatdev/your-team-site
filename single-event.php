@@ -33,7 +33,6 @@ get_header(); ?>
 
                                             <h2 class="name"><?php echo the_title(); ?></h2>
                                             <h3 class="title">
-                                                
                                                 <?php echo date( 'M jS, Y', strtotime( get_post_meta( get_the_ID(), 'event_meta_date', true ) ) ); ?>
                                             </h3>
                                             <h4>
@@ -62,18 +61,18 @@ get_header(); ?>
 
                                             <?php endif; ?>
 
-                                            <div id="ytre-team-actions">
+                                            <?php if ( function_exists( 'gravity_form' ) ) : ?>
+                                            
+                                                <div id="ytre-team-actions">
 
-                                                <h3 class="rsvp-heading"><?php _e( 'RSVP', 'ytre' ); ?></h3>
-                                                
-                                                <?php if (function_exists('gravity_form') ) : ?>
-                                                
+                                                    <h3 class="rsvp-heading"><?php _e( 'RSVP', 'ytre' ); ?></h3>
+
                                                     <?php gravity_form( 'RSVP', false, false, false, array( 'event_name' => get_the_title() ), false ); ?>
-                                                
-                                                <?php endif; ?>
-                                                
-                                            </div>
 
+                                                </div>
+
+                                            <?php endif; ?>
+                                            
                                         </div>
 
                                     </div>

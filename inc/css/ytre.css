@@ -1567,3 +1567,30 @@ div#ytre-event {
 #single-event-inner .gform_wrapper input[type="submit"]:hover {
     color: #fff;
 }
+.page-template-page-events .event-details {
+    padding: 25px 15px;
+}
+.page-template-page-events .event-details .event-title {
+    margin: 0;
+    font-size: 18px;
+    text-transform: uppercase;
+    padding: 0 0 25px 0;
+    border-bottom: thin solid #cfcfcf;
+}
+.page-template-page-events .event-details .event-title a {
+    color: #1c1c1c;
+}
+.page-template-page-events .event-details .date {
+    font-family: Lato;
+    font-weight: 300;
+    margin: 15px 0 0px;
+    font-size: 24px;
+}
+.page-template-page-events .event-details .time,
+.page-template-page-events .event-details .location {
+    font-family: Montserrat;
+    font-size: 18px;
+}
+.page-template-page-events .event-details a.primary-button {
+    margin: 10px 0 0;
+}
