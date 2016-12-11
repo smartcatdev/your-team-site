@@ -61,19 +61,19 @@ $wp_customize->add_section( 'ytre_colors_section', array(
 	) ) 
     );     
     
-    // Dark Skin Color
-    $wp_customize->add_setting( 'ytre_theme_color_dark', array (
-        'default'               => '#050e1a',
-        'transport'             => 'refresh',
-        'sanitize_callback'     => 'ytre_sanitize_color',
-    ) );
-    $wp_customize->add_control( 
-	new WP_Customize_Color_Control( $wp_customize, 'ytre_theme_color_dark', array(
-            'label'      => __( 'Theme Color: Dark', 'ytre' ),
-            'section'    => 'ytre_colors_section',
-            'settings'   => 'ytre_theme_color_dark',
-	) ) 
-    );     
+//    // Dark Skin Color
+//    $wp_customize->add_setting( 'ytre_theme_color_dark', array (
+//        'default'               => '#050e1a',
+//        'transport'             => 'refresh',
+//        'sanitize_callback'     => 'ytre_sanitize_color',
+//    ) );
+//    $wp_customize->add_control( 
+//	new WP_Customize_Color_Control( $wp_customize, 'ytre_theme_color_dark', array(
+//            'label'      => __( 'Theme Color: Dark', 'ytre' ),
+//            'section'    => 'ytre_colors_section',
+//            'settings'   => 'ytre_theme_color_dark',
+//	) ) 
+//    );     
 
 // ---------------------------------------------
 // Fonts

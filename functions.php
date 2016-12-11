@@ -64,11 +64,6 @@ function ytre_setup() {
 		'caption',
 	) );
 
-	// Set up the WordPress core custom background feature.
-	add_theme_support( 'custom-background', apply_filters( 'ytre_custom_background_args', array(
-		'default-color' => 'ffffff',
-		'default-image' => '',
-	) ) );
 }
 endif;
 add_action( 'after_setup_theme', 'ytre_setup' );
@@ -81,14 +76,14 @@ add_action( 'after_setup_theme', 'ytre_setup' );
  * @global int $content_width
  */
 function ytre_content_width() {
-	$GLOBALS['content_width'] = apply_filters( 'ytre_content_width', 640 );
+	$GLOBALS['content_width'] = apply_filters( 'ytre_content_width', 1170 );
 }
 add_action( 'after_setup_theme', 'ytre_content_width', 0 );
 
 /**
  * Implement the Custom Header feature.
  */
-require get_template_directory() . '/inc/custom-header.php';
+// require get_template_directory() . '/inc/custom-header.php';
 
 /**
  * Custom template tags for this theme.

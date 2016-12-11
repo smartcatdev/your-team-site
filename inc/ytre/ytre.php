@@ -120,7 +120,10 @@ function ytre_custom_css() { ?>
         .listing-tile .listing-price,
         .galleria-theme-classic .galleria-info-title,
         .galleria-theme-classic .galleria-info-description,
-        #listing-agent-sidebar .epl-author-box .epl-author-title a {
+        #listing-agent-sidebar .epl-author-box .epl-author-title a,
+        .page-template-page-events .event-details .date,
+        h3#team-photo-display-name,
+        .ytre-member-details .title {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
@@ -130,7 +133,12 @@ function ytre_custom_css() { ?>
         .property-box .price,
         #listing-agent-sidebar .epl-author-position.author-position,
         #listing-agent-sidebar .epl-author-contact.author-contact,
-        .overlay-featured-marker > .content .property_address_suburb {
+        .overlay-featured-marker > .content .property_address_suburb,
+        .page-template-page-events .event-details .time,
+        .page-template-page-events .event-details .location,
+        div#floating-filter-search label,
+        a.slicknav_btn,
+        .slicknav_nav a {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_primary', 'Montserrat, sans-serif' ) ); ?>;
         }
 
@@ -194,7 +202,8 @@ function ytre_custom_css() { ?>
             #listing-agent-sidebar ul.epl-author-tabs li,
             .galleria-info-link,
             .galleria-info-text,
-            #single-event-inner .gform_wrapper input[type="submit"] {    
+            #single-event-inner .gform_wrapper input[type="submit"],
+            div#scx-widget .scx-button.scx-primary {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
@@ -204,7 +213,8 @@ function ytre_custom_css() { ?>
             
             .nav-pills>li>a,
             .nav-pills>li.active>a,
-            .nav-pills>li.active:hover>a{
+            .nav-pills>li.active:hover>a,
+            div#scx-widget .scx-button.scx-primary:hover {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?> !important;
             }
         
@@ -220,7 +230,8 @@ function ytre_custom_css() { ?>
             .galleria-info-link,
             .galleria-info-text,
             .nav-pills>li>a,
-            #single-event-inner .gform_wrapper input[type="submit"] {
+            #single-event-inner .gform_wrapper input[type="submit"],
+            div#scx-widget .scx-chat-btn {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
         
@@ -228,16 +239,34 @@ function ytre_custom_css() { ?>
                 color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?>;
             }
             
-        /* --- JUMBOTRON TINT --- */
+            div#scx-widget .scx-button.scx-primary:hover,
+            div#scx-widget .scx-button.scx-primary {
+                border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?> !important;
+            }
+            
+        /* --- JUMBOTRON --- */
         
         div#tubular-shield {
-            height: 400px !important;
             background-color: rgba( 0, 0, 0, <?php echo esc_attr( get_theme_mod( 'ytre_jumbotron_dark_tint', .5 ) ); ?> );
         }
-            
+        
+        #jumbotron-section,
+        div#jumbotron-content,
+        div#tubular-container,
+        div#tubular-shield {
+            height: <?php echo intval( get_theme_mod( 'ytre_jumbotron_height', 400 ) ); ?>px !important;
+        }
+         
     </style>
     
     <?php 
+    
+    // Custom CSS from Customizer > Extras
+    if ( get_theme_mod( 'ytre_custom_css', '' ) != '' ) :
+
+        echo '<style type="text/css">' . get_theme_mod( 'ytre_custom_css', '' ) . '</style>';
+
+    endif;
     
 }
 add_action('wp_head', 'ytre_custom_css');
@@ -270,6 +299,43 @@ function ytre_custom_js() { ?>
 
             }
             
+            /**
+            * Store the Location field, remove it, and re-add it wrapped in tab div
+            */
+            var location_field = $('#floating-filter-search div.epl-property_location');
+                heading_field_location = '<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_location_label', __( 'Where do you want to buy?', 'ytre' ) ) ); ?>' + '</p>';
+            $('#floating-filter-search div.epl-property_location').remove();
+            $('#floating-filter-search div.epl-property_category').before( '<div class="search-field-wrap">' + heading_field_location + '<div class="inner">' + location_field.html() + '</div></div>');
+
+            /**
+            * Store the Price Range fields, remove them, and re-add them wrapped in tab div
+            */
+            var from_price = $('#floating-filter-search div.epl-property_price_from'),
+                to_price = $('#floating-filter-search div.epl-property_price_to'),
+                heading_field_range = '<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_price_label', __( 'What is your price range?', 'ytre' ) ) ); ?>' + '</p>';
+            $('#floating-filter-search div.epl-property_price_from').remove();
+            $('#floating-filter-search div.epl-property_price_to').remove();
+            $('#floating-filter-search div.epl-property_category').after( '<div class="search-field-wrap">' + heading_field_range + '<div class="inner">' + from_price.html() + to_price.html() + '</div></div>');
+
+            /**
+            * Store the Bed and Bath room fields, remove them, and re-add them wrapped in tab div
+            */
+            var min_bedrms  = $('#floating-filter-search div.epl-property_bedrooms_min'),
+                min_bathrms = $('#floating-filter-search div.epl-property_bathrooms'),
+                heading_field_bed_bath = '<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_bed_bath_label', __( 'How many beds and baths?', 'ytre' ) ) ); ?>' + '</p>';
+            $('#floating-filter-search div.epl-property_bedrooms_min').remove();
+            $('#floating-filter-search div.epl-property_bathrooms').remove();
+            $('#floating-filter-search div.epl-property_bedrooms_max').after( '<div class="search-field-wrap">' + heading_field_bed_bath + '<div class="inner">' + min_bedrms.html() + min_bathrms.html() + '</div></div>');
+
+            /**
+            * Prepend a title before the Submit button 
+            */
+            $('#floating-filter-search .epl-search-submit').prepend('<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_ready_label', __( 'Ready to Search?', 'ytre' ) ) ); ?>' + '</p>');
+            $('#floating-filter-search .epl-search-submit input[type=submit]').wrap('<div class="inner"></div>');
+            
+            /**
+             * Property Images Gallery Init
+             */
             if ( $('#property-gallery').length ) {
             
                 Galleria.loadTheme('<?php echo esc_js( get_template_directory_uri() ); ?>/inc/js/galleria/themes/classic/galleria.classic.min.js');
@@ -286,7 +352,7 @@ function ytre_custom_js() { ?>
             if ( $("#jumbotron-section").length ) {
             
                 $('#jumbotron-section').tubular({ 
-                    videoId: 'AK-MUzWdpjU',
+                    videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'AK-MUzWdpjU' ) ); ?>',
                 });
                 $('#tubular-container').appendTo('#jumbotron-section');
                 $('#tubular-shield').appendTo('#jumbotron-section');
@@ -522,10 +588,6 @@ function ytre_render_featured_listings() { ?>
             
                 <div class="inner">
                 
-                    <!--<h2 id="featured-listing-heading">
-                        <?php echo get_theme_mod( 'ytre_featured_listing_heading_text', __( 'Featured Listings', 'ytre' ) ); ?>
-                    </h2>-->
-
                     <?php if ( $feat_listings->have_posts() ) : ?>
                     
                         <ul id="featured-listings" class="owl-carousel owl-theme">
@@ -697,7 +759,7 @@ function ytre_get_skin_colors() {
     $skin_color_array[ 'primary' ]              = get_theme_mod( 'ytre_theme_color_primary', '#3492c6' );
     $skin_color_array[ 'secondary' ]            = get_theme_mod( 'ytre_theme_color_secondary', '#ef5858' );
     $skin_color_array[ 'secondary_accent' ]     = get_theme_mod( 'ytre_theme_color_secondary_accent', '#b52c2c' );
-    $skin_color_array[ 'dark' ]                 = get_theme_mod( 'ytre_theme_color_dark', '#050e1a' );
+    //    $skin_color_array[ 'dark' ]                 = get_theme_mod( 'ytre_theme_color_dark', '#050e1a' );
     
     return $skin_color_array;
     

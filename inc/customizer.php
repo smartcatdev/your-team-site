@@ -15,11 +15,11 @@ function ytre_customize_register( $wp_customize ) {
     // Front Page
     require_once('customizer/settings-front-page.php');
 
-    // Site Header & Footer
-    // require_once('customizer/settings-header-footer.php');
-    
     // Site Appearance
     require_once('customizer/settings-appearance.php');
+
+    // Pages
+    require_once('customizer/settings-pages.php');
 
     // Extras
     require_once('customizer/settings-extras.php');    

@@ -19,7 +19,9 @@ get_header(); ?>
 
                 <div id="single-title-box">
 
-                    <h2 class="entry-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'ytre' ); ?></h2>
+                    <h2 class="entry-title">
+                        <?php echo get_theme_mod( 'ytre_error_page_heading', __( 'Oops!', 'ytre' ) ); ?>
+                    </h2>
 
                 </div>
 
@@ -33,8 +35,14 @@ get_header(); ?>
                                 
                                 <h1 class="title-404"><?php esc_html_e( '404', 'ytre' ); ?></h1>
                                 
-                                <p><?php esc_html_e( 'It looks like nothing was found at this location.', 'ytre' ); ?></p>
+                                <p>
+                                    <?php echo get_theme_mod( 'ytre_error_page_subheading', __( 'It looks like nothing was found at this location, please check the address and try again!', 'ytre' ) ); ?>
+                                </p>
 
+                                <h3>
+                                    <?php echo get_theme_mod( 'ytre_error_page_search_heading', __( 'Search for something new?', 'ytre' ) ); ?>
+                                </h3>
+                                
                                 <?php get_search_form(); ?>
 
                             </div><!-- .page-content -->

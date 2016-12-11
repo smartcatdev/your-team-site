@@ -33,6 +33,36 @@ $wp_customize->add_section( 'ytre_jumbotron_general_section', array(
             'hide'      => __( 'Hide', 'ytre' ),
     ) ) );
 
+    // Jumbotron Video - YouTube ID
+    $wp_customize->add_setting( 'ytre_jumbo_video_id', array (
+        'default'               => 'AK-MUzWdpjU',
+        'transport'             => 'refresh',
+        'sanitize_callback'     => 'ytre_sanitize_text',
+    ) );
+    $wp_customize->add_control( 'ytre_jumbo_video_id', array(
+        'type'                  => 'text',
+        'section'               => 'ytre_jumbotron_general_section',
+        'label'                 => __( 'YouTube Video - ID Code', 'ytre' ),
+        'description'           => __( 'This code can be found in the URL of a YouTube video, like the XXXXXXXX in https://www.youtube.com/watch?v=XXXXXXXX', 'ytre' ),
+    ) );
+    
+    // Jumbotron Height
+    $wp_customize->add_setting( 'ytre_jumbotron_height', array (
+        'default'               => 400,
+        'transport'             => 'refresh',
+        'sanitize_callback'     => 'ytre_sanitize_integer',
+    ) );
+    $wp_customize->add_control( 'ytre_jumbotron_height', array(
+        'type'                  => 'number',
+        'section'               => 'ytre_jumbotron_general_section',
+        'label'                 => __( 'Jumbotron Height', 'ytre' ),
+        'description'           => __( 'The default of 400 is recommended for the best responsiveness, but this can be used to make adjuistments.', 'ytre' ),
+        'input_attrs'           => array(
+            'min' => 300,
+            'max' => 600,
+            'step' => 50,
+    ) ) );
+
     // Dark Tint Overlay
     $wp_customize->add_setting( 'ytre_jumbotron_dark_tint', array (
         'default'               => .5,
@@ -218,32 +248,32 @@ $wp_customize->add_section( 'ytre_featured_listings_section', array(
             'show'      => __( 'Show', 'ytre' ),
             'hide'      => __( 'Hide', 'ytre' ),
     ) ) );
-    
-    // Featured Listings Heading Text
-    $wp_customize->add_setting( 'ytre_featured_listing_heading_text', array (
-        'default'               => __( 'Featured Listings', 'ytre' ),
-        'transport'             => 'refresh',
-        'sanitize_callback'     => 'ytre_sanitize_text',
-    ) );
-    $wp_customize->add_control( 'ytre_featured_listing_heading_text', array(
-        'type'                  => 'text',
-        'section'               => 'ytre_featured_listings_section',
-        'label'                 => __( 'Section Heading Text', 'ytre' ),
-    ) );
-    
-    // Featured Listing - Content Trim Words
-    $wp_customize->add_setting( 'ytre_featured_listings_trim', array (
-        'default'               => 50,
-        'transport'             => 'refresh',
-        'sanitize_callback'     => 'ytre_sanitize_integer',
-    ) );
-    $wp_customize->add_control( 'ytre_featured_listings_trim', array(
-        'type'                  => 'number',
-        'section'               => 'ytre_featured_listings_section',
-        'label'                 => __( 'Trim Listing Excerpt', 'ytre' ),
-        'description'           => __( 'Number of words output will be limited to this value.', 'ytre' ),
-        'input_attrs'           => array(
-            'min' => 0,
-            'max' => 500,
-            'step' => 5,
-    ) ) );
+
+//    // Featured Listings Heading Text
+//    $wp_customize->add_setting( 'ytre_featured_listing_heading_text', array (
+//        'default'               => __( 'Featured Listings', 'ytre' ),
+//        'transport'             => 'refresh',
+//        'sanitize_callback'     => 'ytre_sanitize_text',
+//    ) );
+//    $wp_customize->add_control( 'ytre_featured_listing_heading_text', array(
+//        'type'                  => 'text',
+//        'section'               => 'ytre_featured_listings_section',
+//        'label'                 => __( 'Section Heading Text', 'ytre' ),
+//    ) );
+//    
+//    // Featured Listing - Content Trim Words
+//    $wp_customize->add_setting( 'ytre_featured_listings_trim', array (
+//        'default'               => 50,
+//        'transport'             => 'refresh',
+//        'sanitize_callback'     => 'ytre_sanitize_integer',
+//    ) );
+//    $wp_customize->add_control( 'ytre_featured_listings_trim', array(
+//        'type'                  => 'number',
+//        'section'               => 'ytre_featured_listings_section',
+//        'label'                 => __( 'Trim Listing Excerpt', 'ytre' ),
+//        'description'           => __( 'Number of words output will be limited to this value.', 'ytre' ),
+//        'input_attrs'           => array(
+//            'min' => 0,
+//            'max' => 500,
+//            'step' => 5,
+//    ) ) );

@@ -147,11 +147,11 @@ ul#primary-menu li:hover a {
 /** Tubular JS   
 **/
 #jumbotron-section {
-    height: 400px;
+/*    height: 400px;*/
     background-color: #000000;
 }
 div#jumbotron-content {
-    height: 400px;
+/*    height: 400px;*/
     width: 100%;
     display: table;
     top: 0;
@@ -167,12 +167,12 @@ div#jumbotron-content {
 }
 div#tubular-container {
     position: absolute !important;
-    height: 400px !important;
+/*    height: 400px !important;*/
     top: 0 !important;
     opacity: 0;
 }
 div#tubular-shield {
-    height: 400px !important;
+/*    height: 400px !important;*/
     background-color: rgba(0,0,0,.33);
 }
 iframe#tubular-player {
@@ -337,6 +337,25 @@ div#featured-listings-widgets .widget {
 }
 div#footer-sidebar-wrapper .widget a,
 div#featured-listings-widgets .widget a {
+    color: #fff;
+}
+div#featured-listings-widgets .widget a {
+    box-shadow: none;
+    text-shadow: none;
+    border: 2px solid rgba(255,255,255,.8);
+    padding: 10px 0;
+    background: none;
+    color: rgba(255,255,255,.8);
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    border-radius: 3px;
+    width: 100%;
+    display: inline-block;
+    line-height: 14px;
+}
+div#featured-listings-widgets .widget a:hover {
+    border-color: #fff;
     color: #fff;
 }
 @media (min-width: 768px) {
@@ -947,7 +966,6 @@ div#floating-filter-search input[type="submit"] {
     cursor: pointer;
 }
 div#floating-filter-search label {
-    font-family: Montserrat;
     margin-top: 10px !important;
     display: block;
     margin-bottom: 2px;
@@ -1063,8 +1081,7 @@ div#ytre-team-photo .inner {
 
 h3#team-photo-display-name {
     text-align: center;
-    background-color: rgba(0,158,220,.75);
-    font-family: Lato;
+    background-color: rgba(0, 168, 233, 0.8);
     font-weight: 400;
     font-size: 20px;
     margin: 0;
@@ -1102,7 +1119,6 @@ p.team-page-blurb {
 }
 a.slicknav_btn {
     float: left;
-    font-family: Montserrat;
     background: none;
 }
 div#slicknav-menu-toggle i {
@@ -1166,7 +1182,6 @@ div.slicknav_menu li {
     text-transform: uppercase;
     letter-spacing: .25em;
     font-size: 11px;
-    font-family: Montserrat;
     transition: 0.2s all ease-in-out;
     -moz-transition: 0.2s all ease-in-out;
     -webkit-transition: 0.2s all ease-in-out;
@@ -1422,7 +1437,6 @@ div#team-member-inner {
     border-bottom: thin solid #eeeeee;
 }
 .ytre-member-details .title {
-    font-family: Lato;
     font-weight: 300;
     margin: 15px 0;
 }
@@ -1447,18 +1461,9 @@ div#scx-widget .scx-popup {
 div#scx-widget .scx-chat-btn {
     border-right: 2px solid;
     border-bottom: 2px solid;
-    border-color: #b52c2c;
-}
-#scx-widget .scx-popup .scx-header {
-/*    border-right: 2px solid;
-    border-bottom: 2px solid;
-    border-color: #b52c2c;
-    border-radius: 4px 4px 2px 2px;*/
 }
 div#scx-widget .scx-button.scx-primary {
-    background-color: #ef5858;
     color: rgba(255,255,255,.80);
-    border-color: #b52c2c !important;
     border: none;
     border-right: 2px solid !important;
     border-bottom: 2px solid !important;
@@ -1467,8 +1472,6 @@ div#scx-widget .scx-button.scx-primary {
     -webkit-transition: 0.3s all ease-in-out;
 }
 div#scx-widget .scx-button.scx-primary:hover {
-    background-color: #ef5858 !important;
-    border-color: #b52c2c !important;
     color: #fff !important;
 }
 div#scx-widget .scx-chat-btn, 
@@ -1581,14 +1584,12 @@ div#ytre-event {
     color: #1c1c1c;
 }
 .page-template-page-events .event-details .date {
-    font-family: Lato;
     font-weight: 300;
     margin: 15px 0 0px;
     font-size: 24px;
 }
 .page-template-page-events .event-details .time,
 .page-template-page-events .event-details .location {
-    font-family: Montserrat;
     font-size: 18px;
 }
 .page-template-page-events .event-details a.primary-button {

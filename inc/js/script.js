@@ -28,39 +28,39 @@ jQuery(document).ready( function( $ ) {
         
     });
 
-    /**
-     * Store the Location field, remove it, and re-add it wrapped in tab div
-     */
-    var location_field = $('#floating-filter-search div.epl-property_location');
-        heading_field_location = '<p class="title">Where do you want to buy?</p>';
-    $('#floating-filter-search div.epl-property_location').remove();
-    $('#floating-filter-search div.epl-property_category').before( '<div class="search-field-wrap">' + heading_field_location + '<div class="inner">' + location_field.html() + '</div></div>');
-     
-    /**
-     * Store the Price Range fields, remove them, and re-add them wrapped in tab div
-     */
-    var from_price = $('#floating-filter-search div.epl-property_price_from'),
-        to_price = $('#floating-filter-search div.epl-property_price_to'),
-        heading_field_range = '<p class="title">What is your price range?</p>';
-    $('#floating-filter-search div.epl-property_price_from').remove();
-    $('#floating-filter-search div.epl-property_price_to').remove();
-    $('#floating-filter-search div.epl-property_category').after( '<div class="search-field-wrap">' + heading_field_range + '<div class="inner">' + from_price.html() + to_price.html() + '</div></div>');
-        
-    /**
-     * Store the Bed and Bath room fields, remove them, and re-add them wrapped in tab div
-     */
-    var min_bedrms  = $('#floating-filter-search div.epl-property_bedrooms_min'),
-        min_bathrms = $('#floating-filter-search div.epl-property_bathrooms'),
-        heading_field_bed_bath = '<p class="title">How many beds and baths?</p>';
-    $('#floating-filter-search div.epl-property_bedrooms_min').remove();
-    $('#floating-filter-search div.epl-property_bathrooms').remove();
-    $('#floating-filter-search div.epl-property_bedrooms_max').after( '<div class="search-field-wrap">' + heading_field_bed_bath + '<div class="inner">' + min_bedrms.html() + min_bathrms.html() + '</div></div>');
-        
-    /**
-     * Prepend a title before the Submit button 
-     */
-    $('#floating-filter-search .epl-search-submit').prepend('<p class="title">Ready to Search?</p>');
-    $('#floating-filter-search .epl-search-submit input[type=submit]').wrap('<div class="inner"></div>');
+//    /**
+//     * Store the Location field, remove it, and re-add it wrapped in tab div
+//     */
+//    var location_field = $('#floating-filter-search div.epl-property_location');
+//        heading_field_location = '<p class="title">Where do you want to buy?</p>';
+//    $('#floating-filter-search div.epl-property_location').remove();
+//    $('#floating-filter-search div.epl-property_category').before( '<div class="search-field-wrap">' + heading_field_location + '<div class="inner">' + location_field.html() + '</div></div>');
+//     
+//    /**
+//     * Store the Price Range fields, remove them, and re-add them wrapped in tab div
+//     */
+//    var from_price = $('#floating-filter-search div.epl-property_price_from'),
+//        to_price = $('#floating-filter-search div.epl-property_price_to'),
+//        heading_field_range = '<p class="title">What is your price range?</p>';
+//    $('#floating-filter-search div.epl-property_price_from').remove();
+//    $('#floating-filter-search div.epl-property_price_to').remove();
+//    $('#floating-filter-search div.epl-property_category').after( '<div class="search-field-wrap">' + heading_field_range + '<div class="inner">' + from_price.html() + to_price.html() + '</div></div>');
+//        
+//    /**
+//     * Store the Bed and Bath room fields, remove them, and re-add them wrapped in tab div
+//     */
+//    var min_bedrms  = $('#floating-filter-search div.epl-property_bedrooms_min'),
+//        min_bathrms = $('#floating-filter-search div.epl-property_bathrooms'),
+//        heading_field_bed_bath = '<p class="title">How many beds and baths?</p>';
+//    $('#floating-filter-search div.epl-property_bedrooms_min').remove();
+//    $('#floating-filter-search div.epl-property_bathrooms').remove();
+//    $('#floating-filter-search div.epl-property_bedrooms_max').after( '<div class="search-field-wrap">' + heading_field_bed_bath + '<div class="inner">' + min_bedrms.html() + min_bathrms.html() + '</div></div>');
+//        
+//    /**
+//     * Prepend a title before the Submit button 
+//     */
+//    $('#floating-filter-search .epl-search-submit').prepend('<p class="title">Ready to Search?</p>');
+//    $('#floating-filter-search .epl-search-submit input[type=submit]').wrap('<div class="inner"></div>');
         
     /**
      * Expand On Click of Title
@@ -106,7 +106,6 @@ jQuery(document).ready( function( $ ) {
      * Show Hidden Chat Plugin on Home
      */
     var chat_visible = false;
-//    $('body.home div#scx-widget').hide();
     $('#jumbotron-buttons .chat-trigger').on('click', function() {
         
         if ( !chat_visible ) {
