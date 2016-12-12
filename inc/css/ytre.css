@@ -1481,13 +1481,16 @@ div#scx-widget .scx-popup {
 
 /** Email Signup Widget
 **/
-div#featured-listings-widgets .gform_wrapper {
+div#featured-listings-widgets .gform_wrapper,
+div#footer-sidebar-wrapper .gform_wrapper {
     margin: 0;
 }
-div#featured-listings-widgets .gform_wrapper input {
+div#featured-listings-widgets .gform_wrapper input,
+div#footer-sidebar-wrapper .gform_wrapper input {
     width: 100%;
 }
-div#featured-listings-widgets .gform_wrapper input[type="submit"] {
+div#featured-listings-widgets .gform_wrapper input[type="submit"],
+div#footer-sidebar-wrapper .gform_wrapper input[type="submit"] {
     box-shadow: none;
     text-shadow: none;
     border: 2px solid rgba(255,255,255,.8);
@@ -1498,17 +1501,21 @@ div#featured-listings-widgets .gform_wrapper input[type="submit"] {
     -moz-transition: 0.3s all ease-in-out;
     -webkit-transition: 0.3s all ease-in-out;
 }
-div#featured-listings-widgets .gform_wrapper input[type="submit"]:hover {
+div#featured-listings-widgets .gform_wrapper input[type="submit"]:hover,
+div#footer-sidebar-wrapper .gform_wrapper input[type="submit"]:hover {
     border-color: #fff;
     color: #fff;
 }
-div#featured-listings-widgets .gform_wrapper label {
+div#featured-listings-widgets .gform_wrapper label,
+div#footer-sidebar-wrapper .gform_wrapper label {
     display: none;
 }
-div#featured-listings-widgets .gform_wrapper .gform_heading {
+div#featured-listings-widgets .gform_wrapper .gform_heading,
+div#footer-sidebar-wrapper .gform_wrapper .gform_heading {
     text-align: center;
 }
-div#featured-listings-widgets .gform_wrapper .gform_footer {
+div#featured-listings-widgets .gform_wrapper .gform_footer,
+div#footer-sidebar-wrapper .gform_wrapper .gform_footer {
     margin: 0;
 }
 
@@ -1594,4 +1601,20 @@ div#ytre-event {
 }
 .page-template-page-events .event-details a.primary-button {
     margin: 10px 0 0;
+}
+
+/** Search Results Template
+**/
+div#search-results-wrapper #single-title-box {
+    margin-bottom: 50px;
+}
+div#search-results-wrapper .search-result-item {
+    background-color: #fff;
+    padding: 20px 30px;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+}
+div#search-results-wrapper .search-result-item a {
+    color: #1c1c1c;
 }
