@@ -64,7 +64,7 @@ $wp_customize->add_section( 'ytre_filter_search_section', array(
  
     // Filter Search - Bed / Bath Label
     $wp_customize->add_setting( 'ytre_filter_search_bed_bath_label', array (
-        'default'               => __( 'How many beds and baths?', 'ytre' ),
+        'default'               => __( 'How many bedrooms?', 'ytre' ),
         'transport'             => 'refresh',
         'sanitize_callback'     => 'ytre_sanitize_text',
     ) );

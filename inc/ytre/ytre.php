@@ -322,10 +322,10 @@ function ytre_custom_js() { ?>
             */
             var min_bedrms  = $('#floating-filter-search div.epl-property_bedrooms_min'),
                 min_bathrms = $('#floating-filter-search div.epl-property_bathrooms'),
-                heading_field_bed_bath = '<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_bed_bath_label', __( 'How many beds and baths?', 'ytre' ) ) ); ?>' + '</p>';
+                heading_field_bed_bath = '<p class="title">' + '<?php echo esc_js( get_theme_mod( 'ytre_filter_search_bed_bath_label', __( 'How many bedrooms?', 'ytre' ) ) ); ?>' + '</p>';
             $('#floating-filter-search div.epl-property_bedrooms_min').remove();
             $('#floating-filter-search div.epl-property_bathrooms').remove();
-            $('#floating-filter-search div.epl-property_bedrooms_max').after( '<div class="search-field-wrap">' + heading_field_bed_bath + '<div class="inner">' + min_bedrms.html() + min_bathrms.html() + '</div></div>');
+            $('#floating-filter-search div.epl-property_bedrooms_max').after( '<div class="search-field-wrap">' + heading_field_bed_bath + '<div class="inner">' + min_bedrms.html() + '</div></div>');
 
             /**
             * Prepend a title before the Submit button 
@@ -552,8 +552,10 @@ function ytre_render_jumbotron() { ?>
             
             <div class="col-sm-12">
                 
-                <?php echo get_theme_mod( 'ytre_jumbotron_tagline', __( 'Your Team... Making Dreams a Reality', 'ytre' ) ); ?>
+                    <?php echo get_theme_mod( 'ytre_jumbotron_tagline', __( 'Your Team... Making Dreams a Reality', 'ytre' ) ); ?>
                 
+                    <div class="arrow"></div>
+                    
             </div>
             
         </div>
@@ -698,53 +700,55 @@ function ytre_render_footer() { ?>
         
 <div id="footer-sidebar-wrapper" class="container-fluid">
 
-        <div class="row">
+    <div class="row">
 
-            <div class="col-md-12">
+        <div class="col-md-12">
 
-                <div class="container">
-                    
-                    <div class="row">
+            <div class="container">
 
-                        <?php if ( is_front_page() ) : ?>
-                        
-                            <?php if ( is_active_sidebar( 'sidebar-footer-frontpage' ) ) : ?>
-                                <div class="col-md-12">
+                <div class="row">
 
-                                    <div id="footer-widget-area">
+                    <?php if ( is_front_page() ) : ?>
 
-                                        <?php get_sidebar( 'footer-frontpage' ); ?>
+                        <?php if ( is_active_sidebar( 'sidebar-footer-frontpage' ) ) : ?>
+                            <div class="col-md-12">
 
-                                    </div>
+                                <div id="footer-widget-area">
+
+                                    <?php get_sidebar( 'footer-frontpage' ); ?>
 
                                 </div>
-                            <?php endif; ?>
-                        
-                        <?php else : ?>
-                        
-                            <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
-                                <div class="col-md-12">
 
-                                    <div id="footer-widget-area">
-
-                                        <?php get_sidebar( 'footer' ); ?>
-
-                                    </div>
-
-                                </div>
-                            <?php endif; ?>
-                        
+                            </div>
                         <?php endif; ?>
-                       
-                    </div>
-                    
+
+                    <?php else : ?>
+
+                        <?php if ( is_active_sidebar( 'sidebar-footer' ) ) : ?>
+                            <div class="col-md-12">
+
+                                <div id="footer-widget-area">
+
+                                    <?php get_sidebar( 'footer' ); ?>
+
+                                </div>
+
+                            </div>
+                        <?php endif; ?>
+
+                    <?php endif; ?>
+
                 </div>
-                
+
             </div>
-    
-        </div>
             
+            <div class="arrow"></div>
+
+        </div>
+
     </div>
+
+</div>
     
 <?php }
 add_action( 'ytre_footer', 'ytre_render_footer' );

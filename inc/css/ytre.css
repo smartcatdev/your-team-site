@@ -220,12 +220,30 @@ a.button span.fa {
     }
 }
 #jumbotron-tagline {
-    padding: 50px 0 160px 0;
+    padding: 30px 0;
     text-align: center;
     color: #fff;
     font-weight: 300;
     font-size: 30px;
-    font-style: italic;
+    /*font-style: italic;*/
+    margin-bottom: 50px;
+}
+
+#jumbotron-tagline .arrow,
+#footer-sidebar-wrapper .arrow {
+    width: 0px;
+    height: 0px;
+    border-left: 100px solid transparent;
+    border-right: 100px solid transparent;
+    border-top: 30px solid #0070a7;
+    position: absolute;
+    left: 50%;
+    margin-left: -100px;
+    bottom: -60px;
+}
+#footer-sidebar-wrapper .arrow {
+    border-top-color: whitesmoke;
+    top: -100px;
 }
 
 /** Featured Listings
@@ -237,7 +255,7 @@ h2#featured-listing-heading {
 }
 div#featured-listings-section .inner {
 /*    background-color: #fff;*/
-    margin-top: -120px;
+    
 /*    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);*/
@@ -369,7 +387,7 @@ div#featured-listings-widgets .widget a:hover {
 footer#colophon {
     color: #fff;
     margin-top: 50px;
-    padding: 30px 0;
+    padding: 100px 0 50px;
 }
 
 /** Google Maps
@@ -880,7 +898,7 @@ div#floating-filter-search,
 div#floating-contact-cta {
     position: fixed;
     right: 0;
-    top: 25%;
+    top: 50%;
     z-index: 9999;
     padding: 10px 0;
 }
@@ -1092,11 +1110,48 @@ h3#team-photo-display-name {
     width: 100%;
     border-radius: 50% 50% 0 0;
 }
+
+#mobile-team-cards {
+    display: none;
+}
+
+#mobile-team-cards .mobile-team-member {
+    background-color: #fff;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    margin-bottom: 15px;
+}
+
+#mobile-team-cards .mobile-team-member .name {
+    margin: 0px 0;
+    padding: 15px 15px;
+    border-left: 15px solid #0070a7;
+}
+
+#mobile-team-cards .mobile-team-member .name a {
+    color: #0070a7;
+}
+    
 @media (max-width:767px) {
+    
     h3#team-photo-display-name {
         font-size: 14px;
         padding-top: 4%;
     }
+    
+    #mobile-team-cards {
+        display: block;
+    }
+    
+    div#ytre-team-photo {
+        display: none;
+    }
+    
+    body.page-template-page-team div#floating-contact-cta {
+        display: none;
+    }
+    
 }
 p.team-page-blurb {
     margin: 75px 0 50px 0;
@@ -1104,6 +1159,8 @@ p.team-page-blurb {
     font-weight: 300;
     font-size: 20px;
 }
+
+
 
 /** SlickNav Menu
 **/
@@ -1315,7 +1372,7 @@ div#header-search .inner {
     top: 0;
     height: 30px;
     width: 30px;
-    line-height: 30px;
+    line-height: 26px;
     border: 2px solid #cfcfcf;
     border-radius: 10px;
     color: #666;

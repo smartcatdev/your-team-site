@@ -41,21 +41,75 @@ get_header(); ?>
                                         
                                         <div class="inner">
 
-                                            <img src="<?php echo esc_url( get_theme_mod( 'ytre_team_photo', get_template_directory_uri() . '/inc/images/your-team-photo-cropped.jpg' ) ); ?>" alt="Your Team" usemap="#hotspot-map">
+                                            <img src="<?php echo esc_url( get_theme_mod( 'ytre_team_photo', get_template_directory_uri() . '/inc/images/team-photo-new.jpg' ) ); ?>" alt="Your Team" usemap="#hotspot-map">
 
                                             <map name="hotspot-map">
-                                                <area target="" alt="Romeo Ibit" title="Romeo Ibit" href="/about/team/romeo-ibit/" coords="271,252,307,291,321,368,298,440,230,465,176,429,158,347,172,278,222,250" shape="poly">
-                                                <area target="" alt="Jaunna Lessard" title="Jaunna Lessard" href="/about/team/jaunna-lessard/" coords="504,291,472,317,451,353,429,381,380,360,342,319,343,241,379,198,460,192,497,239" shape="poly">
-                                                <area target="" alt="Lisa Mochan" title="Lisa Mochan" href="/about/team/lisa-mochan/" coords="496,303,466,338,439,396,438,458,468,507,527,510,569,492,596,448,591,369,574,314,529,295" shape="poly">
-                                                <area target="" alt="Jeff Easton" title="Jeff Easton" href="/about/team/jeff-easton/" coords="727,252,680,259,638,293,630,332,632,397,642,439,669,473,731,485,774,467,798,435,813,364,801,300,767,266" shape="poly">
-                                                <area target="" alt="Randy Comis" title="Randy Comis" href="/about/team/randy-comis/" coords="712,241,664,258,630,273,589,245,572,184,578,120,607,89,673,80,698,100,730,133,733,192" shape="poly">
-                                                <area target="" alt="Erin Finn" title="Erin Finn" href="/about/team/erin-finn/" coords="931,156,890,169,852,216,841,267,837,314,870,354,915,369,973,361,1014,330,1020,272,1013,209,978,171" shape="poly">
+                                                <area target="" alt="Erin Finn" title="Erin Finn" href="/about/team/erin-finn/" coords="44,591,237,522" shape="rect">
+                                                <area target="" alt="Jaunna Lessard" title="Jaunna Lessard" href="/about/team/jaunna-lessard/" coords="195,186,456,259" shape="rect">
+                                                <area target="" alt="Jeff Easton" title="Jeff Easton" href="/about/team/jeff-easton/" coords="645,550,853,622" shape="rect">
+                                                <area target="" alt="Romeo Ibit" title="Romeo Ibit" href="/about/team/romeo-ibit/" coords="1038,190,1249,260" shape="rect">
+                                                <area target="" alt="Lisa Mochan" title="Lisa Mochan" href="/about/team/lisa-mochan/" coords="1225,520,1436,589" shape="rect">
                                             </map>
                                             
-                                            <h3 id="team-photo-display-name">
-                                                <?php echo get_theme_mod( 'ytre_team_photo_hover_blurb', __( 'Hover over members and click to view their profiles!', 'ytre' ) ); ?>
-                                            </h3>
+                                        </div>
                                         
+                                    </div>
+                                    
+                                    <div id="mobile-team-cards">
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/jeff-easton/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/jeff-easton.jpg' ); ?>" alt="Jeff Easton">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/jeff-easton/">
+                                                    Jeff Easton
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/erin-finn/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/erin-finn.jpg' ); ?>" alt="Erin Finn">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/erin-finn/">
+                                                    Erin Finn
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/romeo-ibit/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/romeo-ibit.jpg' ); ?>" alt="Romeo Ibit">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/romeo-ibit/">
+                                                    Romeo Ibit
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/jaunna-lessard/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/jaunna-lessard.jpg' ); ?>" alt="Jaunna Lessard">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/jaunna-lessard/">
+                                                    Jaunna Lessard
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/lisa-mochan/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/lisa-mochan.jpg' ); ?>" alt="Lisa Mochan">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/lisa-mochan/">
+                                                    Lisa Mochan
+                                                </a>
+                                            </h3>
                                         </div>
                                         
                                     </div>
