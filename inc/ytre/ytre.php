@@ -161,7 +161,6 @@ function ytre_custom_css() { ?>
 
             #jumbotron-tagline,
             footer#colophon,
-            div#single-title-box,
             .galleria-theme-classic .galleria-info-text,
             #single-property-title,
             div#floating-filter-search .edge-block,
@@ -175,6 +174,7 @@ function ytre_custom_css() { ?>
             #property-heading .entry-title,
             #listing-agent-sidebar .epl-author-box .epl-author-title a,
             .property-box .price,
+            div#single-title-box,
             .epl-archive-default h3.archive-page-subtitle,
             .grid2 .sc_team_member .sc_team_member_name a {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
@@ -187,6 +187,10 @@ function ytre_custom_css() { ?>
             header#masthead,
             .grid2 .sc_team_member_inner .image-container {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
+            }
+            
+            #jumbotron-tagline .arrow {
+                border-top-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
         
         /* --- SECONDARY COLOR --- */
@@ -205,7 +209,8 @@ function ytre_custom_css() { ?>
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
-            .jumbo-title span {
+            .jumbo-title span,
+            div#jumbotron-buttons a.button:hover {
                 color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
@@ -214,6 +219,10 @@ function ytre_custom_css() { ?>
             .nav-pills>li.active:hover>a,
             div#scx-widget .scx-button.scx-primary:hover {
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?> !important;
+            }
+            
+            div#jumbotron-buttons a.button:hover {
+                border-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?> !important;
             }
         
         /* --- SECONDARY ACCENT COLOR --- */
@@ -320,7 +329,7 @@ function ytre_custom_js() { ?>
                     itemsMobile : [499,1],
                     pagination : false,
                     navigation : true,
-                    navigationText : ["Prev","Next"]
+                    navigationText : ["«","»"]
                 });    
 
             }
