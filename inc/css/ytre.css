@@ -910,7 +910,7 @@ div#floating-filter-search,
 div#floating-contact-cta {
     position: fixed;
     right: 0;
-    top: 50%;
+    top: 33%;
     z-index: 9999;
     padding: 10px 0;
 }
