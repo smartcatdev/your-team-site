@@ -124,7 +124,8 @@ function ytre_custom_css() { ?>
         #listing-agent-sidebar .epl-author-box .epl-author-title a,
         .page-template-page-events .event-details .date,
         h3#team-photo-display-name,
-        .ytre-member-details .title {
+        .ytre-member-details .title,
+        div#single-title-box .entry-title {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
