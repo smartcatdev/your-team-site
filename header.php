@@ -39,7 +39,7 @@
                 
                         <div class="logo-container">
 
-                            <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/ytre-logo.png' ); ?>" />
+                            <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/our-team-trans.png' ); ?>" />
 
                         </div>
                         

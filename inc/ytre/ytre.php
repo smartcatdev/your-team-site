@@ -32,6 +32,7 @@ function ytre_scripts() {
     wp_enqueue_script( 'imageMapResizer', get_template_directory_uri() . '/inc/js/imageMapResizer.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'slickNav-js', get_template_directory_uri() . '/inc/js/jquery.slicknav.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'sticky-js', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
     
@@ -169,8 +170,6 @@ function ytre_custom_css() { ?>
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
-            ul#primary-menu li.current-menu-item a,
-            ul#primary-menu li:hover a,
             .listing-tile .listing-price,
             h2#featured-listing-heading,
             #property-heading .entry-title,
@@ -182,7 +181,6 @@ function ytre_custom_css() { ?>
             }
             
             div#jumbotron-content,
-            ul#primary-menu li:hover a,
             .listing-tile:hover .listing-details,
             .search-form input.search-field:focus,
             #property-heading,
@@ -279,7 +277,35 @@ function ytre_custom_js() { ?>
     <script type="text/javascript">
     
         jQuery(document).ready( function( $ ) {
+    
+            if ( $('body').hasClass('home') ) {
+            
+                var topofDiv = $("#jumbotron-section").offset().top; //gets offset of header
+                var height = $("#jumbotron-section").outerHeight(); //gets height of header
+                var passed_jumbotron = false;
 
+                $(window).scroll(function(){
+
+                    if( $( window ).scrollTop() > ( topofDiv + height ) ){
+
+                        if ( !passed_jumbotron ) {
+                            $('.home header#masthead').addClass('sticky-header');
+                            passed_jumbotron = true;
+                        }
+
+                    } else {
+
+                        if ( passed_jumbotron ) {
+                            $('.home header#masthead').removeClass('sticky-header');
+                            passed_jumbotron = false;
+                        }
+
+                    }
+
+                });
+
+            }
+        
             /**
              * OwlCarousel Init 
              */
@@ -421,7 +447,7 @@ function ytre_custom_js() { ?>
                 doMasonry();
                 $(this).tab('show');
             });
-           
+            
         });
     
     </script>

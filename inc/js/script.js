@@ -14,6 +14,8 @@ jQuery(document).ready( function( $ ) {
        
     });
 
+    $('#header-actual-form form > label').prepend('<span class="fa fa-search"></span>');
+
     /**
      * Init ImageMap Resizer
      */
