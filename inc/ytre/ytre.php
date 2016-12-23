@@ -219,7 +219,8 @@ function ytre_custom_css() { ?>
             .galleria-info-link,
             .galleria-info-text,
             #single-event-inner .gform_wrapper input[type="submit"],
-            div#scx-widget .scx-button.scx-primary {    
+            div#scx-widget .scx-button.scx-primary,
+            div#featured-listings-widgets .gform_wrapper input[type="submit"] {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
@@ -260,7 +261,9 @@ function ytre_custom_css() { ?>
             }
             
             div#scx-widget .scx-button.scx-primary:hover,
-            div#scx-widget .scx-button.scx-primary {
+            div#scx-widget .scx-button.scx-primary,
+            div#featured-listings-widgets .gform_wrapper input[type="submit"],
+            div#featured-listings-widgets .gform_wrapper input[type="submit"]:hover {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?> !important;
             }
             
