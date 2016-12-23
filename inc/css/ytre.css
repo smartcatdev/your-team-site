@@ -21,9 +21,6 @@ header#masthead {
     position: relative;
     background-color: #ffffff;
 }
-.site-branding {
-    background-color: #214580;
-}
 .site-branding .inner {
     display: table;
     width: 100%;
@@ -76,8 +73,8 @@ div#header-search {
     min-height: 100px;
     display: table;
     width: 250px;
-    background-color: #214580 !important;
 }
+
 div#header-search .inner {
     display: table-cell;
     vertical-align: middle;
@@ -230,7 +227,7 @@ div#jumbotron-buttons a.button {
     }
 }
 #jumbotron-tagline {
-    padding: 30px 0;
+    padding: 30px 15px;
     text-align: center;
     color: #fff;
     font-weight: 300;
@@ -271,7 +268,7 @@ div#featured-listings-section .inner {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);*/
 }
 div#featured-listings-widgets {
-    padding: 25px 25px 10px 25px;
+    padding: 25px 15px 10px 15px;
 }
 .listing-tile .listing-details,
 .listing-tile .listing-price, 
@@ -355,19 +352,23 @@ ul#featured-listings {
 /** Featured Listings Widget Area
 **/
 div#featured-listings-widgets .widget {
-    border-radius: 8px;
+    border-radius: 0px;
     text-align: center;
     padding: 15px 30px 30px 30px;
-    border-bottom: 2px solid;
-    border-right: 2px solid;
-    color: #fff;
+    background-color: #fff;
     font-weight: 300;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
 }
-div#footer-sidebar-wrapper .widget a,
-div#featured-listings-widgets .widget a {
+div#footer-sidebar-wrapper .widget a {
     color: #fff;
 }
-div#featured-listings-widgets .widget a {
+div#featured-listings-widgets .widget a.primary-button {
+    width: 100%;
+    margin: 15px 0;
+}
+/*div#featured-listings-widgets .widget a {
     box-shadow: none;
     text-shadow: none;
     border: 2px solid rgba(255,255,255,.8);
@@ -385,7 +386,7 @@ div#featured-listings-widgets .widget a {
 div#featured-listings-widgets .widget a:hover {
     border-color: #fff;
     color: #fff;
-}
+}*/
 @media (min-width: 768px) {
     div#featured-listings-widgets .widget {
         min-height: 250px;
@@ -1142,11 +1143,7 @@ h3#team-photo-display-name {
 #mobile-team-cards .mobile-team-member .name {
     margin: 0px 0;
     padding: 15px 15px;
-    border-left: 15px solid #0070a7;
-}
-
-#mobile-team-cards .mobile-team-member .name a {
-    color: #0070a7;
+    border-left: 15px solid;
 }
     
 @media (max-width:767px) {
@@ -1714,9 +1711,6 @@ div#search-results-wrapper .search-result-item a {
 
 @media (max-width:767px) {
     .home header#masthead {
-        background-color: #214580;
-    }
-    .home header#masthead {
         position: relative !important;
     }
 }
@@ -1748,7 +1742,6 @@ header#masthead .search-form input.search-field:-moz-placeholder { /* Firefox 4 
 
 .home header#masthead.sticky-header {
     position: fixed;
-    background-color: #214580;
 }
 
 /** Featured Listings Carousel Next/Prev
@@ -1769,17 +1762,24 @@ header#masthead .search-form input.search-field:-moz-placeholder { /* Firefox 4 
 #featured-listings .owl-buttons div {
     width: 40px;
     height: 40px;
-    line-height: 36px;
-    background-color: #214580;
+    line-height: 32px;
+    background-color: #fff;
     opacity: 1;
     padding: 0;
     font-size: 26px;
     border-radius: 4px;
     margin: 0 !important;
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
 }
 
 @media (max-width:600px) {
 /*    #featured-listings .owl-buttons {
         width: 100%;
     }   */
+}
+
+div#footer-widget-area .widget .subtitle {
+    margin-bottom: 15px;
 }
