@@ -1566,7 +1566,13 @@ div#featured-listings-widgets .gform_wrapper input[type="submit"] {
     border-bottom: 2px solid;
     display: inline-block;
     padding: 10px 30px;
+    box-shadow: none;
     min-height: 42px;
+    text-shadow: none;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    color: rgba(255,255,255,.80);
 }
 
 div#footer-sidebar-wrapper .gform_wrapper input[type="submit"] {
