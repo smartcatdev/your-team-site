@@ -475,6 +475,46 @@ function ytre_custom_js() { ?>
                 $(this).tab('show');
             });
             
+            /**
+            * Click handler to store and update Contact CPTs for offline ChatX Submit button
+            */
+            $('#scx-widget .scx-popup-offline .scx-send a.scx-send-btn').on('click', function() {
+
+                if ( $(this).hasClass( 'scx-disabled' ) ) {
+
+                    return false;
+
+                } else {
+
+                    var name = $('#scx-widget .scx-popup-offline form input.scx-field-name').val(),
+                        email = $('#scx-widget .scx-popup-offline form input.scx-field-email').val(),
+                        details = $('#scx-widget .scx-popup-offline form textarea.scx-field-question').val(),
+                        url = '<?php echo esc_js( esc_url( admin_url( 'admin-ajax.php' ) ) ); ?>';
+
+                    var data = {
+
+                        action : 'ytre_store_or_update_contact',
+                        name : name,
+                        email : email,
+                        details : details
+
+                    }
+
+                    $.post( url, data, function ( response ) {
+                        
+                        console.log( response );
+                        if( response == 1 ) {
+                            console.log( 'success' );
+                        } else {
+                            console.log( 'failure' );
+                        }
+
+                    });
+
+                }
+
+            });
+            
         });
     
     </script>

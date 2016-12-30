@@ -473,3 +473,152 @@ class Your_Team_Event_Meta_Box {
     }
     
 }
+
+$labels = array(
+    
+    'name'                  => _x( 'Contacts', 'Post Type General Name', 'ytre' ),
+    'singular_name'         => _x( 'Contact', 'Post Type Singular Name', 'ytre' ),
+    'menu_name'             => __( 'Contacts', 'ytre' ),
+    'name_admin_bar'        => __( 'Contact', 'ytre' ),
+    'archives'              => __( 'Item Archives', 'ytre' ),
+    'parent_item_colon'     => __( 'Parent Contacts:', 'ytre' ),
+    'all_items'             => __( 'All Contacts', 'ytre' ),
+    'add_new_item'          => __( 'Add New Contact', 'ytre' ),
+    'add_new'               => __( 'New Contact', 'ytre' ),
+    'new_item'              => __( 'New Contact', 'ytre' ),
+    'edit_item'             => __( 'Edit Contact', 'ytre' ),
+    'update_item'           => __( 'Update Contact', 'ytre' ),
+    'view_item'             => __( 'View Contact', 'ytre' ),
+    'search_items'          => __( 'Search contacts', 'ytre' ),
+    'not_found'             => __( 'No contacts found', 'ytre' ),
+    'not_found_in_trash'    => __( 'No contacts found in Trash', 'ytre' ),
+    'featured_image'        => __( 'Featured Image', 'ytre' ),
+    'set_featured_image'    => __( 'Set featured image', 'ytre' ),
+    'remove_featured_image' => __( 'Remove featured image', 'ytre' ),
+    'use_featured_image'    => __( 'Use as featured image', 'ytre' ),
+    'insert_into_item'      => __( 'Insert into item', 'ytre' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this item', 'ytre' ),
+    'items_list'            => __( 'Items list', 'ytre' ),
+    'items_list_navigation' => __( 'Items list navigation', 'ytre' ),
+    'filter_items_list'     => __( 'Filter items list', 'ytre' ),
+	
+);	
+$args = array(
+    
+    'label'                 => __( 'Contact', 'ytre' ),
+    'description'           => __( 'Contacts and potential buyers.', 'ytre' ),
+    'labels'                => $labels,
+    'supports'              => array( 'title', 'editor', 'thumbnail' ),
+    'hierarchical'          => false,
+    'public'                => true,
+    'show_ui'               => true,
+    'show_in_menu'          => true,
+    'rewrite'               => array( 'slug' => 'contact' ),
+    'menu_position'         => 5,
+    'menu_icon'             => 'dashicons-businessman',
+    'show_in_admin_bar'     => true,
+    'show_in_nav_menus'     => true,
+    'can_export'            => true,
+    'has_archive'           => false,		
+    'exclude_from_search'   => true,
+    'publicly_queryable'    => false,
+    'capability_type'       => 'post',
+    
+);
+register_post_type( 'contact', $args );
+
+function ytre_store_or_update_contact(){
+
+    $name = sanitize_text_field( $_POST['name'] );
+    $email = sanitize_text_field( $_POST['email'] );
+    $details = sanitize_text_field( $_POST['details'] );
+
+    // Get all of the Contacts
+    $query_args = array (
+
+        'posts_per_page' => -1,
+        'post_type' => array ( 'contact' ),
+        'post_status' => array ( 'publish' ),
+
+    );
+    $contacts = new WP_Query( $query_args );
+    
+    // Are there Contacts?
+    if ( $contacts->have_posts() ) :
+        
+        $match_ID = null;
+        $exists = false;
+        
+        // Loop through those Contacts
+        while ( $contacts->have_posts() ) : $contacts->the_post();
+        
+            if ( get_post_meta( get_the_ID(), 'contact_email_address', true ) == $email ) :
+                
+                // IF a match is found - Store the ID and set the $exists flag to true
+                $match_ID = get_the_ID();                
+                $exists = true;
+                
+            endif;
+    
+        endwhile;
+        
+        // Check if a match was found in existing Contacts
+        
+        if ( $exists ) :
+            
+            // There is an existing Contact with this email address - Update the Contact
+            update_post_meta( $match_ID, 'contact_counter', get_post_meta( $match_ID, 'contact_counter', true ) + 1 );
+            if ( get_post_meta( $match_ID, 'contact_counter', true ) > 1 && get_post_meta( $match_ID, 'contact_counter', true ) < 4 ) {
+                update_post_meta( $match_ID, 'contact_priority', 'Medium' );
+            } else {
+                update_post_meta( $match_ID, 'contact_priority', 'High' );
+            }
+            
+        else :
+            
+            // There is no existing Contact with this email address - Creat the Contact
+
+            $contact_args = array(
+
+                'post_type'         => 'contact',
+                'post_title'        => $name,
+                'post_content'      => $details,
+                'meta_input'        => array(
+                    'contact_email_address'         => $email,                
+                    'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                    'contact_counter'               => 1,
+                    'contact_priority'              => 'Low',
+                ),
+
+            );
+            wp_insert_post( $contact_args );
+            
+        endif;
+        
+    else :
+    
+        // There are zero Contacts - Create this one
+        
+        $contact_args = array(
+            
+            'post_type'         => 'contact',
+            'post_title'        => $name,
+            'post_content'      => $details,
+            'meta_input'        => array(
+                'contact_email_address'         => $email,                
+                'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                'contact_counter'               => 1,
+                'contact_priority'              => 'Low',
+            ),
+            
+        );
+        wp_insert_post( $contact_args );
+        
+    endif; 
+    
+    echo 1;
+    exit();
+
+}
+add_action('wp_ajax_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
+add_action('wp_ajax_nopriv_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
