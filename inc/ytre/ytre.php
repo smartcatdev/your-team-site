@@ -478,7 +478,7 @@ function ytre_custom_js() { ?>
             /**
             * Click handler to store and update Contact CPTs for offline ChatX Submit button
             */
-            $('#scx-widget .scx-popup-offline .scx-send a.scx-send-btn').on('click', function() {
+            $('.scx-popup-offline .scx-send a.scx-send-btn, .scx-popup-prechat .scx-send a.scx-send-btn').on('click', function() {
 
                 if ( $(this).hasClass( 'scx-disabled' ) ) {
 
@@ -486,9 +486,11 @@ function ytre_custom_js() { ?>
 
                 } else {
 
-                    var name = $('#scx-widget .scx-popup-offline form input.scx-field-name').val(),
-                        email = $('#scx-widget .scx-popup-offline form input.scx-field-email').val(),
-                        details = $('#scx-widget .scx-popup-offline form textarea.scx-field-question').val(),
+                    var form = $(this).parents('form.scx-form');
+
+                    var name = form.find('input.scx-field-name').val(),
+                        email = form.find('input.scx-field-email').val(),
+                        details = form.find('textarea.scx-field-question').val(),
                         url = '<?php echo esc_js( esc_url( admin_url( 'admin-ajax.php' ) ) ); ?>';
 
                     var data = {
@@ -503,11 +505,11 @@ function ytre_custom_js() { ?>
                     $.post( url, data, function ( response ) {
                         
                         console.log( response );
-                        if( response == 1 ) {
-                            console.log( 'success' );
-                        } else {
-                            console.log( 'failure' );
-                        }
+                        // if( response == 1 ) {
+                        //      console.log( 'success' );
+                        // } else {
+                        //      console.log( 'failure' );
+                        // }
 
                     });
 

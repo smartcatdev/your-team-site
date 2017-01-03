@@ -730,6 +730,7 @@ function ytre_store_or_update_contact(){
             $contact_args = array(
 
                 'post_type'         => 'contact',
+                'post_status'       => 'publish',
                 'post_title'        => $name,
                 'post_content'      => $details,
                 'meta_input'        => array(
@@ -751,6 +752,7 @@ function ytre_store_or_update_contact(){
         $contact_args = array(
             
             'post_type'         => 'contact',
+            'post_status'       => 'publish',
             'post_title'        => $name,
             'post_content'      => $details,
             'meta_input'        => array(
@@ -771,3 +773,95 @@ function ytre_store_or_update_contact(){
 }
 add_action('wp_ajax_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
 add_action('wp_ajax_nopriv_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
+
+add_action( 'gform_after_submission_2', 'set_post_content', 10, 2 );
+function set_post_content( $entry, $form ) {
+
+    // Get The Email Field's Value
+    $email = rgar( $entry, '1' );
+    
+    // Get all of the Contacts
+    $query_args = array (
+
+        'posts_per_page' => -1,
+        'post_type' => array ( 'contact' ),
+
+    );
+    $contacts = new WP_Query( $query_args );
+    
+    // Are there Contacts?
+    if ( $contacts->have_posts() ) :
+        
+        $match_ID = null;
+        $exists = false;
+        
+        // Loop through those Contacts
+        while ( $contacts->have_posts() ) : $contacts->the_post();
+        
+            if ( get_post_meta( get_the_ID(), 'contact_email_address', true ) == $email ) :
+                
+                // IF a match is found - Store the ID and set the $exists flag to true
+                $match_ID = get_the_ID();                
+                $exists = true;
+                
+            endif;
+    
+        endwhile;
+        
+        // Check if a match was found in existing Contacts
+        
+        if ( $exists ) :
+            
+            // There is an existing Contact with this email address - Update the Contact
+            update_post_meta( $match_ID, 'contact_counter', get_post_meta( $match_ID, 'contact_counter', true ) + 1 );
+            if ( get_post_meta( $match_ID, 'contact_counter', true ) > 1 && get_post_meta( $match_ID, 'contact_counter', true ) < 4 ) {
+                update_post_meta( $match_ID, 'contact_priority', 'Medium' );
+            } else {
+                update_post_meta( $match_ID, 'contact_priority', 'High' );
+            }
+            
+        else :
+            
+            // There is no existing Contact with this email address - Create the Contact
+
+            $contact_args = array(
+
+                'post_type'         => 'contact',
+                'post_status'       => 'publish',
+                'post_title'        => 'Unknown Name',
+                'post_content'      => 'This Contact was created when a site visitor subscribed to the mailing list. Their email address can be found below.',
+                'meta_input'        => array(
+                    'contact_email_address'         => $email,                
+                    'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                    'contact_counter'               => 1,
+                    'contact_priority'              => 'Low',
+                ),
+
+            );
+            wp_insert_post( $contact_args );
+            
+        endif;
+        
+    else :
+    
+        // There are zero Contacts - Create this one
+        
+        $contact_args = array(
+            
+            'post_type'         => 'contact',
+            'post_status'       => 'publish',
+            'post_title'        => 'Unknown Name',
+            'post_content'      => 'This Contact was created when a site visitor subscribed to the mailing list. Their email address can be found below.',
+            'meta_input'        => array(
+                'contact_email_address'         => $email,                
+                'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                'contact_counter'               => 1,
+                'contact_priority'              => 'Low',
+            ),
+            
+        );
+        wp_insert_post( $contact_args );
+        
+    endif; 
+    
+}
