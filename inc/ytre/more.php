@@ -7,6 +7,9 @@ function ytre_add_ajax_url() { ?>
 <?php }
 add_action('wp_head', 'ytre_add_ajax_url', 0);
 
+/**
+ * Add "Featured?" column to property screen
+ */
 add_filter( 'manage_edit-property_columns', 'ytre_add_featured_column' );
 function ytre_add_featured_column( $columns ) {
    
@@ -26,6 +29,51 @@ function ytre_populate_featured_column( $column_name, $post_id ) {
             endif;
             break;
     }    
+    
+}
+
+/**
+ * Add "Priority" meta column to Contacts
+ */
+add_filter( 'manage_edit-contact_columns', 'ytre_add_priority_column' );
+function ytre_add_priority_column( $columns ) {
+   
+    $columns[ 'priority_label' ] = 'Priority';
+    return $columns;
+    
+}
+add_filter( 'manage_contact_posts_custom_column', 'ytre_populate_priority_column', 10, 2 );
+function ytre_populate_priority_column( $column_name, $post_id ) {
+   
+    switch( $column_name ) {
+        case 'priority_label':
+            if ( get_post_meta( $post_id, 'contact_priority', true ) ) :
+                echo '<div id="priority_label-' . $post_id . '">' . ucfirst( get_post_meta( $post_id, 'contact_priority', true ) ) . '</div>';    
+            else :
+                echo '<div id="priority_label-' . $post_id . '">' . 'Low' . '</div>';    
+            endif;
+            break;
+    }    
+    
+}
+add_filter( 'manage_edit-contact_sortable_columns', 'ytre_sortable_priority_column' );
+function ytre_sortable_priority_column( $columns ) {
+    
+    $columns[ 'priority_label' ] = 'priority';
+    return $columns;
+    
+}
+add_action( 'pre_get_posts', 'ytre_priority_orderby' );
+function ytre_priority_orderby( $query ) {
+    
+    if( ! is_admin() ) { return; }
+ 
+    $orderby = $query->get( 'orderby');
+ 
+    if( 'priority' == $orderby ) {
+        $query->set( 'meta_key', 'contact_counter');
+        $query->set( 'orderby', 'meta_value_num');
+    }
     
 }
 
@@ -318,59 +366,6 @@ class Ytre_Property_Images_Meta_Box {
     
 }
 
-
-$labels = array (
-
-    'name'                  => _x( 'Events', 'Post Type General Name', 'ytre' ),
-    'singular_name'         => _x( 'Event', 'Post Type Singular Name', 'ytre' ),
-    'menu_name'             => __( 'Events', 'ytre' ),
-    'name_admin_bar'        => __( 'Events', 'ytre' ),
-    'archives'              => __( 'Archives', 'ytre' ),
-    'parent_item_colon'     => __( 'Parent Item:', 'ytre' ),
-    'all_items'             => __( 'All Events', 'ytre' ),
-    'add_new_item'          => __( 'Add New Event', 'ytre' ),
-    'add_new'               => __( 'Add New', 'ytre' ),
-    'new_item'              => __( 'New Event', 'ytre' ),
-    'edit_item'             => __( 'Edit Event', 'ytre' ),
-    'update_item'           => __( 'Update Event', 'ytre' ),
-    'view_item'             => __( 'View Event', 'ytre' ),
-    'search_items'          => __( 'Search Events', 'ytre' ),
-    'not_found'             => __( 'Not found', 'ytre' ),
-    'not_found_in_trash'    => __( 'Not found in Trash', 'ytre' ),
-    'featured_image'        => __( 'Featured Image', 'ytre' ),
-    'set_featured_image'    => __( 'Set featured image', 'ytre' ),
-    'remove_featured_image' => __( 'Remove featured image', 'ytre' ),
-    'use_featured_image'    => __( 'Use as featured image', 'ytre' ),
-    'insert_into_item'      => __( 'Insert into event', 'ytre' ),
-    'uploaded_to_this_item' => __( 'Uploaded to this event', 'ytre' ),
-    'items_list'            => __( 'Events list', 'ytre' ),
-    'items_list_navigation' => __( 'Jobs list navigation', 'ytre' ),
-    'filter_items_list'     => __( 'Filter events', 'ytre' ),
-
-);
-$args = array (
-
-    'label'                 => __( 'Event', 'ytre' ),
-    'description'           => __( 'Events', 'ytre' ),
-    'labels'                => $labels,
-    'supports'              => array ( 'title', 'editor', 'author', 'thumbnail', ),
-    'hierarchical'          => false,
-    'public'                => true,
-    'show_ui'               => true,
-    'show_in_menu'          => true,
-    'menu_position'         => 5,
-    'menu_icon'             => 'dashicons-calendar-alt',
-    'show_in_admin_bar'     => true,
-    'show_in_nav_menus'     => true,
-    'can_export'            => true,
-    'has_archive'           => true,
-    'exclude_from_search'   => false,
-    'publicly_queryable'    => true,
-    'capability_type'       => 'post',
-
-);
-register_post_type( 'event', $args );
-
 new Your_Team_Event_Meta_Box;
 class Your_Team_Event_Meta_Box {
 
@@ -471,5 +466,402 @@ class Your_Team_Event_Meta_Box {
         update_post_meta( $post_id, 'event_meta_location', $event_location );
         
     }
+    
+}
+
+new Your_Team_Contact_Meta_Box;
+class Your_Team_Contact_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
+        }
+        
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
+        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
+        
+    }
+
+    public function add_metabox() {
+
+        add_meta_box( 'contact_meta', __( 'Contact Details', 'ytre' ), array ( $this, 'render_contact_metabox' ), 'contact', 'normal', 'high' );
+        
+    }
+
+    public function render_contact_metabox( $post ) {
+        
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'contact_meta_box_nonce_action', 'contact_meta_box_nonce' );
+
+        // Retrieve an existing value from the database.
+        $contact_email          = get_post_meta( $post->ID, 'contact_email_address', true );
+        $initial_contact        = get_post_meta( $post->ID, 'contact_initial_contact', true );
+        $contact_counter        = get_post_meta( $post->ID, 'contact_counter', true );
+        $contact_priority       = get_post_meta( $post->ID, 'contact_priority', true );
+
+        // Set default values.
+        if ( empty( $contact_email ) )      { $contact_email    = ''; } 
+        if ( empty( $initial_contact ) )    { $initial_contact  = ''; }
+        if ( empty( $contact_counter ) )    { $contact_counter  = ''; }
+        if ( empty( $contact_priority ) )   { $contact_priority = ''; }
+            
+        // Form fields.
+        echo '<table class="form-table">';
+
+        echo '	<tr>';
+        echo '		<th><label for="contact_email" class="contact_email_label">' . __( 'Email Address', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input disabled type="text" id="contact_email" name="contact_email" class="contact_email_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $contact_email ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        
+        echo '	<tr>';
+        echo '		<th><label for="initial_contact" class="initial_contact_label">' . __( 'Initial Contact Date', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input disabled type="date" id="initial_contact" name="initial_contact" class="initial_contact_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $initial_contact ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="contact_counter" class="contact_counter_label">' . __( 'Number of Messages Submitted', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input disabled type="number" id="contact_counter" name="contact_counter" class="contact_counter_field" value="' . esc_attr__( $contact_counter ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+
+        echo '	<tr>';
+        echo '		<th><label for="contact_priority" class="contact_priority_label">' . __( 'Priority', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '              <select id="contact_priority" name="contact_priority" class="widefat">';  
+        echo '                  <option value="low" '       . selected( $contact_priority, 'Low', false ) . '> ' . 'Low' . '</option>';
+        echo '                  <option value="medium" '    . selected( $contact_priority, 'Medium', false ) . '> ' . 'Medium' . '</option>';
+        echo '                  <option value="high" '      . selected( $contact_priority, 'High', false ) . '> ' . 'High' . '</option>';
+        echo '              </select>';
+        echo '		</td>';
+        echo '	</tr>';
+        
+        echo '</table>';
+        
+    }
+    
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name = isset( $_POST[ 'contact_meta_box_nonce' ] ) ? $_POST[ 'contact_meta_box_nonce' ] : '';
+        $nonce_action = 'contact_meta_box_nonce_action';
+
+        // Check if a nonce is set and valid
+        if ( !isset( $nonce_name ) ) { return; }
+        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
+            
+        // Sanitize user input.
+        $contact_priority = isset( $_POST[ 'contact_priority' ] ) ? sanitize_text_field( $_POST[ 'contact_priority' ] ) : '';
+        
+        // Update the meta field in the database.
+        update_post_meta( $post_id, 'contact_priority', $contact_priority );
+        
+    }
+    
+}
+
+// Create Event CPT
+$labels = array (
+
+    'name'                  => _x( 'Events', 'Post Type General Name', 'ytre' ),
+    'singular_name'         => _x( 'Event', 'Post Type Singular Name', 'ytre' ),
+    'menu_name'             => __( 'Events', 'ytre' ),
+    'name_admin_bar'        => __( 'Events', 'ytre' ),
+    'archives'              => __( 'Archives', 'ytre' ),
+    'parent_item_colon'     => __( 'Parent Item:', 'ytre' ),
+    'all_items'             => __( 'All Events', 'ytre' ),
+    'add_new_item'          => __( 'Add New Event', 'ytre' ),
+    'add_new'               => __( 'Add New', 'ytre' ),
+    'new_item'              => __( 'New Event', 'ytre' ),
+    'edit_item'             => __( 'Edit Event', 'ytre' ),
+    'update_item'           => __( 'Update Event', 'ytre' ),
+    'view_item'             => __( 'View Event', 'ytre' ),
+    'search_items'          => __( 'Search Events', 'ytre' ),
+    'not_found'             => __( 'Not found', 'ytre' ),
+    'not_found_in_trash'    => __( 'Not found in Trash', 'ytre' ),
+    'featured_image'        => __( 'Featured Image', 'ytre' ),
+    'set_featured_image'    => __( 'Set featured image', 'ytre' ),
+    'remove_featured_image' => __( 'Remove featured image', 'ytre' ),
+    'use_featured_image'    => __( 'Use as featured image', 'ytre' ),
+    'insert_into_item'      => __( 'Insert into event', 'ytre' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this event', 'ytre' ),
+    'items_list'            => __( 'Events list', 'ytre' ),
+    'items_list_navigation' => __( 'Jobs list navigation', 'ytre' ),
+    'filter_items_list'     => __( 'Filter events', 'ytre' ),
+
+);
+$args = array (
+
+    'label'                 => __( 'Event', 'ytre' ),
+    'description'           => __( 'Events', 'ytre' ),
+    'labels'                => $labels,
+    'supports'              => array ( 'title', 'editor', 'author', 'thumbnail', ),
+    'hierarchical'          => false,
+    'public'                => true,
+    'show_ui'               => true,
+    'show_in_menu'          => true,
+    'menu_position'         => 5,
+    'menu_icon'             => 'dashicons-calendar-alt',
+    'show_in_admin_bar'     => true,
+    'show_in_nav_menus'     => true,
+    'can_export'            => true,
+    'has_archive'           => true,
+    'exclude_from_search'   => false,
+    'publicly_queryable'    => true,
+    'capability_type'       => 'post',
+
+);
+register_post_type( 'event', $args );
+
+// Create Contact CPT
+$labels = array(
+    
+    'name'                  => _x( 'Contacts', 'Post Type General Name', 'ytre' ),
+    'singular_name'         => _x( 'Contact', 'Post Type Singular Name', 'ytre' ),
+    'menu_name'             => __( 'Contacts', 'ytre' ),
+    'name_admin_bar'        => __( 'Contact', 'ytre' ),
+    'archives'              => __( 'Item Archives', 'ytre' ),
+    'parent_item_colon'     => __( 'Parent Contacts:', 'ytre' ),
+    'all_items'             => __( 'All Contacts', 'ytre' ),
+    'add_new_item'          => __( 'Add New Contact', 'ytre' ),
+    'add_new'               => __( 'New Contact', 'ytre' ),
+    'new_item'              => __( 'New Contact', 'ytre' ),
+    'edit_item'             => __( 'Edit Contact', 'ytre' ),
+    'update_item'           => __( 'Update Contact', 'ytre' ),
+    'view_item'             => __( 'View Contact', 'ytre' ),
+    'search_items'          => __( 'Search contacts', 'ytre' ),
+    'not_found'             => __( 'No contacts found', 'ytre' ),
+    'not_found_in_trash'    => __( 'No contacts found in Trash', 'ytre' ),
+    'featured_image'        => __( 'Featured Image', 'ytre' ),
+    'set_featured_image'    => __( 'Set featured image', 'ytre' ),
+    'remove_featured_image' => __( 'Remove featured image', 'ytre' ),
+    'use_featured_image'    => __( 'Use as featured image', 'ytre' ),
+    'insert_into_item'      => __( 'Insert into item', 'ytre' ),
+    'uploaded_to_this_item' => __( 'Uploaded to this item', 'ytre' ),
+    'items_list'            => __( 'Items list', 'ytre' ),
+    'items_list_navigation' => __( 'Items list navigation', 'ytre' ),
+    'filter_items_list'     => __( 'Filter items list', 'ytre' ),
+	
+);	
+$args = array(
+    
+    'label'                 => __( 'Contact', 'ytre' ),
+    'description'           => __( 'Contacts and potential buyers.', 'ytre' ),
+    'labels'                => $labels,
+    'supports'              => array( 'title', 'editor', 'thumbnail' ),
+    'hierarchical'          => false,
+    'public'                => true,
+    'show_ui'               => true,
+    'show_in_menu'          => true,
+    'rewrite'               => array( 'slug' => 'contact' ),
+    'menu_position'         => 5,
+    'menu_icon'             => 'dashicons-businessman',
+    'show_in_admin_bar'     => true,
+    'show_in_nav_menus'     => true,
+    'can_export'            => true,
+    'has_archive'           => false,		
+    'exclude_from_search'   => true,
+    'publicly_queryable'    => false,
+    'capability_type'       => 'post',
+    
+);
+register_post_type( 'contact', $args );
+
+function ytre_store_or_update_contact(){
+
+    $name = sanitize_text_field( $_POST['name'] );
+    $email = sanitize_text_field( $_POST['email'] );
+    $details = sanitize_text_field( $_POST['details'] );
+
+    // Get all of the Contacts
+    $query_args = array (
+
+        'posts_per_page' => -1,
+        'post_type' => array ( 'contact' ),
+
+    );
+    $contacts = new WP_Query( $query_args );
+    
+    // Are there Contacts?
+    if ( $contacts->have_posts() ) :
+        
+        $match_ID = null;
+        $exists = false;
+        
+        // Loop through those Contacts
+        while ( $contacts->have_posts() ) : $contacts->the_post();
+        
+            if ( get_post_meta( get_the_ID(), 'contact_email_address', true ) == $email ) :
+                
+                // IF a match is found - Store the ID and set the $exists flag to true
+                $match_ID = get_the_ID();                
+                $exists = true;
+                
+            endif;
+    
+        endwhile;
+        
+        // Check if a match was found in existing Contacts
+        
+        if ( $exists ) :
+            
+            // There is an existing Contact with this email address - Update the Contact
+            update_post_meta( $match_ID, 'contact_counter', get_post_meta( $match_ID, 'contact_counter', true ) + 1 );
+            if ( get_post_meta( $match_ID, 'contact_counter', true ) > 1 && get_post_meta( $match_ID, 'contact_counter', true ) < 4 ) {
+                update_post_meta( $match_ID, 'contact_priority', 'Medium' );
+            } else {
+                update_post_meta( $match_ID, 'contact_priority', 'High' );
+            }
+            
+        else :
+            
+            // There is no existing Contact with this email address - Creat the Contact
+
+            $contact_args = array(
+
+                'post_type'         => 'contact',
+                'post_status'       => 'publish',
+                'post_title'        => $name,
+                'post_content'      => $details,
+                'meta_input'        => array(
+                    'contact_email_address'         => $email,                
+                    'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                    'contact_counter'               => 1,
+                    'contact_priority'              => 'Low',
+                ),
+
+            );
+            wp_insert_post( $contact_args );
+            
+        endif;
+        
+    else :
+    
+        // There are zero Contacts - Create this one
+        
+        $contact_args = array(
+            
+            'post_type'         => 'contact',
+            'post_status'       => 'publish',
+            'post_title'        => $name,
+            'post_content'      => $details,
+            'meta_input'        => array(
+                'contact_email_address'         => $email,                
+                'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                'contact_counter'               => 1,
+                'contact_priority'              => 'Low',
+            ),
+            
+        );
+        wp_insert_post( $contact_args );
+        
+    endif; 
+    
+    echo 1;
+    exit();
+
+}
+add_action('wp_ajax_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
+add_action('wp_ajax_nopriv_ytre_store_or_update_contact', 'ytre_store_or_update_contact' );
+
+add_action( 'gform_after_submission_2', 'set_post_content', 10, 2 );
+function set_post_content( $entry, $form ) {
+
+    // Get The Email Field's Value
+    $email = rgar( $entry, '1' );
+    
+    // Get all of the Contacts
+    $query_args = array (
+
+        'posts_per_page' => -1,
+        'post_type' => array ( 'contact' ),
+
+    );
+    $contacts = new WP_Query( $query_args );
+    
+    // Are there Contacts?
+    if ( $contacts->have_posts() ) :
+        
+        $match_ID = null;
+        $exists = false;
+        
+        // Loop through those Contacts
+        while ( $contacts->have_posts() ) : $contacts->the_post();
+        
+            if ( get_post_meta( get_the_ID(), 'contact_email_address', true ) == $email ) :
+                
+                // IF a match is found - Store the ID and set the $exists flag to true
+                $match_ID = get_the_ID();                
+                $exists = true;
+                
+            endif;
+    
+        endwhile;
+        
+        // Check if a match was found in existing Contacts
+        
+        if ( $exists ) :
+            
+            // There is an existing Contact with this email address - Update the Contact
+            update_post_meta( $match_ID, 'contact_counter', get_post_meta( $match_ID, 'contact_counter', true ) + 1 );
+            if ( get_post_meta( $match_ID, 'contact_counter', true ) > 1 && get_post_meta( $match_ID, 'contact_counter', true ) < 4 ) {
+                update_post_meta( $match_ID, 'contact_priority', 'Medium' );
+            } else {
+                update_post_meta( $match_ID, 'contact_priority', 'High' );
+            }
+            
+        else :
+            
+            // There is no existing Contact with this email address - Create the Contact
+
+            $contact_args = array(
+
+                'post_type'         => 'contact',
+                'post_status'       => 'publish',
+                'post_title'        => 'Unknown Name',
+                'post_content'      => 'This Contact was created when a site visitor subscribed to the mailing list. Their email address can be found below.',
+                'meta_input'        => array(
+                    'contact_email_address'         => $email,                
+                    'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                    'contact_counter'               => 1,
+                    'contact_priority'              => 'Low',
+                ),
+
+            );
+            wp_insert_post( $contact_args );
+            
+        endif;
+        
+    else :
+    
+        // There are zero Contacts - Create this one
+        
+        $contact_args = array(
+            
+            'post_type'         => 'contact',
+            'post_status'       => 'publish',
+            'post_title'        => 'Unknown Name',
+            'post_content'      => 'This Contact was created when a site visitor subscribed to the mailing list. Their email address can be found below.',
+            'meta_input'        => array(
+                'contact_email_address'         => $email,                
+                'contact_initial_contact'       => current_time( 'Y-m-d' ),
+                'contact_counter'               => 1,
+                'contact_priority'              => 'Low',
+            ),
+            
+        );
+        wp_insert_post( $contact_args );
+        
+    endif; 
     
 }

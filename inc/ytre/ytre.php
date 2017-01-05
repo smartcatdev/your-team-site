@@ -163,10 +163,11 @@ function ytre_custom_css() { ?>
             #jumbotron-tagline,
             footer#colophon,
             .galleria-theme-classic .galleria-info-text,
-            #single-property-title,
             div#floating-filter-search .edge-block,
             div#floating-contact-cta .edge-block,
-            div#header-search {
+            div#header-search,
+            .home header#masthead.sticky-header,
+            .site-branding {
                 background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -177,7 +178,9 @@ function ytre_custom_css() { ?>
             .property-box .price,
             div#single-title-box,
             .epl-archive-default h3.archive-page-subtitle,
-            .grid2 .sc_team_member .sc_team_member_name a {
+            .grid2 .sc_team_member .sc_team_member_name a,
+            #featured-listings .owl-buttons div,
+            #mobile-team-cards .mobile-team-member .name a {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -186,19 +189,29 @@ function ytre_custom_css() { ?>
             .search-form input.search-field:focus,
             #property-heading,
             header#masthead,
-            .grid2 .sc_team_member_inner .image-container {
+            .grid2 .sc_team_member_inner .image-container,
+            #mobile-team-cards .mobile-team-member .name {
                 border-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
             #jumbotron-tagline .arrow {
                 border-top-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
-        
+            
+            div#header-search {
+                background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?> !important;
+            }
+            
+            @media (max-width:767px) {
+                .home header#masthead {
+                    background-color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
+                }
+            }
+                
         /* --- SECONDARY COLOR --- */
         
             div#jumbotron-buttons a.button,
             a.primary-button,
-            div#featured-listings-widgets .widget,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -206,7 +219,8 @@ function ytre_custom_css() { ?>
             .galleria-info-link,
             .galleria-info-text,
             #single-event-inner .gform_wrapper input[type="submit"],
-            div#scx-widget .scx-button.scx-primary {    
+            div#scx-widget .scx-button.scx-primary,
+            div#featured-listings-widgets .gform_wrapper input[type="submit"] {    
                 background-color: <?php echo esc_attr( $skin[ 'secondary' ] ); ?>;
             }
             
@@ -230,7 +244,6 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             a.primary-button,
-            div#featured-listings-widgets .widget,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -248,7 +261,9 @@ function ytre_custom_css() { ?>
             }
             
             div#scx-widget .scx-button.scx-primary:hover,
-            div#scx-widget .scx-button.scx-primary {
+            div#scx-widget .scx-button.scx-primary,
+            div#featured-listings-widgets .gform_wrapper input[type="submit"],
+            div#featured-listings-widgets .gform_wrapper input[type="submit"]:hover {
                 border-color: <?php echo esc_attr( $skin[ 'secondary_accent' ] ); ?> !important;
             }
             
@@ -299,14 +314,16 @@ function ytre_custom_js() { ?>
                     if( $( window ).scrollTop() > ( topofDiv + height ) ){
 
                         if ( !passed_jumbotron ) {
-                            $('.home header#masthead').addClass('sticky-header');
+                            $('.home header#masthead').addClass('sticky-header animated slideInDown');
                             passed_jumbotron = true;
                         }
 
                     } else {
 
                         if ( passed_jumbotron ) {
-                            $('.home header#masthead').removeClass('sticky-header');
+                            $('.home header#masthead').fadeOut( 300, function(){
+                                $(this).removeClass('sticky-header animated slideInDown').fadeIn( 200 );
+                            });
                             passed_jumbotron = false;
                         }
 
@@ -456,6 +473,48 @@ function ytre_custom_js() { ?>
                 e.preventDefault();
                 doMasonry();
                 $(this).tab('show');
+            });
+            
+            /**
+            * Click handler to store and update Contact CPTs for offline ChatX Submit button
+            */
+            $('.scx-popup-offline .scx-send a.scx-send-btn, .scx-popup-prechat .scx-send a.scx-send-btn').on('click', function() {
+
+                if ( $(this).hasClass( 'scx-disabled' ) ) {
+
+                    return false;
+
+                } else {
+
+                    var form = $(this).parents('form.scx-form');
+
+                    var name = form.find('input.scx-field-name').val(),
+                        email = form.find('input.scx-field-email').val(),
+                        details = form.find('textarea.scx-field-question').val(),
+                        url = '<?php echo esc_js( esc_url( admin_url( 'admin-ajax.php' ) ) ); ?>';
+
+                    var data = {
+
+                        action : 'ytre_store_or_update_contact',
+                        name : name,
+                        email : email,
+                        details : details
+
+                    }
+
+                    $.post( url, data, function ( response ) {
+                        
+                        console.log( response );
+                        // if( response == 1 ) {
+                        //      console.log( 'success' );
+                        // } else {
+                        //      console.log( 'failure' );
+                        // }
+
+                    });
+
+                }
+
             });
             
         });
