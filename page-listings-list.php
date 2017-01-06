@@ -192,17 +192,21 @@ get_header(); ?>
 
                                                         <?php if ( has_post_thumbnail() ) : ?>
 
-                                                            <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
+                                                            <a href="<?php echo esc_url( get_the_permalink() ); ?>">
+                                                        
+                                                                <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
 
-                                                                <div class="price-banner">
+                                                                    <div class="price-banner">
 
-                                                                    <h4 class="listing-price">
-                                                                        <?php echo '$' . number_format( get_post_meta( get_the_ID(), 'property_price', true ), 0, ".", "," ); ?>
-                                                                    </h4>
+                                                                        <h4 class="listing-price">
+                                                                            <?php echo '$' . number_format( get_post_meta( get_the_ID(), 'property_price', true ), 0, ".", "," ); ?>
+                                                                        </h4>
+
+                                                                    </div>
 
                                                                 </div>
 
-                                                            </div>
+                                                            </a>
 
                                                         <?php endif; ?>
 
