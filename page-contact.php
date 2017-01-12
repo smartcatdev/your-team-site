@@ -51,6 +51,63 @@ get_header(); ?>
 
                                                 <?php endwhile; ?>
                                                 
+                                                <div id="jumbotron-buttons">
+                                
+                                                    <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
+                                                        <a class="primary-button" 
+                                                           href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>"
+                                                           <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
+                                                            <span class="fa fa-mobile"></span>
+                                                            <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>
+                                                        </a>
+                                                    <?php endif; ?>
+
+                                                    <?php if ( get_theme_mod( 'ytre_jumbotron_button_2_label', __( 'Email', 'ytre' ) ) != '' ) : ?>
+                                                        <a class="primary-button" 
+                                                           href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_2_url', '#' ) ); ?>"
+                                                           <?php echo get_theme_mod( 'ytre_jumbotron_button_2_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
+                                                            <span class="fa fa-envelope-o"></span>
+                                                            <?php echo get_theme_mod( 'ytre_jumbotron_button_2_label', __( 'Email', 'ytre' ) ); ?>
+                                                        </a>
+                                                    <?php endif; ?>
+
+                                                    <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
+                                                        <a class="primary-button chat-trigger" href="#">
+                                                            <span class="fa fa-commenting-o"></span>
+                                                            <?php echo get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ); ?>
+                                                        </a>
+                                                    <?php endif; ?>
+
+                                                </div>
+                                                
+                                                <div id="ytre-team-social">
+
+                                                    <div class="inner">
+                                                        <a class="team-social facebook" href="http://facebook.com/">
+                                                            <span class="fa fa-facebook"></span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="inner">
+                                                        <a class="team-social twitter" href="http://twitter.com/">
+                                                            <span class="fa fa-twitter"></span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="inner">
+                                                        <a class="team-social linkedin" href="http://linkedin.com/">
+                                                            <span class="fa fa-linkedin"></span>
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="inner">
+                                                        <a class="team-social googleplus" href="http://googleplus.com/">
+                                                            <span class="fa fa-google-plus"></span>
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                                
                                             </div>
                                             
                                         </div>

@@ -125,7 +125,9 @@ function ytre_custom_css() { ?>
         .page-template-page-events .event-details .date,
         h3#team-photo-display-name,
         .ytre-member-details .title,
-        div#single-title-box .entry-title {
+        div#single-title-box .entry-title,
+        .page-template-page-listings-list #view-toggle-buttons .entry-title,
+        .page-template-page-listings-map #view-toggle-buttons .entry-title {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
@@ -180,7 +182,9 @@ function ytre_custom_css() { ?>
             .epl-archive-default h3.archive-page-subtitle,
             .grid2 .sc_team_member .sc_team_member_name a,
             #featured-listings .owl-buttons div,
-            #mobile-team-cards .mobile-team-member .name a {
+            #mobile-team-cards .mobile-team-member .name a,
+            .page-template-page-listings-list #view-toggle-buttons .entry-title,
+            .page-template-page-listings-map #view-toggle-buttons .entry-title {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -212,6 +216,7 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             a.primary-button,
+            div.primary-button,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -244,6 +249,7 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             a.primary-button,
+            div.primary-button,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -619,9 +625,7 @@ function ytre_render_jumbotron() { ?>
                                 <?php endif; ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button chat-trigger" 
-                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_3_url', '#' ) ); ?>"
-                                       <?php echo get_theme_mod( 'ytre_jumbotron_button_3_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
+                                    <a class="primary-button chat-trigger" href="#">
                                         <span class="fa fa-commenting-o"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ); ?>
                                     </a>
@@ -844,7 +848,11 @@ function ytre_render_footer() { ?>
             <div class="arrow"></div>
 
         </div>
-
+        
+        <div id="footer-copyright" class="col-md-12">
+            <?php _e( 'Copyright © 2017. All rights reserved. MLS®, REALTOR®, and the associated logos are trademarks of The Canadian Real Estate Association.', 'ytre' ); ?>
+        </div>
+        
     </div>
 
 </div>

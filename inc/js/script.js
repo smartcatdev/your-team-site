@@ -29,6 +29,10 @@ jQuery(document).ready( function( $ ) {
         $('#team-photo-display-name').stop().text( $( this ).attr('title') );
         
     });
+    
+    $('#browser-back-button').on( 'click', function() {
+        history.back();
+    });
 
 //    /**
 //     * Store the Location field, remove it, and re-add it wrapped in tab div
@@ -108,10 +112,10 @@ jQuery(document).ready( function( $ ) {
      * Show Hidden Chat Plugin on Home
      */
     var chat_visible = false;
-    $('#jumbotron-buttons .chat-trigger').on('click', function() {
+    $('.chat-trigger').on('click', function() {
         
         if ( !chat_visible ) {
-            $('body.home div#scx-widget div#scx-btn').show();
+            $('body.home div#scx-widget div#scx-btn, body.page-template-page-contact div#scx-btn').show();
             chat_visible = true;
         }
         

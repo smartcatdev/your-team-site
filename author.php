@@ -36,6 +36,47 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
                                         <span class="fa fa-envelope-o"></span>
                                         <?php _e( 'Email', 'ytre' ); ?>
                                     </a>
+                                    <a href="<?php echo esc_url(home_url('/about/')); ?>" class="primary-button">
+                                        <span class="fa fa-undo"></span>
+                                        <?php _e( 'Back to Your Team', 'ytre' ); ?>
+                                    </a>
+                                    
+                                    <div id="ytre-team-social">
+                                        
+                                        <?php if ( get_the_author_meta( 'facebook', $curauth->ID ) ) : ?>
+                                            <div class="inner">
+                                                <a class="team-social facebook" href="<?php echo esc_url( get_the_author_meta( 'facebook', $curauth->ID ) ); ?>">
+                                                    <span class="fa fa-facebook"></span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ( get_the_author_meta( 'twitter', $curauth->ID ) ) : ?>
+                                            <div class="inner">
+                                                <a class="team-social twitter" href="<?php echo esc_url( get_the_author_meta( 'twitter', $curauth->ID ) ); ?>">
+                                                    <span class="fa fa-twitter"></span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ( get_the_author_meta( 'linkedin', $curauth->ID ) ) : ?>
+                                            <div class="inner">
+                                                <a class="team-social linkedin" href="<?php echo esc_url( get_the_author_meta( 'linkedin', $curauth->ID ) ); ?>">
+                                                    <span class="fa fa-linkedin"></span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if ( get_the_author_meta( 'google', $curauth->ID ) ) : ?>
+                                            <div class="inner">
+                                                <a class="team-social googleplus" href="<?php echo esc_url( get_the_author_meta( 'google', $curauth->ID ) ); ?>">
+                                                    <span class="fa fa-google-plus"></span>
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        
+                                    </div>
 
                                 </div>
                                 
@@ -53,7 +94,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
                                 <div class="ytre-member-content">  
                                     <?php echo get_user_meta( $curauth->ID, 'description', true ); ?>
                                 </div>
-
+                                
                             </div>
 
                         </div>

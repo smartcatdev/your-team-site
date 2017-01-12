@@ -15,12 +15,24 @@ get_header(); ?>
 
             <div id="single-page-container">
 
-                <div id="single-title-box">
+                <div class="container">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-12">
+                            
+                            <div id="single-title-box">
 
-                    <h2 class="entry-title"><?php the_title(); ?></h2>
+                                <!-- <h2 class="entry-title"><?php // the_title(); ?></h2> -->
 
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
                 </div>
-
+                
                 <div class="container">
 
                     <div class="row">
@@ -32,6 +44,8 @@ get_header(); ?>
                                 <div class="entry-content">
 
                                     <div id="view-toggle-buttons">                                  
+                                        
+                                        <h2 class="entry-title"><?php the_title(); ?></h2>
                                         
                                         <?php 
                                         

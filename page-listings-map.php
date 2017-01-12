@@ -15,10 +15,22 @@ get_header(); ?>
 
             <div id="single-page-container">
 
-                <div id="single-title-box">
+                <div class="container">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-12">
+                            
+                            <div id="single-title-box">
 
-                    <h2 class="entry-title"><?php the_title(); ?></h2>
+                                <!-- <h2 class="entry-title"><?php // the_title(); ?></h2> -->
 
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
                 </div>
 
                 <div class="container">
@@ -30,10 +42,10 @@ get_header(); ?>
                             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
                                 <div class="entry-content">
-
-                                    <?php // var_dump( epl_get_option( 'epl_google_api_key' ) ); ?>
                                     
                                     <div id="view-toggle-buttons">                               
+                                        
+                                        <h2 class="entry-title"><?php the_title(); ?></h2>
                                         
                                         <?php 
                                         

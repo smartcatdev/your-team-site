@@ -95,6 +95,7 @@
                                     <?php if ( get_post_meta( get_the_ID(), 'property_address_hide_map', true ) != 'yes' ) : ?>
                                         <li role="presentation"><a href="#directions" aria-controls="directions" role="tab" data-toggle="tab"><?php _e( 'Get Directions', 'ytre' ); ?></a></li>
                                     <?php endif; ?>
+                                        <li><div id="browser-back-button" class="primary-button"><?php _e( 'Go Back to Listings', 'ytre' ); ?></div></li>
                                 </ul>
 
                                 <!-- Tab panes -->
