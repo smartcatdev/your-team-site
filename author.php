@@ -36,7 +36,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
                                         <span class="fa fa-envelope-o"></span>
                                         <?php _e( 'Email', 'ytre' ); ?>
                                     </a>
-                                    <a href="<?php echo esc_url(home_url('/about/')); ?>" class="primary-button">
+                                    <a id="back-to-your-team" href="<?php echo esc_url(home_url('/about/')); ?>" class="primary-button">
                                         <span class="fa fa-undo"></span>
                                         <?php _e( 'Back to Your Team', 'ytre' ); ?>
                                     </a>
@@ -74,7 +74,6 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
                                                 </a>
                                             </div>
                                         <?php endif; ?>
-                                        
                                         
                                     </div>
 

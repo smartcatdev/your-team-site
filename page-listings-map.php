@@ -114,7 +114,7 @@ get_header(); ?>
                                         
                                         $coords = '44.2445245,-76.5189882';
                                         $cluster = false;
-                                        $zoom = '14';
+                                        $zoom = '13';
                                         $height = '750';
                                         $display = 'simple';
 
