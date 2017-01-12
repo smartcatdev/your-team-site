@@ -1958,4 +1958,9 @@ body.page-template-page-contact #ytre-team-social {
 #back-to-your-team {
     background-color: #909090;
     border-color: #3c3c3c;
+    opacity: .66;
+}
+
+#back-to-your-team:hover {
+    opacity: 1;
 }

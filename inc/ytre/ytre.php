@@ -625,7 +625,7 @@ function ytre_render_jumbotron() { ?>
                                 <?php endif; ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
-                                    <a class="primary-button chat-trigger" href="#">
+                                    <a class="button chat-trigger" href="#">
                                         <span class="fa fa-commenting-o"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ); ?>
                                     </a>
