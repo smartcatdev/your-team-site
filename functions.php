@@ -80,6 +80,9 @@ function ytre_content_width() {
 }
 add_action( 'after_setup_theme', 'ytre_content_width', 0 );
 
+// Enable scrolling down to Confirmation Messages on all Gravity Forms
+add_filter( 'gform_confirmation_anchor', '__return_true' );
+
 /**
  * Implement the Custom Header feature.
  */

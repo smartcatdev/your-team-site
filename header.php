@@ -72,21 +72,25 @@
         
     </header><!-- #masthead -->
 
-    <div id="floating-filter-search">
-        
-        <div class="edge-block">
-        </div>
-        
-        <?php echo do_shortcode('[listing_search'
-            . ' title="Let Us Help You Search!"'
-            . ' post_type="property"'
-            . ' style="default"'
-            . ' property_status="current"'
-            . ' submit_label="Go!"'
-        . ']'); ?>
-        
-    </div>
+    <?php if ( !isset( $_GET['homepage-search-arrival'] ) ) : ?>
+    
+        <div id="floating-filter-search">
 
+            <div class="edge-block">
+            </div>
+
+            <?php echo do_shortcode('[listing_search'
+                . ' title="Let Us Help You Search!"'
+                . ' post_type="property"'
+                . ' style="default"'
+                . ' property_status="current"'
+                . ' submit_label="Go!"'
+            . ']'); ?>
+
+        </div>
+    
+    <?php endif; ?>
+    
     <div id="floating-contact-cta">
         
         <div class="edge-block">

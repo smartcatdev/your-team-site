@@ -91,7 +91,7 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
                                 <h3 class="title" itemprop="jobtitle"><?php echo get_user_meta( $curauth->ID, 'position', true ); ?></h3>
 
                                 <div class="ytre-member-content">  
-                                    <?php echo get_user_meta( $curauth->ID, 'description', true ); ?>
+                                    <?php echo wpautop( get_user_meta( $curauth->ID, 'description', true ) ); ?>
                                 </div>
                                 
                             </div>

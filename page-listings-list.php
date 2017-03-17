@@ -45,7 +45,7 @@ get_header(); ?>
 
                                     <div id="view-toggle-buttons">                                  
                                         
-                                        <h2 class="entry-title"><?php the_title(); ?></h2>
+                                        <h2 class="entry-title"><?php _e( 'Find Your New Home', 'ytre'); ?></h2>
                                         
                                         <?php 
                                         
@@ -54,6 +54,10 @@ get_header(); ?>
                                             $gets = '?';
                                             $existing = array();
                                         
+                                            if ( isset( $_GET['homepage-search-arrival'] ) ) :
+                                                $existing[] = 'homepage-search-arrival=true';
+                                            endif;
+                                            
                                             if ( isset( $_GET['property_location'] ) ) :
                                                 $existing[] = 'property_location=' . $_GET['property_location'];
                                             endif;
@@ -102,7 +106,7 @@ get_header(); ?>
                                         </div>
                                         
                                         <p class="listing-page-blurb">
-                                            <?php _e( 'Browse our listings on your own below or enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
+                                            <?php _e( 'Browse on your own with List View or Map View OR enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
                                         </p>
                                         
                                     </div>

@@ -411,7 +411,7 @@ function ytre_custom_js() { ?>
             if ( $("#jumbotron-section").length ) {
             
                 $('#jumbotron-section').tubular({ 
-                    videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'AK-MUzWdpjU' ) ); ?>',
+                    videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'QO-dXDj9zII' ) ); ?>',
                 });
                 $('#tubular-container').appendTo('#jumbotron-section');
                 $('#tubular-shield').appendTo('#jumbotron-section');
@@ -427,6 +427,7 @@ function ytre_custom_js() { ?>
              * Change the Filter CTA action parameter to the listings page
              */
             $('#floating-filter-search form').attr( 'action', '<?php echo esc_url( home_url( '/listings-list/' ) ); ?>' ).find('input[type="hidden"]').remove();
+            $('#floating-filter-search form').prepend( '<input type="hidden" name="homepage-search-arrival" value="true" />' );
 
             /*
             * Handle Blog Roll Masonry
@@ -776,7 +777,15 @@ function ytre_render_featured_listings() { ?>
                         </ul>
                     
                     <?php endif; ?>
-
+                    
+                    <div id="frontpage-copy-section">
+                    
+                        <p>
+                            <?php _e( 'Haven’t found your dream home yet? Let one of our experienced agents help you. After all, it’s our job. They don’t call us Your Team for nothing.', 'ytre' ); ?>
+                        </p>
+                        
+                    </div>
+                    
                     <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
                         <div id="featured-listings-widgets">
 

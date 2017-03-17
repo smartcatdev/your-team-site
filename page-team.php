@@ -44,11 +44,13 @@ get_header(); ?>
                                             <img src="<?php echo esc_url( get_theme_mod( 'ytre_team_photo', get_template_directory_uri() . '/inc/images/team-photo-new.jpg' ) ); ?>" alt="Your Team" usemap="#hotspot-map">
 
                                             <map name="hotspot-map">
-                                                <area target="" alt="Erin Finn" title="Erin Finn" href="/about/team/erin-finn/" coords="44,591,237,522" shape="rect">
-                                                <area target="" alt="Jaunna Lessard" title="Jaunna Lessard" href="/about/team/jaunna-lessard/" coords="195,186,456,259" shape="rect">
-                                                <area target="" alt="Jeff Easton" title="Jeff Easton" href="/about/team/jeff-easton/" coords="645,550,853,622" shape="rect">
-                                                <area target="" alt="Romeo Ibit" title="Romeo Ibit" href="/about/team/romeo-ibit/" coords="1038,190,1249,260" shape="rect">
-                                                <area target="" alt="Lisa Mochan" title="Lisa Mochan" href="/about/team/lisa-mochan/" coords="1225,520,1436,589" shape="rect">
+                                                <area  alt="Erin Finn" title="Erin Finn" href="/about/team/erin-finn/" shape="rect" coords="246,234,432,303" style="outline:none;" target="_self"     />
+                                                <area  alt="Liz White" title="Liz White" href="/about/team/liz-white/" shape="rect" coords="40,475,214,539" style="outline:none;" target="_self"     />
+                                                <area  alt="Jaunna Lessard" title="Jaunna Lessard" href="/about/team/jaunna-lessard/" shape="rect" coords="259,614,517,683" style="outline:none;" target="_self"     />
+                                                <area  alt="Jeff Easton" title="Jeff Easton" href="/about/team/jeff-easton/" shape="rect" coords="810,501,1042,566" style="outline:none;" target="_self"     />
+                                                <area  alt="Romeo Ibit" title="Romeo Ibit" href="/about/team/romeo-ibit/" shape="rect" coords="1152,423,1350,489" style="outline:none;" target="_self"     />
+                                                <area  alt="Lisa Mochan" title="Lisa Mochan" href="/about/team/lisa-mochan/" shape="rect" coords="544,190,774,254" style="outline:none;" target="_self"     />
+                                                <area  alt="Crystal Charette" title="Crystal Charette" href="/about/team/crystal-charette/" shape="rect" coords="890,155,1159,218" style="outline:none;" target="_self"     />
                                             </map>
                                             
                                         </div>
@@ -108,6 +110,28 @@ get_header(); ?>
                                             <h3 class="name">
                                                 <a href="/about/team/lisa-mochan/">
                                                     Lisa Mochan
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/liz-white/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/liz-white.jpg' ); ?>" alt="Liz White">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/liz-white/">
+                                                    Liz White
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
+                                            <a href="/about/team/crystal-charette/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/crystal-charette.jpg' ); ?>" alt="Crystal Charette">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/crystal-charette/">
+                                                    Crystal Charette
                                                 </a>
                                             </h3>
                                         </div>
