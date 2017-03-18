@@ -77,6 +77,11 @@
         <div id="floating-filter-search">
 
             <div class="edge-block">
+                <div class="wrap">
+                    <div class="inner">
+                        <img src="<?php echo esc_url(get_template_directory_uri().'/inc/images/lookingforsomething.png'); ?>" alt="<?php _e( 'Looking for something?', 'ytre' ); ?>">
+                    </div>
+                </div>
             </div>
 
             <?php echo do_shortcode('[listing_search'

@@ -94,8 +94,8 @@ jQuery(document).ready( function( $ ) {
      * Hide Filter Search On Click of Sidebar
      */
     $('div#floating-filter-search .edge-block').on('click', function() {
-        
-        $(this).parent().find('.epl-search-forms-wrapper.epl-search-default').stop().fadeToggle(300);
+       
+        $(this).parent().find('.epl-search-forms-wrapper.epl-search-default').stop().fadeToggle( 300 );
         
     });
         
