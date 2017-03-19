@@ -101,7 +101,7 @@ get_header(); ?>
                                         <?php global $post; ?>
                                         <div id="clear-search-filters">
                                             <a href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>" class="view-toggle-button">
-                                                <?php _e( 'Clear Filters', 'ytre' ); ?>
+                                                <?php _e( 'Show All Listings', 'ytre' ); ?>
                                             </a>
                                         </div>
                                         

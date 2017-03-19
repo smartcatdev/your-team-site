@@ -378,6 +378,9 @@ div#featured-listings-widgets .widget {
 div#footer-sidebar-wrapper .widget a {
     color: #fff;
 }
+div#featured-listings-widgets .widget img {
+    max-height: 110px;
+}
 div#featured-listings-widgets .widget a.primary-button {
     width: 100%;
     margin: 15px 0;
@@ -1448,6 +1451,8 @@ div#header-search .inner {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
+    line-height: 16px;
+    padding-top: 8px;
 }
 
 .prop-meta .prop-label .value {
@@ -1465,6 +1470,8 @@ div#header-search .inner {
 
 .prop-meta .prop-label span {
     margin-right: 10px;
+    display: inline-block;
+    width: 15px;
 }
 
 /** Map Filtering 

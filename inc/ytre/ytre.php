@@ -412,6 +412,7 @@ function ytre_custom_js() { ?>
             
                 $('#jumbotron-section').tubular({ 
                     videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'QO-dXDj9zII' ) ); ?>',
+                    repeat: true
                 });
                 $('#tubular-container').appendTo('#jumbotron-section');
                 $('#tubular-shield').appendTo('#jumbotron-section');
@@ -750,15 +751,16 @@ function ytre_render_featured_listings() { ?>
                                                     </h4>
                                                 </div>
                                                 
-                                                <div class="parking">
-                                                    <h4 class="prop-label">
-                                                        <span class="fa fa-car"></span>
-                                                        <?php _e( 'Parking', 'ytre' ); ?>
-                                                        <div class="value">
-                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_garage', true ) ) + intval( get_post_meta( get_the_ID(), 'property_carport', true ) ); ?>    
-                                                        </div>
-                                                    </h4>
-                                                </div>
+                                                <?php $terms = wp_get_post_terms( get_the_ID(), 'location' ); ?>
+                                                
+                                                <?php if ( !empty( $terms ) ) : ?>
+                                                    <div class="parking">
+                                                        <h4 class="prop-label">
+                                                            <span class="fa fa-map-o"></span>
+                                                            <?php echo $terms[0]->name;?>
+                                                        </h4>
+                                                    </div>
+                                                <?php endif; ?>
 
                                             </div>
 

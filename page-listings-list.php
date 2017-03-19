@@ -101,7 +101,7 @@ get_header(); ?>
                                         <?php global $post; ?>
                                         <div id="clear-search-filters">
                                             <a href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>" class="view-toggle-button">
-                                                <?php _e( 'Clear Filters', 'ytre' ); ?>
+                                                <?php _e( 'Show All Listings', 'ytre' ); ?>
                                             </a>
                                         </div>
                                         
@@ -258,15 +258,16 @@ get_header(); ?>
                                                                     </h4>
                                                                 </div>
 
-                                                                <div class="parking">
-                                                                    <h4 class="prop-label">
-                                                                        <span class="fa fa-car"></span>
-                                                                        <?php _e( 'Parking', 'ytre' ); ?>
-                                                                        <div class="value">
-                                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_garage', true ) ) + intval( get_post_meta( get_the_ID(), 'property_carport', true ) ); ?>    
-                                                                        </div>
-                                                                    </h4>
-                                                                </div>
+                                                                <?php $terms = wp_get_post_terms( get_the_ID(), 'location' ); ?>
+                                                
+                                                                <?php if ( !empty( $terms ) ) : ?>
+                                                                    <div class="parking">
+                                                                        <h4 class="prop-label">
+                                                                            <span class="fa fa-map-o"></span>
+                                                                            <?php echo $terms[0]->name;?>
+                                                                        </h4>
+                                                                    </div>
+                                                                <?php endif; ?>
 
                                                             </div>
 
