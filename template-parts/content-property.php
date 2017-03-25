@@ -90,8 +90,7 @@
 
                                 <!-- Nav tabs -->
                                 <ul class="nav nav-pills" role="tablist">
-                                    <li role="presentation" class="active"><a href="#features" aria-controls="features" role="tab" data-toggle="tab"><?php _e( 'Features', 'ytre' ); ?></a></li>
-                                    <li role="presentation"><a href="#details" aria-controls="details" role="tab" data-toggle="tab"><?php _e( 'Overview', 'ytre' ); ?></a></li>
+                                    <li role="presentation" class="active"><a href="#features" aria-controls="features" role="tab" data-toggle="tab"><?php _e( 'Overview / Features', 'ytre' ); ?></a></li>
                                     <?php if ( get_post_meta( get_the_ID(), 'property_address_hide_map', true ) != 'yes' ) : ?>
                                         <li role="presentation"><a href="#directions" aria-controls="directions" role="tab" data-toggle="tab"><?php _e( 'Get Directions', 'ytre' ); ?></a></li>
                                     <?php endif; ?>
@@ -103,22 +102,18 @@
                                     
                                     <div role="tabpanel" class="tab-pane fade in active" id="features">
                                         
-                                        <h4 class="prop-sub-heading"><?php _e( 'Property Features', 'ytre' ); ?></h4>
-                                        <div class="epl-tab-section epl-tab-section-features">
-                                            <?php do_action('epl_property_tab_section'); ?>
-                                        </div>
-                                        
-                                    </div>
-                                    
-                                    <div role="tabpanel" class="tab-pane fade" id="details">
                                         <div id="property-excerpt">
                                             
-                                            <div class="sub-section">
-                                                <h4 class="prop-sub-heading"><?php _e( 'Summary', 'ytre' ); ?></h4>
-                                                <p>
-                                                    <?php echo get_the_excerpt(); ?>
-                                                </p>
-                                            </div>
+                                            <?php if ( has_excerpt() ) : ?>
+                                            
+                                                <div class="sub-section">
+                                                    <h4 class="prop-sub-heading"><?php _e( 'Summary', 'ytre' ); ?></h4>
+                                                    <p>
+                                                        <?php echo get_the_excerpt(); ?>
+                                                    </p>
+                                                </div>
+                                            
+                                            <?php endif; ?>
                                             
                                             <div class="sub-section">
                                                 <h4 class="prop-sub-heading"><?php _e( 'Full Description', 'ytre' ); ?></h4>
@@ -126,6 +121,12 @@
                                             </div>
                                             
                                         </div>
+                                        
+                                        <h4 class="prop-sub-heading"><?php _e( 'Property Features', 'ytre' ); ?></h4>
+                                        <div class="epl-tab-section epl-tab-section-features">
+                                            <?php do_action('epl_property_tab_section'); ?>
+                                        </div>
+                                        
                                     </div>
                                     
                                     <?php if ( get_post_meta( get_the_ID(), 'property_address_hide_map', true ) != 'yes' ) : ?>

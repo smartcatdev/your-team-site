@@ -80,8 +80,13 @@ function ytre_content_width() {
 }
 add_action( 'after_setup_theme', 'ytre_content_width', 0 );
 
-// Enable scrolling down to Confirmation Messages on all Gravity Forms
-add_filter( 'gform_confirmation_anchor', '__return_true' );
+// Disable scrolling down to Confirmation Messages on all Gravity Forms
+add_filter( 'gform_confirmation_anchor', '__return_false' ); 
+
+function ytre_custom_excerpt_length( $length ) {
+    return 500;
+}
+add_filter( 'excerpt_length', 'ytre_custom_excerpt_length', 999 );
 
 /**
  * Implement the Custom Header feature.

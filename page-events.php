@@ -15,9 +15,15 @@ get_header(); ?>
 
         <div id="single-page-container">
 
-            <div id="single-title-box">
+            <div id="single-title-box" class="container">
+                    
+                <div class="row">
 
-                <h2 class="entry-title"><?php the_title(); ?></h2>
+                    <div class="col-sm-12">
+                        <h2 class="entry-title"><?php the_title(); ?></h2>
+                    </div>
+
+                </div>
 
             </div>
 

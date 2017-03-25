@@ -601,7 +601,7 @@ function ytre_render_jumbotron() { ?>
                         <div class="col-sm-12">
                             
                             <h2 class="jumbo-title">
-                                <?php _e( 'Contact a ', 'ytre' ); ?> 
+                                <?php _e( 'Contact a ', 'ytre' ); ?>
                                 <span><?php _e( 'Your Team', 'ytre' ); ?></span>
                                 <?php _e( ' member now.', 'ytre' ); ?>
                             </h2>
