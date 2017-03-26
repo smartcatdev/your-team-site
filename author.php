@@ -30,11 +30,11 @@ $curauth = (isset($_GET['author_name'])) ? get_user_by('slug', $author_name) : g
 
                                     <a href="tel:<?php echo get_user_meta( $curauth->ID, 'mobile', true ); ?>" class="primary-button">
                                         <span class="fa fa-mobile"></span>
-                                        <?php _e( 'Call', 'ytre' ); ?>
+                                        <?php echo get_user_meta( $curauth->ID, 'mobile', true ); ?>
                                     </a>
                                     <a href="mailto:<?php echo $curauth->user_email; ?>" class="primary-button">
                                         <span class="fa fa-envelope-o"></span>
-                                        <?php _e( 'Email', 'ytre' ); ?>
+                                        <?php echo $curauth->user_email; ?>
                                     </a>
                                     <a id="back-to-your-team" href="<?php echo esc_url(home_url('/about/')); ?>" class="primary-button">
                                         <span class="fa fa-undo"></span>

@@ -25,6 +25,7 @@ function ytre_scripts() {
     wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'animate', get_template_directory_uri() . '/inc/css/animate.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'slickNav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'sweetAlert', get_template_directory_uri() . '/inc/css/sweetalert.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
@@ -33,6 +34,7 @@ function ytre_scripts() {
     wp_enqueue_script( 'slickNav-js', get_template_directory_uri() . '/inc/js/jquery.slicknav.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'sticky-js', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'sweetAlert', get_template_directory_uri() . '/inc/js/sweetalert.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
     
@@ -525,6 +527,19 @@ function ytre_custom_js() { ?>
 
             });
             
+            /**
+             * Show Phone Call Popup
+             */
+            $('.phone-popup-trigger').on('click', function() {
+
+                swal({
+                    title: "",
+                    text: "<a href='tel:6133897777'>613-389-7777</a>",
+                    html: true
+                });
+
+            });
+            
         });
     
     </script>
@@ -609,8 +624,8 @@ function ytre_render_jumbotron() { ?>
                             <div id="jumbotron-buttons">
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button" 
-                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>"
+                                    <a class="button phone-popup-trigger" 
+                                       href="#"
                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                         <span class="fa fa-mobile"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>

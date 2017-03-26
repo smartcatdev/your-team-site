@@ -77,6 +77,17 @@ get_header(); ?>
                                         </div>
                                         
                                         <div class="mobile-team-member">                                            
+                                            <a href="/about/team/lisa-mochan/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/lisa-mochan.jpg' ); ?>" alt="Lisa Mochan">
+                                            </a>
+                                            <h3 class="name">
+                                                <a href="/about/team/lisa-mochan/">
+                                                    Lisa Mochan
+                                                </a>
+                                            </h3>
+                                        </div>
+                                        
+                                        <div class="mobile-team-member">                                            
                                             <a href="/about/team/erin-finn/">
                                                 <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/erin-finn.jpg' ); ?>" alt="Erin Finn">
                                             </a>
@@ -88,12 +99,12 @@ get_header(); ?>
                                         </div>
                                         
                                         <div class="mobile-team-member">                                            
-                                            <a href="/about/team/romeo-ibit/">
-                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/romeo-ibit.jpg' ); ?>" alt="Romeo Ibit">
+                                            <a href="/about/team/crystal-charette/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/crystal-charette.jpg' ); ?>" alt="Crystal Charette">
                                             </a>
                                             <h3 class="name">
-                                                <a href="/about/team/romeo-ibit/">
-                                                    Romeo Ibit
+                                                <a href="/about/team/crystal-charette/">
+                                                    Crystal Charette
                                                 </a>
                                             </h3>
                                         </div>
@@ -110,17 +121,6 @@ get_header(); ?>
                                         </div>
                                         
                                         <div class="mobile-team-member">                                            
-                                            <a href="/about/team/lisa-mochan/">
-                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/lisa-mochan.jpg' ); ?>" alt="Lisa Mochan">
-                                            </a>
-                                            <h3 class="name">
-                                                <a href="/about/team/lisa-mochan/">
-                                                    Lisa Mochan
-                                                </a>
-                                            </h3>
-                                        </div>
-                                        
-                                        <div class="mobile-team-member">                                            
                                             <a href="/about/team/liz-white/">
                                                 <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/liz-white.jpg' ); ?>" alt="Liz White">
                                             </a>
@@ -132,12 +132,12 @@ get_header(); ?>
                                         </div>
                                         
                                         <div class="mobile-team-member">                                            
-                                            <a href="/about/team/crystal-charette/">
-                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/crystal-charette.jpg' ); ?>" alt="Crystal Charette">
+                                            <a href="/about/team/romeo-ibit/">
+                                                <img src="<?php echo esc_url( get_template_directory_uri() . '/inc/images/romeo-ibit.jpg' ); ?>" alt="Romeo Ibit">
                                             </a>
                                             <h3 class="name">
-                                                <a href="/about/team/crystal-charette/">
-                                                    Crystal Charette
+                                                <a href="/about/team/romeo-ibit/">
+                                                    Romeo Ibit
                                                 </a>
                                             </h3>
                                         </div>

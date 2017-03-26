@@ -11,9 +11,15 @@ get_header(); ?>
 
 <div id="search-results-wrapper">
 
-    <div id="single-title-box">
+    <div id="single-title-box" class="container">
+                    
+        <div class="row">
 
-        <h2 class="entry-title"><?php printf( esc_html__( 'Search Results for: %s', 'ytre' ), '<span>' . get_search_query() . '</span>' ); ?></h2>
+            <div class="col-sm-12">
+                <h2 class="entry-title"><?php printf( esc_html__( 'Search Results for: %s', 'ytre' ), '<span>' . get_search_query() . '</span>' ); ?></h2>
+            </div>
+
+        </div>
 
     </div>
 

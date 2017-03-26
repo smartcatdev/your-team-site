@@ -60,8 +60,8 @@ get_header(); ?>
                                                 <div id="jumbotron-buttons">
                                 
                                                     <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
-                                                        <a class="primary-button" 
-                                                           href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>"
+                                                        <a class="primary-button phone-popup-trigger" 
+                                                           href="#"
                                                            <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                                             <span class="fa fa-mobile"></span>
                                                             <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>
@@ -121,7 +121,7 @@ get_header(); ?>
                                         <div class="col-sm-6">
                                         
                                             <div id="contact-us-map-photo">
-                                                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d45731.114501350865!2d-76.57332600000001!3d44.2442365!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sca!4v1481210368890" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2856.7341205166827!2d-76.57368098449264!3d44.27428927910495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4cd2add112c29689%3A0x93f8b9274cd68a9d!2s1329+Gardiners+Rd%2C+Kingston%2C+ON+K7P!5e0!3m2!1sen!2sca!4v1490463434084" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
                                             </div>
                                             
                                         </div>

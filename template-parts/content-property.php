@@ -23,6 +23,12 @@
                                 </h2>
 
                                 <div class="clear"></div>
+                                
+                                <?php if ( get_post_meta( get_the_ID(), 'mls_listing_number', true ) ) : ?>
+                                    <div class="mls-number-box">
+                                        <h3 class="property-mls-number"><?php _e( 'MLS® Number', 'ytre' ); ?>: <?php echo get_post_meta( get_the_ID(), 'mls_listing_number', true ); ?></h3>
+                                    </div>
+                                <?php endif; ?>
 
                             </div>
 

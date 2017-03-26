@@ -120,6 +120,6 @@ jQuery(document).ready( function( $ ) {
         }
         
     });
-    
+
 });
 

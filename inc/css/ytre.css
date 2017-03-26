@@ -823,10 +823,12 @@ div#prop-header-wrap {
     width: 100%;
     padding: 0;
 }
-#listing-agent-sidebar .epl-author-box.epl-author-image img {
+
+/*#listing-agent-sidebar .epl-author-box.epl-author-image img {
     width: 100%;
     height: auto;
-}
+}*/
+
 #listing-agent-sidebar .epl-author-social-buttons {
     margin: 20px 0 0 0;
 }
@@ -971,6 +973,9 @@ div#floating-contact-cta {
     top: 33%;
     z-index: 9999;
     padding: 10px 0;
+}
+div#floating-filter-search {
+    top: 130px;
 }
 div#floating-contact-cta,
 body.page-template-page-team div#floating-filter-search,
@@ -1124,6 +1129,9 @@ div#archive-loop-epl {
     visibility: hidden;
 }
 
+.search-result-item img {
+    max-width: 250px;
+}
 
 /** Our Team Template
 **/
@@ -1584,6 +1592,9 @@ div#team-member-inner {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     padding: 20px;
     background-color: #fff;
+}
+div#team-member-inner #ytre-team-actions a {
+    font-weight: 500;
 }
 .ytre-member-details {
     padding: 30px;
@@ -2073,8 +2084,86 @@ footer .widget > div {
     padding-top: 15px;
 }
 
-div#featured-listings-widgets .col-sm-4:last-of-type .widget {
+/*div#featured-listings-widgets .col-sm-4:last-of-type .widget {
     background-image: url(http://yourteam.wpengine.com/wp-content/uploads/2017/03/Team-shots-22-small.jpg);
     background-size: cover;
     color: #fff;
+}*/
+
+/* - SweetAlert - */
+.sa-confirm-button-container button {
+    background-color: #214580 !important;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: rgba(255,255,255,.80);
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 5px;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    text-align: center;
+    font-family: Lato;
+}
+
+.sweet-alert a {
+    color: #ef5858;
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.sweet-alert a:hover {
+    color: #dd2f39;
+}
+
+/*
+ * Social Sharing Add On -------------------------------------------------------
+ */
+
+div.share-buttons {
+    padding: 15px 0;
+}
+
+div.share-buttons ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+div.share-buttons ul li {
+    display: inline-block;
+}
+
+div.share-buttons ul li a {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    margin-right: 5px;
+    color: #fff;
+    font-size: 18px;
+}
+
+div.share-buttons ul li a.facebook {
+    background-color: #3b5998;
+}
+div.share-buttons ul li a.twitter {
+    background-color: #1da1f2;
+}
+div.share-buttons ul li a.gplus {
+    background-color: #dd4b39;
+}
+div.share-buttons ul li a.linkedin {
+    background-color: #0077b5;
+}
+div.share-buttons ul li a.pinterest {
+    background-color: #bd081c;
+}
+
+h3.property-mls-number {
+    margin: 0 0 15px 0;
+    font-size: 14px;
 }

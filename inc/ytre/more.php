@@ -366,6 +366,87 @@ class Ytre_Property_Images_Meta_Box {
     
 }
 
+new Ytre_Property_MLS_Number_Meta_Box();
+class Ytre_Property_MLS_Number_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
+        }
+        
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
+        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
+        
+    }
+
+    public function add_metabox() {
+
+        add_meta_box( 'ytre_property_images_meta', __( 'MLS Listing Number', 'ytre' ), array ( $this, 'render_ytre_mls_number_metabox' ), array( 'property' ), 'normal', 'high' );
+        
+    }
+
+    public function render_ytre_mls_number_metabox( $post ) {
+
+        // Add nonce for security and authentication.
+        wp_nonce_field( 'ytre_mls_number_meta_box_nonce_action', 'ytre_mls_number_meta_box_nonce' );
+
+        // Retrieve an existing value from the database.
+        $mls_listing_number = get_post_meta( $post->ID, 'mls_listing_number', true );
+//        $mls_listing_url    = get_post_meta( $post->ID, 'mls_listing_url', true );
+
+        // Set default values.
+        if ( empty( $mls_listing_number ) ) { $mls_listing_number = ''; } 
+//        if ( empty( $mls_listing_url ) )    { $mls_listing_url = ''; } 
+        
+        // Form fields
+        echo '<table class="form-table">';
+        
+        echo '	<tr>';
+        echo '		<th><label for="mls_listing_number" class="mls_listing_number_label">' . __( 'MLS® Number', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="mls_listing_number" name="mls_listing_number" class="mls_listing_number_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $mls_listing_number ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        
+//        echo '	<tr>';
+//        echo '		<th><label for="mls_listing_url" class="mls_listing_url_label">' . __( 'External Link', 'ytre' ) . '</label></th>';
+//        echo '		<td>';
+//        echo '			<input type="url" id="mls_listing_url" name="mls_listing_url" class="mls_listing_url_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $mls_listing_url ) . '">';
+//        echo '		</td>';
+//        echo '	</tr>';
+        
+        echo '</table>';
+        
+    }
+    
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name     = isset( $_POST[ 'ytre_mls_number_meta_box_nonce' ] ) ? $_POST[ 'ytre_mls_number_meta_box_nonce' ] : '';
+        $nonce_action   = 'ytre_mls_number_meta_box_nonce_action';
+
+        // Check if a nonce is set and valid
+        if ( !isset( $nonce_name ) ) { return; }
+        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
+            
+        // Sanitize user input.
+        $mls_listing_listing = isset( $_POST[ 'mls_listing_number' ] ) ? sanitize_text_field( $_POST[ 'mls_listing_number' ] ) : '';
+//        $mls_listing_url = isset( $_POST[ 'mls_listing_url' ] ) ? sanitize_text_field( $_POST[ 'mls_listing_url' ] ) : '';
+        
+        // Update the meta field in the database.
+        update_post_meta( $post_id, 'mls_listing_number', $mls_listing_listing );
+//        update_post_meta( $post_id, 'mls_listing_url', $mls_listing_url );
+        
+    }
+    
+}
+
 new Your_Team_Event_Meta_Box;
 class Your_Team_Event_Meta_Box {
 
@@ -865,3 +946,30 @@ function set_post_content( $entry, $form ) {
     endif; 
     
 }
+
+function ytre_add_social( $content ) { 
+
+    if( is_single() && get_post_type() == 'property' ) :
+
+        $home_url = home_url('/'); 
+
+        $content .= '<div class="share-buttons">'; 
+
+            $content .= '<h5 id="social-share-heading">' . __( 'Share:', 'ytre' ) . '</h5>'; 
+
+            $content .= '<ul>'; 
+
+                $content .= '<li><a class="facebook" target="_BLANK" href="https://www.facebook.com/sharer/sharer.php?u=' . get_the_permalink() . '&t=' . get_the_title() . '">' . '<i class="fa fa-facebook"></i>' . '</a></li>';
+                $content .= '<li><a class="twitter" target="_BLANK" href="https://twitter.com/intent/tweet?source=' . get_the_permalink() . '&text=:%20' . get_the_permalink() . '">' . '<i class="fa fa-twitter"></i>' . '</a></li>';
+                $content .= '<li><a class="pinterest" target="_BLANK" href="http://pinterest.com/pin/create/button/?url=' . get_the_permalink() . '&description=' . get_the_title() . '">' . '<i class="fa fa-pinterest"></i>' . '</a></li>';
+
+            $content .= '</ul>'; 
+
+        $content .= '</div>'; 
+
+    endif;
+
+    return $content;
+
+}
+add_filter( 'the_content', 'ytre_add_social' );
