@@ -534,7 +534,7 @@ function ytre_custom_js() { ?>
 
                 swal({
                     title: "",
-                    text: "<a href='tel:6133897777'>613-389-7777</a>",
+                    text: "<a href='tel:6135300968'>613-530-0968</a>",
                     html: true
                 });
 
