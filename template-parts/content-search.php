@@ -11,12 +11,6 @@
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'search-result-item' ); ?>>
    
-    <?php if ( get_the_post_thumbnail_url( get_the_ID() ) ) : ?>
-        <a href="<?php echo esc_url( get_permalink() ); ?>">
-            <img src="<?php echo get_the_post_thumbnail_url( get_the_ID() ); ?>" alt="<?php echo get_the_title(); ?>">
-        </a>
-    <?php endif; ?>
-    
     <div class="search-result-wrap">
         <header class="entry-header">
 
@@ -32,6 +26,12 @@
 
         <hr>
 
+        <?php if ( get_the_post_thumbnail_url( get_the_ID() ) ) : ?>
+            <a class="search-result-image" href="<?php echo esc_url( get_permalink() ); ?>">
+                <img src="<?php echo get_the_post_thumbnail_url( get_the_ID() ); ?>" alt="<?php echo get_the_title(); ?>">
+            </a>
+        <?php endif; ?>
+        
         <div class="entry-summary">
 
             <?php the_excerpt(); ?>

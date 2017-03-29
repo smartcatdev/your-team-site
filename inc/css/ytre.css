@@ -778,8 +778,9 @@ div#prop-header-wrap {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
 }
 #listing-agent-sidebar ul.epl-author-tabs.author-tabs {
-    border-bottom: 1px solid #e3e3e3;
-    padding-bottom: 15px;
+    border-top: 1px solid #e3e3e3;
+    padding-top: 15px;
+    margin-top: 15px;
     margin-bottom: 15px;
 }
 #listing-agent-sidebar .epl-author-box-container {
@@ -960,9 +961,9 @@ div#property-details .tab-content {
     }
 }
 
-.single-property .epl-author-tabs {
+/*.single-property .epl-author-tabs {
     display: none;
-}
+}*/
 
 /** Floating Search Filter Box
 **/
@@ -1629,7 +1630,9 @@ div#team-member-inner #ytre-team-actions a {
 /** ChatX Plugin
 **/
 body.home div#scx-widget div#scx-btn,
-body.page-template-page-contact div#scx-widget div#scx-btn {
+body.page-template-page-contact div#scx-widget div#scx-btn,
+body.page-template-page-team div#scx-widget div#scx-btn,
+body.author div#scx-widget div#scx-btn {
     display: none;
 }
 div#scx-widget .scx-popup {
@@ -2166,4 +2169,65 @@ div.share-buttons ul li a.pinterest {
 h3.property-mls-number {
     margin: 0 0 15px 0;
     font-size: 14px;
+}
+
+a.search-result-image {
+    float: left;
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+@media (max-width:599px) {
+
+    a.search-result-image {
+        float: none;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    a.search-result-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+}
+
+@media (max-width:767px) {
+
+    div#frontpage-copy-section {
+        display: none;
+    }
+    
+}
+
+.page-template-page-contact #ytre-team-social {
+    display: none;
+}
+
+#listing-agent-sidebar .epl-author-box.epl-author-image {
+	text-align: center;
+}
+
+
+a.epl-author-icon.author-icon.email-icon-24 {
+	display: none;
+}
+
+footer.entry-footer .comments-link {
+    display: none;
+}
+
+a#additional-listing-link {
+    margin: 30px 0 15px;
+    display: block;
+    color: #333;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+
+a#additional-listing-link:hover {
+    color: #dd2f39;
 }

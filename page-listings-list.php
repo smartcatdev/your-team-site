@@ -283,6 +283,12 @@ get_header(); ?>
                                             
                                         </div>
                                         
+                                        <h4>
+                                            <a id="additional-listing-link" href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>">
+                                                <?php _e('Didn’t find what you were looking for? View additional listings here.', 'ytre' ); ?>
+                                            </a>
+                                        </h4>
+                                        
                                     </div>
                                     
                                 </div><!-- .entry-content -->

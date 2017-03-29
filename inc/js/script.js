@@ -15,6 +15,8 @@ jQuery(document).ready( function( $ ) {
     });
 
     $('#header-actual-form form > label').prepend('<span class="fa fa-search"></span>');
+    
+    $('ul.epl-author-tabs').detach().appendTo( 'div.epl-author-box.epl-author-image');
 
     /**
      * Init ImageMap Resizer
