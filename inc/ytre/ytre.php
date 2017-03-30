@@ -287,6 +287,26 @@ function ytre_custom_css() { ?>
         div#tubular-shield {
             height: <?php echo intval( get_theme_mod( 'ytre_jumbotron_height', 400 ) ); ?>px !important;
         }
+        
+        @media (max-width: 640px) {
+    
+            #jumbotron-section, div#jumbotron-content, div#tubular-container, div#tubular-shield {
+                height: 400px !important;
+            }
+            
+        }
+        
+        @media (max-width:1299px) and (max-height: 749px) {
+            #jumbotron-section, div#jumbotron-content, div#tubular-container, div#tubular-shield {
+                height: 400px !important;
+            }
+        }
+        
+        @media (max-width:849px) and (max-height: 499px) {
+            iframe#tubular-player {
+                top: -5% !important;
+            }   
+        }
          
     </style>
     

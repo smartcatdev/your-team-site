@@ -2231,3 +2231,10 @@ a#additional-listing-link {
 a#additional-listing-link:hover {
     color: #dd2f39;
 }
+
+@media (min-width:1500px) {
+    iframe#tubular-player {
+       top: -20% !important;
+    }   
+}
+
