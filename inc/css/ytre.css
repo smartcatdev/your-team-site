@@ -2238,3 +2238,6 @@ a#additional-listing-link:hover {
     }   
 }
 
+div#load-in-house-features {
+    display: none;
+}

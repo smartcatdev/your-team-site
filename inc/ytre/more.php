@@ -260,200 +260,6 @@ class Your_Team_Contact_Info_Widget extends WP_Widget {
 
 }
 
-new Ytre_Property_Images_Meta_Box();
-class Ytre_Property_Images_Meta_Box {
-
-    public function __construct() {
-
-        if ( is_admin() ) {
-            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
-            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
-        }
-        
-    }
-
-    public function init_metabox() {
-
-        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
-        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
-        
-    }
-
-    public function add_metabox() {
-
-        add_meta_box( 'ytre_property_images_meta', __( 'Property Images', 'ytre' ), array ( $this, 'render_ytre_property_images_metabox' ), array( 'property' ), 'normal', 'high' );
-        
-    }
-
-    public function render_ytre_property_images_metabox( $post ) {
-
-        // Add nonce for security and authentication.
-        wp_nonce_field( 'ytre_property_images_meta_box_nonce_action', 'ytre_property_images_meta_box_nonce' );
-
-        // Retrieve an existing value from the database.
-        $property_images      = get_post_meta( $post->ID, 'property_image_set' );
-
-        // Set default values.
-        if ( empty( $property_images ) )    { $property_images = array(); } 
-        
-        // Form fields
-        echo '<table class="form-table">';
-        
-        if ( !empty( $property_images ) ) :
-        
-            /**
-             * Multiple Images Set 
-             */
-            $ctr = 1;
-            foreach ( $property_images[0] as $image ) :
-
-                echo '	<tr>';
-                echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="property_image_set_label">' . __( 'Image #' . $ctr, 'ytre' ) . '</label></th>';    
-                echo '		<td>';
-                echo '		    <div class="form-group smartcat-uploader">';
-                echo '	                <input type="text" id="property_image_set" name="property_image_set[]" value="' . esc_url($image) . '" class="property_image_set_field">';
-                echo '		    </div>';
-                echo '		</td>';
-                echo '		<td>';
-                echo '              <div><img src="' . esc_url($image) . '" style="height: 100px; margin: 1px 3px; border-radius: 4px;"></div>';
-                echo '		</td>';
-                echo '		<td>';
-                echo '              <div class="delete-uploaded-row"><span class="dashicons dashicons-trash"></span></div>';
-                echo '		</td>';
-                echo '	</tr>';
-
-                $ctr++;
-
-            endforeach;
-            
-            /**
-             * Add New Image Field
-             */
-            echo '	<tr>';
-            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
-            echo '	</tr>';
-            
-        else :
-            
-            /**
-             * Add New Image Field
-             */
-            echo '	<tr>';
-            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
-            echo '	</tr>';
-            
-        endif;
-        
-        echo '</table>';
-        
-    }
-    
-    public function save_metabox( $post_id, $post ) {
-
-        // Add nonce for security and authentication.
-        $nonce_name     = isset( $_POST[ 'ytre_property_images_meta_box_nonce' ] ) ? $_POST[ 'ytre_property_images_meta_box_nonce' ] : '';
-        $nonce_action   = 'ytre_property_images_meta_box_nonce_action';
-
-        // Check if a nonce is set and valid
-        if ( !isset( $nonce_name ) ) { return; }
-        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
-            
-        // Sanitize user input.
-        
-        if ( isset( $_POST[ 'property_image_set' ] ) ) :
-            $property_images = $_POST[ 'property_image_set' ];
-        else : 
-            $property_images = array();
-        endif;
-
-        // Update the meta field in the database
-        update_post_meta( $post_id, 'property_image_set', $property_images );
-        
-    }
-    
-}
-
-new Ytre_Property_MLS_Number_Meta_Box();
-class Ytre_Property_MLS_Number_Meta_Box {
-
-    public function __construct() {
-
-        if ( is_admin() ) {
-            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
-            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
-        }
-        
-    }
-
-    public function init_metabox() {
-
-        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
-        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
-        
-    }
-
-    public function add_metabox() {
-
-        add_meta_box( 'ytre_property_images_meta', __( 'MLS Listing Number', 'ytre' ), array ( $this, 'render_ytre_mls_number_metabox' ), array( 'property' ), 'normal', 'high' );
-        
-    }
-
-    public function render_ytre_mls_number_metabox( $post ) {
-
-        // Add nonce for security and authentication.
-        wp_nonce_field( 'ytre_mls_number_meta_box_nonce_action', 'ytre_mls_number_meta_box_nonce' );
-
-        // Retrieve an existing value from the database.
-        $mls_listing_number = get_post_meta( $post->ID, 'mls_listing_number', true );
-//        $mls_listing_url    = get_post_meta( $post->ID, 'mls_listing_url', true );
-
-        // Set default values.
-        if ( empty( $mls_listing_number ) ) { $mls_listing_number = ''; } 
-//        if ( empty( $mls_listing_url ) )    { $mls_listing_url = ''; } 
-        
-        // Form fields
-        echo '<table class="form-table">';
-        
-        echo '	<tr>';
-        echo '		<th><label for="mls_listing_number" class="mls_listing_number_label">' . __( 'MLS® Number', 'ytre' ) . '</label></th>';
-        echo '		<td>';
-        echo '			<input type="text" id="mls_listing_number" name="mls_listing_number" class="mls_listing_number_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $mls_listing_number ) . '">';
-        echo '		</td>';
-        echo '	</tr>';
-        
-//        echo '	<tr>';
-//        echo '		<th><label for="mls_listing_url" class="mls_listing_url_label">' . __( 'External Link', 'ytre' ) . '</label></th>';
-//        echo '		<td>';
-//        echo '			<input type="url" id="mls_listing_url" name="mls_listing_url" class="mls_listing_url_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $mls_listing_url ) . '">';
-//        echo '		</td>';
-//        echo '	</tr>';
-        
-        echo '</table>';
-        
-    }
-    
-    public function save_metabox( $post_id, $post ) {
-
-        // Add nonce for security and authentication.
-        $nonce_name     = isset( $_POST[ 'ytre_mls_number_meta_box_nonce' ] ) ? $_POST[ 'ytre_mls_number_meta_box_nonce' ] : '';
-        $nonce_action   = 'ytre_mls_number_meta_box_nonce_action';
-
-        // Check if a nonce is set and valid
-        if ( !isset( $nonce_name ) ) { return; }
-        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
-            
-        // Sanitize user input.
-        $mls_listing_listing = isset( $_POST[ 'mls_listing_number' ] ) ? sanitize_text_field( $_POST[ 'mls_listing_number' ] ) : '';
-//        $mls_listing_url = isset( $_POST[ 'mls_listing_url' ] ) ? sanitize_text_field( $_POST[ 'mls_listing_url' ] ) : '';
-        
-        // Update the meta field in the database.
-        update_post_meta( $post_id, 'mls_listing_number', $mls_listing_listing );
-//        update_post_meta( $post_id, 'mls_listing_url', $mls_listing_url );
-        
-    }
-    
-}
-
 new Your_Team_Event_Meta_Box;
 class Your_Team_Event_Meta_Box {
 
@@ -980,3 +786,193 @@ function ytre_add_social( $content ) {
 
 }
 add_filter( 'the_content', 'ytre_add_social' );
+
+new Your_Team_Combined_Features_Meta_Box;
+class Your_Team_Combined_Features_Meta_Box {
+
+    public function __construct() {
+
+        if ( is_admin() ) {
+            add_action( 'load-post.php',        array ( $this, 'init_metabox' ) );
+            add_action( 'load-post-new.php',    array ( $this, 'init_metabox' ) );
+        }
+        
+    }
+
+    public function init_metabox() {
+
+        add_action( 'add_meta_boxes',           array ( $this, 'add_metabox' ) );
+        add_action( 'save_post',                array ( $this, 'save_metabox' ), 10, 2 );
+        
+    }
+
+    public function add_metabox() {
+
+        add_meta_box( 'ytre_property_combined_meta', __( 'Property Features / Property Images', 'ytre' ), array ( $this, 'render_ytre_property_combined_metabox' ), array( 'property' ), 'normal', 'high' );
+        
+    }
+
+    public function render_ytre_property_combined_metabox( $post ) {
+        
+        // Add nonce for security and authentication.
+        
+        wp_nonce_field( 'property_combined_meta_box_nonce_action', 'property_combined_meta_box_nonce' );
+
+        // Retrieve an existing value from the database.
+        
+        $mls_listing_number             = get_post_meta( $post->ID, 'mls_listing_number', true );
+        
+        $house_feature_style            = get_post_meta( $post->ID, 'house_feature_style', true );
+        $house_feature_bedroom_details  = get_post_meta( $post->ID, 'house_feature_bedroom_details', true );
+        $house_feature_bathroom_details = get_post_meta( $post->ID, 'house_feature_bathroom_details', true );
+        $house_feature_garage_details   = get_post_meta( $post->ID, 'house_feature_garage_details', true );
+        
+        $property_images                = get_post_meta( $post->ID, 'property_image_set' );
+        
+        // Set Default Values
+        
+        if ( empty( $mls_listing_number ) )             { $mls_listing_number = ''; } 
+        
+        if ( empty( $house_feature_style ) )            { $house_feature_style = ''; } 
+        if ( empty( $house_feature_bedroom_details ) )  { $house_feature_bedroom_details = ''; } 
+        if ( empty( $house_feature_bathroom_details ) ) { $house_feature_bathroom_details = ''; } 
+        if ( empty( $house_feature_garage_details ) )   { $house_feature_garage_details = ''; } 
+        
+        if ( empty( $property_images ) )                { $property_images = array(); } 
+        
+        // FORM : MLS Listing Number
+        
+        echo '<h1 style="color: #3bafda;">' . __( 'MLS® Number' , 'ytre' ) . '</h1>';
+        
+        echo '<table class="form-table">';
+        echo '	<tr>';
+        echo '		<th><label for="mls_listing_number" class="mls_listing_number_label">' . __( 'Number / Code: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="mls_listing_number" name="mls_listing_number" class="mls_listing_number_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $mls_listing_number ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '</table>'; 
+
+        echo '<hr>';
+        
+        // FORM : Extra House Features
+        echo '<h1 style="color: #3bafda;">' . __( 'Extra House Features' , 'ytre' ) . '</h1>';
+        echo '<table class="form-table">';
+        echo '	<tr>';
+        echo '		<th><label for="house_feature_style" class="house_feature_style_label">' . __( 'Style: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="house_feature_style" name="house_feature_style" class="house_feature_style_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $house_feature_style ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '	<tr>';
+        echo '		<th><label for="house_feature_bedroom_details" class="house_feature_bedroom_details_label">' . __( 'Bedroom Notes: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="house_feature_bedroom_details" name="house_feature_bedroom_details" class="house_feature_bedroom_details_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $house_feature_bedroom_details ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '	<tr>';
+        echo '		<th><label for="house_feature_bathroom_details" class="house_feature_bathroom_details_label">' . __( 'Bathroom Notes: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="house_feature_bathroom_details" name="house_feature_bathroom_details" class="house_feature_bathroom_details_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $house_feature_bathroom_details ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '	<tr>';
+        echo '		<th><label for="house_feature_garage_details" class="house_feature_garage_details_label">' . __( 'Garage Notes: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="text" id="house_feature_garage_details" name="house_feature_garage_details" class="house_feature_garage_details_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $house_feature_garage_details ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '</table>';
+        
+        echo '<hr>';
+        
+        // FORM : Property Images
+        echo '<h1 style="color: #3bafda;">' . __( 'Property Images' , 'ytre' ) . '</h1>';
+        echo '<table class="form-table">';
+        if ( !empty( $property_images ) && is_array( $property_images[0] ) ) :
+        
+            /**
+             * Multiple Images Set 
+             */
+            $ctr = 1;
+            foreach ( $property_images[0] as $image ) :
+
+                echo '	<tr>';
+                echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="property_image_set_label">' . __( 'Image #' . $ctr, 'ytre' ) . '</label></th>';    
+                echo '		<td>';
+                echo '		    <div class="form-group smartcat-uploader">';
+                echo '	                <input type="text" id="property_image_set" name="property_image_set[]" value="' . esc_url($image) . '" class="property_image_set_field">';
+                echo '		    </div>';
+                echo '		</td>';
+                echo '		<td>';
+                echo '              <div><img src="' . esc_url($image) . '" style="height: 100px; margin: 1px 3px; border-radius: 4px;"></div>';
+                echo '		</td>';
+                echo '		<td>';
+                echo '              <div class="delete-uploaded-row"><span class="dashicons dashicons-trash"></span></div>';
+                echo '		</td>';
+                echo '	</tr>';
+
+                $ctr++;
+
+            endforeach;
+            
+            /**
+             * Add New Image Field
+             */
+            echo '	<tr>';
+            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row" style="color: #3bafda;">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
+            echo '	</tr>';
+            
+        else :
+            
+            /**
+             * Add New Image Field
+             */
+            echo '	<tr>';
+            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row" style="color: #3bafda;">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
+            echo '	</tr>';
+            
+        endif;
+        echo '</table>';
+        
+    }
+    
+    public function save_metabox( $post_id, $post ) {
+
+        // Add nonce for security and authentication.
+        $nonce_name     = isset( $_POST[ 'property_combined_meta_box_nonce' ] ) ? $_POST[ 'property_combined_meta_box_nonce' ] : '';
+        $nonce_action   = 'property_combined_meta_box_nonce_action';
+
+        // Check if a nonce is set and valid
+        if ( !isset( $nonce_name ) ) { return; }
+        if ( !wp_verify_nonce( $nonce_name, $nonce_action ) ) { return; }
+            
+        // Sanitize User Input
+        
+        $mls_listing_number = isset( $_POST[ 'mls_listing_number' ] ) ? sanitize_text_field( $_POST[ 'mls_listing_number' ] ) : '';
+        
+        $house_feature_style            = isset( $_POST[ 'house_feature_style' ] )              ? sanitize_text_field( $_POST[ 'house_feature_style' ] ) : '';
+        $house_feature_bedroom_details  = isset( $_POST[ 'house_feature_bedroom_details' ] )    ? sanitize_text_field( $_POST[ 'house_feature_bedroom_details' ] ) : '';
+        $house_feature_bathroom_details = isset( $_POST[ 'house_feature_bathroom_details' ] )   ? sanitize_text_field( $_POST[ 'house_feature_bathroom_details' ] ) : '';
+        $house_feature_garage_details   = isset( $_POST[ 'house_feature_garage_details' ] )     ? sanitize_text_field( $_POST[ 'house_feature_garage_details' ] ) : '';
+        
+        if ( isset( $_POST[ 'property_image_set' ] ) ) :
+            $property_images = $_POST[ 'property_image_set' ];
+        else : 
+            $property_images = array();
+        endif;
+
+        // Update the meta field in the database
+        update_post_meta( $post_id, 'mls_listing_number', $mls_listing_number );
+        
+        update_post_meta( $post_id, 'house_feature_style', $house_feature_style );
+        update_post_meta( $post_id, 'house_feature_bedroom_details', $house_feature_bedroom_details );
+        update_post_meta( $post_id, 'house_feature_bathroom_details', $house_feature_bathroom_details );
+        update_post_meta( $post_id, 'house_feature_garage_details', $house_feature_garage_details );
+        
+        update_post_meta( $post_id, 'property_image_set', $property_images );
+        
+        
+    }
+    
+}
