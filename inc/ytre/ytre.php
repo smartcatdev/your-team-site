@@ -25,6 +25,7 @@ function ytre_scripts() {
     wp_enqueue_style( 'owl-carousel', get_template_directory_uri() . '/inc/css/owl.carousel.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'animate', get_template_directory_uri() . '/inc/css/animate.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'slickNav', get_template_directory_uri() . '/inc/css/slicknav.min.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'sweetAlert', get_template_directory_uri() . '/inc/css/sweetalert.css', array(), YTRE_VERSION );
     wp_enqueue_style( 'ytre-main-style', get_template_directory_uri() . '/inc/css/ytre.css', array(), YTRE_VERSION );
 
     wp_enqueue_script( 'owl-carousel-js', get_template_directory_uri() . '/inc/js/owl.carousel.min.js', array('jquery'), YTRE_VERSION, true );
@@ -33,6 +34,7 @@ function ytre_scripts() {
     wp_enqueue_script( 'slickNav-js', get_template_directory_uri() . '/inc/js/jquery.slicknav.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'galleria-js', get_template_directory_uri() . '/inc/js/galleria/galleria-1.4.7.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'sticky-js', get_template_directory_uri() . '/inc/js/jquery.sticky.js', array('jquery'), YTRE_VERSION, true );
+    wp_enqueue_script( 'sweetAlert', get_template_directory_uri() . '/inc/js/sweetalert.min.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'tubular-js', get_template_directory_uri() . '/inc/js/jquery.tubular.1.0.js', array('jquery'), YTRE_VERSION, true );
     wp_enqueue_script( 'ytre-main-script', get_template_directory_uri() . '/inc/js/script.js', array('jquery','jquery-masonry'), YTRE_VERSION, true );
     
@@ -125,7 +127,9 @@ function ytre_custom_css() { ?>
         .page-template-page-events .event-details .date,
         h3#team-photo-display-name,
         .ytre-member-details .title,
-        div#single-title-box .entry-title {
+        div#single-title-box .entry-title,
+        .page-template-page-listings-list #view-toggle-buttons .entry-title,
+        .page-template-page-listings-map #view-toggle-buttons .entry-title {
             font-family: <?php echo esc_attr( get_theme_mod( 'ytre_font_body', 'Lato, sans-serif' ) ); ?>;
         }
         
@@ -180,7 +184,9 @@ function ytre_custom_css() { ?>
             .epl-archive-default h3.archive-page-subtitle,
             .grid2 .sc_team_member .sc_team_member_name a,
             #featured-listings .owl-buttons div,
-            #mobile-team-cards .mobile-team-member .name a {
+            #mobile-team-cards .mobile-team-member .name a,
+            .page-template-page-listings-list #view-toggle-buttons .entry-title,
+            .page-template-page-listings-map #view-toggle-buttons .entry-title {
                 color: <?php echo esc_attr( $skin[ 'primary' ] ); ?>;
             }
             
@@ -212,6 +218,7 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             a.primary-button,
+            div.primary-button,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -244,6 +251,7 @@ function ytre_custom_css() { ?>
         
             div#jumbotron-buttons a.button,
             a.primary-button,
+            div.primary-button,
             .search-form input.search-submit,
             div#floating-filter-search input[type="submit"],
             .view-toggle-button,
@@ -278,6 +286,26 @@ function ytre_custom_css() { ?>
         div#tubular-container,
         div#tubular-shield {
             height: <?php echo intval( get_theme_mod( 'ytre_jumbotron_height', 400 ) ); ?>px !important;
+        }
+        
+        @media (max-width: 640px) {
+    
+            #jumbotron-section, div#jumbotron-content, div#tubular-container, div#tubular-shield {
+                height: 400px !important;
+            }
+            
+        }
+        
+        @media (max-width:1299px) and (max-height: 749px) {
+            #jumbotron-section, div#jumbotron-content, div#tubular-container, div#tubular-shield {
+                height: 400px !important;
+            }
+        }
+        
+        @media (max-width:849px) and (max-height: 499px) {
+            iframe#tubular-player {
+                top: -5% !important;
+            }   
         }
          
     </style>
@@ -405,7 +433,8 @@ function ytre_custom_js() { ?>
             if ( $("#jumbotron-section").length ) {
             
                 $('#jumbotron-section').tubular({ 
-                    videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'AK-MUzWdpjU' ) ); ?>',
+                    videoId: '<?php echo esc_js( get_theme_mod( 'ytre_jumbo_video_id', 'QO-dXDj9zII' ) ); ?>',
+                    repeat: true
                 });
                 $('#tubular-container').appendTo('#jumbotron-section');
                 $('#tubular-shield').appendTo('#jumbotron-section');
@@ -421,6 +450,7 @@ function ytre_custom_js() { ?>
              * Change the Filter CTA action parameter to the listings page
              */
             $('#floating-filter-search form').attr( 'action', '<?php echo esc_url( home_url( '/listings-list/' ) ); ?>' ).find('input[type="hidden"]').remove();
+            $('#floating-filter-search form').prepend( '<input type="hidden" name="homepage-search-arrival" value="true" />' );
 
             /*
             * Handle Blog Roll Masonry
@@ -517,6 +547,19 @@ function ytre_custom_js() { ?>
 
             });
             
+            /**
+             * Show Phone Call Popup
+             */
+            $('.phone-popup-trigger').on('click', function() {
+
+                swal({
+                    title: "",
+                    text: "<a href='tel:6135300968'>613-530-0968</a>",
+                    html: true
+                });
+
+            });
+            
         });
     
     </script>
@@ -593,7 +636,7 @@ function ytre_render_jumbotron() { ?>
                         <div class="col-sm-12">
                             
                             <h2 class="jumbo-title">
-                                <?php _e( 'Contact a ', 'ytre' ); ?> 
+                                <?php _e( 'Contact a ', 'ytre' ); ?>
                                 <span><?php _e( 'Your Team', 'ytre' ); ?></span>
                                 <?php _e( ' member now.', 'ytre' ); ?>
                             </h2>
@@ -602,7 +645,7 @@ function ytre_render_jumbotron() { ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
                                     <a class="button" 
-                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_1_url', '#' ) ); ?>"
+                                       href="tel:6135300968"
                                        <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                         <span class="fa fa-mobile"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>
@@ -619,9 +662,7 @@ function ytre_render_jumbotron() { ?>
                                 <?php endif; ?>
                                 
                                 <?php if ( get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ) != '' ) : ?>
-                                    <a class="button chat-trigger" 
-                                       href="<?php echo esc_url( get_theme_mod( 'ytre_jumbotron_button_3_url', '#' ) ); ?>"
-                                       <?php echo get_theme_mod( 'ytre_jumbotron_button_3_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
+                                    <a class="button chat-trigger" href="#">
                                         <span class="fa fa-commenting-o"></span>
                                         <?php echo get_theme_mod( 'ytre_jumbotron_button_3_label', __( 'Live Chat', 'ytre' ) ); ?>
                                     </a>
@@ -745,15 +786,16 @@ function ytre_render_featured_listings() { ?>
                                                     </h4>
                                                 </div>
                                                 
-                                                <div class="parking">
-                                                    <h4 class="prop-label">
-                                                        <span class="fa fa-car"></span>
-                                                        <?php _e( 'Parking', 'ytre' ); ?>
-                                                        <div class="value">
-                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_garage', true ) ) + intval( get_post_meta( get_the_ID(), 'property_carport', true ) ); ?>    
-                                                        </div>
-                                                    </h4>
-                                                </div>
+                                                <?php $terms = wp_get_post_terms( get_the_ID(), 'location' ); ?>
+                                                
+                                                <?php if ( !empty( $terms ) ) : ?>
+                                                    <div class="parking">
+                                                        <h4 class="prop-label">
+                                                            <span class="fa fa-map-o"></span>
+                                                            <?php echo $terms[0]->name;?>
+                                                        </h4>
+                                                    </div>
+                                                <?php endif; ?>
 
                                             </div>
 
@@ -772,7 +814,15 @@ function ytre_render_featured_listings() { ?>
                         </ul>
                     
                     <?php endif; ?>
-
+                    
+                    <div id="frontpage-copy-section">
+                    
+                        <p>
+                            <?php _e( 'Haven’t found your dream home yet? Let one of our experienced agents help you. After all, it’s our job. They don’t call us Your Team for nothing.', 'ytre' ); ?>
+                        </p>
+                        
+                    </div>
+                    
                     <?php if ( is_active_sidebar( 'sidebar-featured-listings' ) ) : ?>
                         <div id="featured-listings-widgets">
 
@@ -844,7 +894,11 @@ function ytre_render_footer() { ?>
             <div class="arrow"></div>
 
         </div>
-
+        
+        <div id="footer-copyright" class="col-md-12">
+            <?php _e( 'Copyright © 2017. All rights reserved. MLS®, REALTOR®, and the associated logos are trademarks of The Canadian Real Estate Association.', 'ytre' ); ?>
+        </div>
+        
     </div>
 
 </div>

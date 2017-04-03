@@ -15,6 +15,16 @@ body {
     vertical-align: middle;
 }
 
+@media (max-width: 767px) {
+    br.desktop-line-break {
+        display: none;
+    }    
+}
+
+.address-spacer {
+    margin-bottom: 10px;
+}
+
 /** Header Nav Bar
 **/
 header#masthead {
@@ -180,14 +190,15 @@ div#tubular-shield {
 }
 iframe#tubular-player {
     max-width: initial;
-    top: -50% !important;
+    top: -15% !important;
 }
 div#jumbotron-buttons {
     margin-top: 20px;
 }
 div#jumbotron-buttons a.button,
 .nav-pills>li>a,
-a.primary-button {
+a.primary-button,
+div.primary-button {
     display: inline-block;
     padding: 10px 30px;
     border-radius: 4px;
@@ -216,6 +227,7 @@ a.button span.fa {
 div#jumbotron-buttons a.button {
     border: 2px solid rgba(255, 255, 255, .80) !important;
     background: none !important;
+    font-weight: bold;
 }
 @media (max-width:599px) {
     div#jumbotron-buttons a.button {
@@ -226,6 +238,17 @@ div#jumbotron-buttons a.button {
         text-align: center;
     }
 }
+
+#jumbotron-content .jumbo-title {
+    margin-top: 120px;
+}
+
+/*@media (max-width:767px) {
+    #jumbotron-content .jumbo-title {
+        margin-top: 60px;
+    }
+}*/
+
 #jumbotron-tagline {
     padding: 30px 15px;
     text-align: center;
@@ -251,6 +274,13 @@ div#jumbotron-buttons a.button {
 #footer-sidebar-wrapper .arrow {
     border-top-color: whitesmoke;
     top: -100px;
+}
+
+div#footer-copyright {
+    margin: 30px 0 0 0;
+    text-align: center;
+    padding: 15px 0;
+    background-color: #0a1629;
 }
 
 /** Featured Listings
@@ -364,6 +394,9 @@ div#featured-listings-widgets .widget {
 div#footer-sidebar-wrapper .widget a {
     color: #fff;
 }
+div#featured-listings-widgets .widget img {
+    max-height: 110px;
+}
 div#featured-listings-widgets .widget a.primary-button {
     width: 100%;
     margin: 15px 0;
@@ -387,9 +420,15 @@ div#featured-listings-widgets .widget a:hover {
     border-color: #fff;
     color: #fff;
 }*/
-@media (min-width: 768px) {
+@media (min-width: 768px) and (max-width:991px) {
     div#featured-listings-widgets .widget {
-        min-height: 250px;
+        min-height: 320px;
+    }    
+}
+
+@media (min-width: 992px) {
+    div#featured-listings-widgets .widget {
+        min-height: 280px;
     }    
 }
 
@@ -398,7 +437,7 @@ div#featured-listings-widgets .widget a:hover {
 footer#colophon {
     color: #fff;
     margin-top: 50px;
-    padding: 100px 0 50px;
+    padding: 100px 0 0px;
 }
 
 /** Google Maps
@@ -505,6 +544,10 @@ span.status-sticker {
     margin-top: 10px;
 }
 
+.single-property .epl-property-featured-icons span.parking {
+    display: none;
+}
+
 .icon.beds,
 .icon.bath,
 .icon.parking,
@@ -553,6 +596,7 @@ span.status-sticker {
     padding: 10px 0;
     border-bottom: thin solid #e3e3e3;
     margin-bottom: 20px;
+    position: relative;
 }
 @media (max-width:599px) {
     .view-toggle-button {
@@ -560,6 +604,13 @@ span.status-sticker {
         margin-left: 0 !important;
     }
 }
+
+div#view-toggle-buttons #view-toggle-list, 
+div#view-toggle-buttons #view-toggle-map {
+    background-color: #00a8e9;
+    border-color: #0070a7;
+}
+
 #clear-search-filters .view-toggle-button {
     padding: 5px 15px;
     background-color: #909090;
@@ -569,6 +620,7 @@ p.listing-page-blurb {
     text-align: left;
     font-weight: 300;
     margin: 10px 0 0 0;
+    font-size: 18px;
 }
 #view-wrapper {
     background-color: #fff;
@@ -610,13 +662,13 @@ p.listing-page-blurb {
 **/
 div#single-title-box {
     color: #fff;
-    padding: 15px 0;
-    text-align: center;
+    padding: 15px;
+/*    text-align: center;*/
     min-height: 75px;
 }
 div#single-title-box .entry-title {
     margin: 50px 0 0 0;
-    font-weight: 300;
+    font-weight: 600;
     font-size: 40px;
 }
 
@@ -691,6 +743,7 @@ div#property-gallery {
 }
 div#property-excerpt {
     font-weight: 300;
+    font-size: 16px;
 }
 .sub-section {
     margin-bottom: 30px;
@@ -725,8 +778,9 @@ div#prop-header-wrap {
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
 }
 #listing-agent-sidebar ul.epl-author-tabs.author-tabs {
-    border-bottom: 1px solid #e3e3e3;
-    padding-bottom: 15px;
+    border-top: 1px solid #e3e3e3;
+    padding-top: 15px;
+    margin-top: 15px;
     margin-bottom: 15px;
 }
 #listing-agent-sidebar .epl-author-box-container {
@@ -770,10 +824,12 @@ div#prop-header-wrap {
     width: 100%;
     padding: 0;
 }
-#listing-agent-sidebar .epl-author-box.epl-author-image img {
+
+/*#listing-agent-sidebar .epl-author-box.epl-author-image img {
     width: 100%;
     height: auto;
-}
+}*/
+
 #listing-agent-sidebar .epl-author-social-buttons {
     margin: 20px 0 0 0;
 }
@@ -905,6 +961,10 @@ div#property-details .tab-content {
     }
 }
 
+/*.single-property .epl-author-tabs {
+    display: none;
+}*/
+
 /** Floating Search Filter Box
 **/
 div#floating-filter-search,
@@ -915,19 +975,23 @@ div#floating-contact-cta {
     z-index: 9999;
     padding: 10px 0;
 }
+div#floating-filter-search {
+    top: 130px;
+}
 div#floating-contact-cta,
-body.page-template-page-team div#floating-filter-search {
+body.page-template-page-team div#floating-filter-search,
+body.page-template-page-contact div#floating-filter-search {
     display: none;
 }
 body.page-template-page-team div#floating-contact-cta {
     display: block;
 }
 #floating-filter-search .epl-search-forms-wrapper.epl-search-default {
-
+    display: none;
 }
 div#floating-filter-search .edge-block,
 div#floating-contact-cta .edge-block {
-    width: 15px;
+    width: 35px;
     height: 100%;
     position: absolute;
     right: 0;
@@ -942,14 +1006,46 @@ div#floating-contact-cta .edge-block {
     -moz-transition: 0.3s all ease-in-out;
     -webkit-transition: 0.3s all ease-in-out;
 }
+
+div#floating-contact-cta .edge-block {
+    width: 15px;
+}
+
+.edge-block .wrap {
+    display: table;
+    width: 100%;
+    height: 100%;
+}
+
+.edge-block .wrap .inner {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.edge-block .inner img {
+    width: 16px;
+}
+
 div#floating-filter-search .edge-block {
     min-height: 170px;
 }
 div#floating-contact-cta .edge-block {
     min-height: 190px;
 }
+
+/*div#vert-tab-text {
+    -ms-transform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    width: 200px;
+    margin: 0;
+    height: 20px;
+    color: #fff;
+}*/
+
 div#floating-filter-search form {
-    padding: 5px 0 5px 10px;
+    padding: 5px 20px 5px 10px;
 }
 #floating-filter-search div.search-field-wrap {
     margin: 5px 10px 5px 0;
@@ -1034,6 +1130,9 @@ div#archive-loop-epl {
     visibility: hidden;
 }
 
+.search-result-item img {
+    max-width: 250px;
+}
 
 /** Our Team Template
 **/
@@ -1168,7 +1267,7 @@ h3#team-photo-display-name {
 }
 p.team-page-blurb {
     margin: 0 0 50px 0;
-    text-align: center;
+/*    text-align: center;*/
     font-weight: 300;
     font-size: 20px;
 }
@@ -1377,6 +1476,8 @@ div#header-search .inner {
     border-bottom: none;
     padding-bottom: 0;
     margin-bottom: 0;
+    line-height: 16px;
+    padding-top: 8px;
 }
 
 .prop-meta .prop-label .value {
@@ -1394,6 +1495,8 @@ div#header-search .inner {
 
 .prop-meta .prop-label span {
     margin-right: 10px;
+    display: inline-block;
+    width: 15px;
 }
 
 /** Map Filtering 
@@ -1452,6 +1555,8 @@ div#header-search .inner {
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.25);
+    font-size: 18px;
+    font-weight: 300;
 }
 .contact-content-box .title {
     margin: 0 0 20px 0;
@@ -1489,6 +1594,9 @@ div#team-member-inner {
     padding: 20px;
     background-color: #fff;
 }
+div#team-member-inner #ytre-team-actions a {
+    font-weight: 500;
+}
 .ytre-member-details {
     padding: 30px;
 }
@@ -1513,6 +1621,7 @@ div#team-member-inner {
 .ytre-member-content {
     margin: 30px 0;
     font-weight: 300;
+    font-size: 18px;
 }
 .ytre-member-content .smartcat_team_single_icons {
     margin: 30px 0;
@@ -1520,7 +1629,10 @@ div#team-member-inner {
 
 /** ChatX Plugin
 **/
-body.home div#scx-widget div#scx-btn {
+body.home div#scx-widget div#scx-btn,
+body.page-template-page-contact div#scx-widget div#scx-btn,
+body.page-template-page-team div#scx-widget div#scx-btn,
+body.author div#scx-widget div#scx-btn {
     display: none;
 }
 div#scx-widget .scx-popup {
@@ -1544,8 +1656,14 @@ div#scx-widget .scx-button.scx-primary {
 div#scx-widget .scx-button.scx-primary:hover {
     color: #fff !important;
 }
+
 div#scx-widget .scx-chat-btn, 
 div#scx-widget .scx-popup {
+    top: 50% !important;
+}
+
+.home div#scx-widget .scx-chat-btn, 
+.home div#scx-widget .scx-popup {
     top: 25% !important;
 }
 
@@ -1702,6 +1820,13 @@ div#search-results-wrapper .search-result-item {
 }
 div#search-results-wrapper .search-result-item a {
     color: #1c1c1c;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+
+div#search-results-wrapper .search-result-item a:hover {
+    color: #dd2f39;
 }
 
 /** New Header Transparent
@@ -1798,3 +1923,318 @@ header#masthead .search-form input.search-field:-moz-placeholder { /* Firefox 4 
 div#footer-widget-area .widget .subtitle {
     margin-bottom: 15px;
 }
+
+div#footer-widget-area .widget a {
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+div#footer-widget-area .widget a:hover {
+    color: #dd2f39;
+}
+
+.page-template-page-listings-list div#single-title-box, 
+.page-template-page-listings-map div#single-title-box {
+    text-align: left;
+}
+
+div#ytre-team-social {
+    display: table;
+    width: 100%;
+    margin: 15px 0 5px 0;
+}
+
+#ytre-team-social .inner {
+    width: 25%;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#ytre-team-social .inner:first-of-type {
+    padding-left: 0px;
+}
+
+#ytre-team-social .inner:last-of-type {
+    padding-right: 0px;
+}
+
+#ytre-team-social .inner .team-social {
+    height: 50px;
+    display: inline-block;
+    line-height: 50px;
+    width: 100%;
+    border-radius: 4px;
+    color: #fff;
+}
+
+#ytre-team-social .inner .team-social.facebook {
+    background-color: #3b5998;
+}
+#ytre-team-social .inner .team-social.twitter {
+    background-color: #1da1f2;
+}
+#ytre-team-social .inner .team-social.linkedin {
+    background-color: #0077b5;
+}
+#ytre-team-social .inner .team-social.googleplus {
+    background-color: #dd4b39;
+}
+
+@media (min-width: 768px) {
+
+    div#featured-listings-widgets .widget {
+        position: relative;
+    }
+
+    div#featured-listings-widgets .bottom-div {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 0 30px 20px 30px;
+    }
+
+    div#featured-listings-widgets .gform_wrapper {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 0 30px 35px 30px;
+    }
+
+    div#featured-listings-widgets .gform_wrapper .gform_footer {
+        padding-bottom: 0;
+    }
+
+}
+
+.page-template-page-listings-list #view-toggle-buttons .entry-title,
+.page-template-page-listings-map #view-toggle-buttons .entry-title {
+    position: absolute;
+    top: 3px;
+    margin: 0;
+    font-weight: 600;
+    font-size: 40px;
+    width: 50%;
+    text-align: left;
+}
+
+@media (max-width:599px) {
+
+    .page-template-page-listings-list #view-toggle-buttons .entry-title,
+    .page-template-page-listings-map #view-toggle-buttons .entry-title {
+        position: relative;
+        margin-bottom: 30px;
+        width: 60%;
+    }
+   
+}
+
+.nav-pills div.primary-button {
+    margin-left: 0;
+    margin-right: 5px;
+    cursor: pointer;
+    opacity: .66;
+    background-color: #909090;
+    border-color: #3c3c3c;
+}
+
+.nav-pills div.primary-button:hover {
+    opacity: 1;
+}
+
+body.page-template-page-contact div#jumbotron-buttons a.primary-button {
+    width: 100%;
+    margin-left: 0;
+    margin-bottom: 15px;
+}
+
+body.page-template-page-contact #ytre-team-social {
+    margin-top: 0;
+}
+
+#back-to-your-team {
+    background-color: #909090;
+    border-color: #3c3c3c;
+    opacity: .66;
+}
+
+#back-to-your-team:hover {
+    opacity: 1;
+}
+
+#frontpage-copy-section {
+    font-size: 24px;
+    text-align: center;
+    margin: 30px 0;
+    padding: 0 15%;
+}
+    
+footer h4.widget-title {
+    height: 75px;
+    display: table-cell;
+    vertical-align: bottom;
+    padding-bottom: 5px;
+    margin-bottom: 30px !important;
+    border: none;
+}
+
+footer .widget > div {
+    margin-top: 0;
+    border-top: thin solid;
+    padding-top: 15px;
+}
+
+/*div#featured-listings-widgets .col-sm-4:last-of-type .widget {
+    background-image: url(http://yourteam.wpengine.com/wp-content/uploads/2017/03/Team-shots-22-small.jpg);
+    background-size: cover;
+    color: #fff;
+}*/
+
+/* - SweetAlert - */
+.sa-confirm-button-container button {
+    background-color: #214580 !important;
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 4px;
+    color: rgba(255,255,255,.80);
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 5px;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    text-align: center;
+    font-family: Lato;
+}
+
+.sweet-alert a {
+    color: #ef5858;
+    font-family: Lato;
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.sweet-alert a:hover {
+    color: #dd2f39;
+}
+
+/*
+ * Social Sharing Add On -------------------------------------------------------
+ */
+
+div.share-buttons {
+    padding: 15px 0;
+}
+
+div.share-buttons ul {
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+div.share-buttons ul li {
+    display: inline-block;
+}
+
+div.share-buttons ul li a {
+    display: inline-block;
+    width: 34px;
+    height: 34px;
+    line-height: 34px;
+    text-align: center;
+    margin-right: 5px;
+    color: #fff;
+    font-size: 18px;
+}
+
+div.share-buttons ul li a.facebook {
+    background-color: #3b5998;
+}
+div.share-buttons ul li a.twitter {
+    background-color: #1da1f2;
+}
+div.share-buttons ul li a.gplus {
+    background-color: #dd4b39;
+}
+div.share-buttons ul li a.linkedin {
+    background-color: #0077b5;
+}
+div.share-buttons ul li a.pinterest {
+    background-color: #bd081c;
+}
+
+h3.property-mls-number {
+    margin: 0 0 15px 0;
+    font-size: 14px;
+}
+
+a.search-result-image {
+    float: left;
+    display: inline-block;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+@media (max-width:599px) {
+
+    a.search-result-image {
+        float: none;
+        display: block;
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+    
+    a.search-result-image img {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+}
+
+@media (max-width:767px) {
+
+    div#frontpage-copy-section {
+        display: none;
+    }
+    
+}
+
+.page-template-page-contact #ytre-team-social {
+    display: none;
+}
+
+#listing-agent-sidebar .epl-author-box.epl-author-image {
+	text-align: center;
+}
+
+
+a.epl-author-icon.author-icon.email-icon-24 {
+	display: none;
+}
+
+footer.entry-footer .comments-link {
+    display: none;
+}
+
+a#additional-listing-link {
+    margin: 30px 0 15px;
+    display: block;
+    color: #333;
+    transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+}
+
+a#additional-listing-link:hover {
+    color: #dd2f39;
+}
+
+@media (min-width:1500px) {
+    iframe#tubular-player {
+       top: -20% !important;
+    }   
+}
+

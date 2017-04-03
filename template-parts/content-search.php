@@ -10,31 +10,42 @@
 ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class( 'search-result-item' ); ?>>
-    
-    <header class="entry-header">
-        
-        <?php the_title( sprintf( '<h3 class="title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+   
+    <div class="search-result-wrap">
+        <header class="entry-header">
 
-        <?php if ( 'post' === get_post_type() ) : ?>
-            <div class="entry-meta">
-                <?php ytre_posted_on(); ?>
-            </div><!-- .entry-meta -->
+            <?php the_title( sprintf( '<h3 class="title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h3>' ); ?>
+
+            <?php if ( 'post' === get_post_type() ) : ?>
+                <div class="entry-meta">
+                    <?php ytre_posted_on(); ?>
+                </div><!-- .entry-meta -->
+            <?php endif; ?>
+
+        </header><!-- .entry-header -->
+
+        <hr>
+
+        <?php if ( get_the_post_thumbnail_url( get_the_ID() ) ) : ?>
+            <a class="search-result-image" href="<?php echo esc_url( get_permalink() ); ?>">
+                <img src="<?php echo get_the_post_thumbnail_url( get_the_ID() ); ?>" alt="<?php echo get_the_title(); ?>">
+            </a>
         <?php endif; ?>
-            
-    </header><!-- .entry-header -->
+        
+        <div class="entry-summary">
 
-    <hr>
+            <?php the_excerpt(); ?>
 
-    <div class="entry-summary">
-        
-        <?php the_excerpt(); ?>
-        
-    </div><!-- .entry-summary -->
+        </div><!-- .entry-summary -->
 
-    <footer class="entry-footer">
+        <footer class="entry-footer">
+
+            <?php ytre_entry_footer(); ?>
+
+        </footer><!-- .entry-footer -->
         
-        <?php ytre_entry_footer(); ?>
-        
-    </footer><!-- .entry-footer -->
+    </div>
+    
+    <div class="clear"></div>
     
 </article><!-- #post-## -->

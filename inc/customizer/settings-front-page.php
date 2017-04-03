@@ -35,7 +35,7 @@ $wp_customize->add_section( 'ytre_jumbotron_general_section', array(
 
     // Jumbotron Video - YouTube ID
     $wp_customize->add_setting( 'ytre_jumbo_video_id', array (
-        'default'               => 'AK-MUzWdpjU',
+        'default'               => 'QO-dXDj9zII',
         'transport'             => 'refresh',
         'sanitize_callback'     => 'ytre_sanitize_text',
     ) );

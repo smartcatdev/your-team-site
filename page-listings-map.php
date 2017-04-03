@@ -15,10 +15,22 @@ get_header(); ?>
 
             <div id="single-page-container">
 
-                <div id="single-title-box">
+                <div class="container">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-12">
+                            
+                            <div id="single-title-box">
 
-                    <h2 class="entry-title"><?php the_title(); ?></h2>
+                                <!-- <h2 class="entry-title"><?php // the_title(); ?></h2> -->
 
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
                 </div>
 
                 <div class="container">
@@ -30,10 +42,10 @@ get_header(); ?>
                             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
                                 <div class="entry-content">
-
-                                    <?php // var_dump( epl_get_option( 'epl_google_api_key' ) ); ?>
                                     
                                     <div id="view-toggle-buttons">                               
+                                        
+                                        <h2 class="entry-title"><?php _e( 'Find Your New Home', 'ytre'); ?></h2>
                                         
                                         <?php 
                                         
@@ -42,6 +54,10 @@ get_header(); ?>
                                             $gets = '?';
                                             $existing = array();
                                         
+                                            if ( isset( $_GET['homepage-search-arrival'] ) ) :
+                                                $existing[] = 'homepage-search-arrival=true';
+                                            endif;
+                                            
                                             if ( isset( $_GET['property_location'] ) ) :
                                                 $existing[] = 'property_location=' . $_GET['property_location'];
                                             endif;
@@ -85,12 +101,12 @@ get_header(); ?>
                                         <?php global $post; ?>
                                         <div id="clear-search-filters">
                                             <a href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>" class="view-toggle-button">
-                                                <?php _e( 'Clear Filters', 'ytre' ); ?>
+                                                <?php _e( 'Show All Listings', 'ytre' ); ?>
                                             </a>
                                         </div>
                                         
                                         <p class="listing-page-blurb">
-                                            <?php _e( 'Browse our listings on your own below or enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
+                                            <?php _e( 'Browse on your own with List View or Map View OR enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
                                         </p>
                                         
                                     </div>
@@ -102,7 +118,7 @@ get_header(); ?>
                                         
                                         $coords = '44.2445245,-76.5189882';
                                         $cluster = false;
-                                        $zoom = '14';
+                                        $zoom = '13';
                                         $height = '750';
                                         $display = 'simple';
 

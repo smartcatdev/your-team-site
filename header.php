@@ -10,13 +10,18 @@
  */
 
 ?><!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> <?php echo is_home() ? 'prefix="og: http://ogp.me/ns#"' : ''; ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 
 <?php wp_head(); ?>
+
+<?php if (is_home()): ?>
+    <meta property="og:image" content="<?php echo esc_url( get_template_directory_uri() . '/inc/images/boardroom.jpg' ); ?>" />
+<?php endif; ?>
+    
 </head>
 
 <body <?php body_class(); ?>>
@@ -26,7 +31,7 @@
     <div class="gutter-sizer"></div>
     
     <a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'ytre' ); ?></a>
-
+    
     <header id="masthead" class="site-header" role="banner">
             
         <div class="site-branding container-fluid">
@@ -72,21 +77,30 @@
         
     </header><!-- #masthead -->
 
-    <div id="floating-filter-search">
-        
-        <div class="edge-block">
-        </div>
-        
-        <?php echo do_shortcode('[listing_search'
-            . ' title="Let Us Help You Search!"'
-            . ' post_type="property"'
-            . ' style="default"'
-            . ' property_status="current"'
-            . ' submit_label="Go!"'
-        . ']'); ?>
-        
-    </div>
+    <?php if ( !isset( $_GET['homepage-search-arrival'] ) ) : ?>
+    
+        <div id="floating-filter-search">
 
+            <div class="edge-block">
+                <div class="wrap">
+                    <div class="inner">
+                        <img src="<?php echo esc_url(get_template_directory_uri().'/inc/images/lookingforsomething.png'); ?>" alt="<?php _e( 'Looking for something?', 'ytre' ); ?>">
+                    </div>
+                </div>
+            </div>
+
+            <?php echo do_shortcode('[listing_search'
+                . ' title="Let Us Help You Search!"'
+                . ' post_type="property"'
+                . ' style="default"'
+                . ' property_status="current"'
+                . ' submit_label="Go!"'
+            . ']'); ?>
+
+        </div>
+    
+    <?php endif; ?>
+    
     <div id="floating-contact-cta">
         
         <div class="edge-block">

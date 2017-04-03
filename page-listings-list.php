@@ -15,12 +15,24 @@ get_header(); ?>
 
             <div id="single-page-container">
 
-                <div id="single-title-box">
+                <div class="container">
+                    
+                    <div class="row">
+                        
+                        <div class="col-sm-12">
+                            
+                            <div id="single-title-box">
 
-                    <h2 class="entry-title"><?php the_title(); ?></h2>
+                                <!-- <h2 class="entry-title"><?php // the_title(); ?></h2> -->
 
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                    
                 </div>
-
+                
                 <div class="container">
 
                     <div class="row">
@@ -33,6 +45,8 @@ get_header(); ?>
 
                                     <div id="view-toggle-buttons">                                  
                                         
+                                        <h2 class="entry-title"><?php _e( 'Find Your New Home', 'ytre'); ?></h2>
+                                        
                                         <?php 
                                         
                                         if ( isset( $_GET ) && !empty( $_GET ) ) :
@@ -40,6 +54,10 @@ get_header(); ?>
                                             $gets = '?';
                                             $existing = array();
                                         
+                                            if ( isset( $_GET['homepage-search-arrival'] ) ) :
+                                                $existing[] = 'homepage-search-arrival=true';
+                                            endif;
+                                            
                                             if ( isset( $_GET['property_location'] ) ) :
                                                 $existing[] = 'property_location=' . $_GET['property_location'];
                                             endif;
@@ -83,12 +101,12 @@ get_header(); ?>
                                         <?php global $post; ?>
                                         <div id="clear-search-filters">
                                             <a href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>" class="view-toggle-button">
-                                                <?php _e( 'Clear Filters', 'ytre' ); ?>
+                                                <?php _e( 'Show All Listings', 'ytre' ); ?>
                                             </a>
                                         </div>
                                         
                                         <p class="listing-page-blurb">
-                                            <?php _e( 'Browse our listings on your own below or enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
+                                            <?php _e( 'Browse on your own with List View or Map View OR enter some must-haves and let us select the listings you should see.', 'ytre' ); ?>
                                         </p>
                                         
                                     </div>
@@ -240,15 +258,16 @@ get_header(); ?>
                                                                     </h4>
                                                                 </div>
 
-                                                                <div class="parking">
-                                                                    <h4 class="prop-label">
-                                                                        <span class="fa fa-car"></span>
-                                                                        <?php _e( 'Parking', 'ytre' ); ?>
-                                                                        <div class="value">
-                                                                            <?php echo intval( get_post_meta( get_the_ID(), 'property_garage', true ) ) + intval( get_post_meta( get_the_ID(), 'property_carport', true ) ); ?>    
-                                                                        </div>
-                                                                    </h4>
-                                                                </div>
+                                                                <?php $terms = wp_get_post_terms( get_the_ID(), 'location' ); ?>
+                                                
+                                                                <?php if ( !empty( $terms ) ) : ?>
+                                                                    <div class="parking">
+                                                                        <h4 class="prop-label">
+                                                                            <span class="fa fa-map-o"></span>
+                                                                            <?php echo $terms[0]->name;?>
+                                                                        </h4>
+                                                                    </div>
+                                                                <?php endif; ?>
 
                                                             </div>
 
@@ -263,6 +282,12 @@ get_header(); ?>
                                             <?php endif; ?>
                                             
                                         </div>
+                                        
+                                        <h4>
+                                            <a id="additional-listing-link" href="<?php echo esc_url( home_url( $post->post_name . '/' ) ); ?>">
+                                                <?php _e('Didn’t find what you were looking for? View additional listings here.', 'ytre' ); ?>
+                                            </a>
+                                        </h4>
                                         
                                     </div>
                                     
