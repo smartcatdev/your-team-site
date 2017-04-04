@@ -60,8 +60,8 @@ get_header(); ?>
                                                 <div id="jumbotron-buttons">
                                 
                                                     <?php if ( get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ) != '' ) : ?>
-                                                        <a class="primary-button phone-popup-trigger" 
-                                                           href="#"
+                                                        <a class="primary-button" 
+                                                           href="tel:6135300968"
                                                            <?php echo get_theme_mod( 'ytre_jumbotron_button_1_target', 'same' ) == 'new' ? ' target="_BLANK" ': ''; ?>>
                                                             <span class="fa fa-mobile"></span>
                                                             <?php echo get_theme_mod( 'ytre_jumbotron_button_1_label', __( 'Call', 'ytre' ) ); ?>

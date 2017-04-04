@@ -1,5 +1,9 @@
 jQuery(document).ready( function( $ ) {
 
+    $('ul#extra-house-features li').each( function( index ){
+        $(this).appendTo('#property-details ul.listing-info');
+    });
+
     /**
      * SlickNav Mobile Menu
      */

@@ -135,6 +135,30 @@
                                         
                                     </div>
                                     
+                                    <div id="load-in-house-features">
+                                        
+                                        <ul id="extra-house-features">
+                                            
+                                            <?php if ( get_post_meta( get_the_ID(), 'house_feature_style', true ) ) : ?>
+                                                <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_style', true ) ); ?></li>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ( get_post_meta( get_the_ID(), 'house_feature_bedroom_details', true ) ) : ?>
+                                                <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_bedroom_details', true ) ); ?></li>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ( get_post_meta( get_the_ID(), 'house_feature_bathroom_details', true ) ) : ?>
+                                                <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_bathroom_details', true ) ); ?></li>
+                                            <?php endif; ?>
+                                            
+                                            <?php if ( get_post_meta( get_the_ID(), 'house_feature_garage_details', true ) ) : ?>
+                                                <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_garage_details', true ) ); ?></li>
+                                            <?php endif; ?>
+                                            
+                                        </ul>
+                                        
+                                    </div>
+                                    
                                     <?php if ( get_post_meta( get_the_ID(), 'property_address_hide_map', true ) != 'yes' ) : ?>
                                     
                                         <div role="tabpanel" class="tab-pane fade" id="directions">
