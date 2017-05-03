@@ -123,3 +123,32 @@ require get_template_directory() . '/inc/ytre/ytre.php';
  */
 require get_template_directory() . '/inc/ytre/more.php';
 
+/**
+ * Add ChatX Capabilities to Author Role
+ */
+function ytre_add_chatx_caps() {
+    
+    // Get the Author role
+    $author = get_role( 'author' );
+
+    if ( !$author->has_cap('scx_answer_visitor') ) :
+        $author->add_cap( 'scx_answer_visitor' ); 
+    endif;
+
+    if ( !$author->has_cap('scx_see_logs') ) :
+        $author->add_cap( 'scx_see_logs' ); 
+    endif;
+
+    // Get the Editor role
+    $editor = get_role( 'editor' );
+
+    if ( !$editor->has_cap('scx_answer_visitor') ) :
+        $editor->add_cap( 'scx_answer_visitor' ); 
+    endif;
+
+    if ( !$editor->has_cap('scx_see_logs') ) :
+        $editor->add_cap( 'scx_see_logs' ); 
+    endif;
+    
+}
+add_action( 'admin_init', 'ytre_add_chatx_caps');

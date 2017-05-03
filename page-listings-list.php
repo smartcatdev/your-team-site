@@ -214,6 +214,14 @@ get_header(); ?>
                                                         
                                                                 <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
 
+                                                                    <?php if ( !empty( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) && strtotime( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) >= strtotime( '-7 day' ) ) : ?>
+                                                    
+                                                                        <div class="sold-banner">
+                                                                            <?php _e( 'SOLD', 'ytre' ); ?>
+                                                                        </div>
+
+                                                                    <?php endif; ?>
+                                                                    
                                                                     <div class="price-banner">
 
                                                                         <h4 class="listing-price">

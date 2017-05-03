@@ -6,24 +6,31 @@
     <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
         <div id="single-property-title">
-            
+
             <div class="container">
-                
+
                 <div class="row">
-                    
+
                     <div class="col-sm-12">
-                        
+
                         <div id="prop-header-wrap">
-                        
+
                             <div id="property-heading">
 
-                                <h2 class="entry-title"><?php echo get_post_meta( get_the_ID(), 'property_heading', true ); ?></h2>                                
+                                <h2 class="entry-title"><?php echo get_post_meta( get_the_ID(), 'property_heading', true ); ?></h2>
                                 <h2 class="property-price">
                                     <?php echo '$' . number_format( intval( get_post_meta( get_the_ID(), 'property_price', true ) ), 0, ".", "," ); ?>
                                 </h2>
+                                <?php if ( !empty( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) && strtotime( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) >= strtotime( '-7 day' ) ) : ?>
 
-                                <div class="clear"></div>
+                                    <div class="sold-banner single-prop">
+                                        <?php _e( 'SOLD', 'ytre' ); ?>
+                                    </div>
+
+                                <?php endif; ?>
                                 
+                                <div class="clear"></div>
+
                                 <?php if ( get_post_meta( get_the_ID(), 'mls_listing_number', true ) ) : ?>
                                     <div class="mls-number-box">
                                         <h3 class="property-mls-number"><?php _e( 'MLS® Number', 'ytre' ); ?>: <?php echo get_post_meta( get_the_ID(), 'mls_listing_number', true ); ?></h3>
@@ -39,19 +46,19 @@
                                 </div>
 
                             </div>
-                            
+
                         </div>
-                       
+
                     </div>
-                    
+
                 </div>
-                
+
             </div>
 
         </div>
-        
+
         <div id="single-property-wrap">
-        
+
             <div class="container">
 
                 <div class="row">
@@ -60,7 +67,7 @@
 
                         <div class="entry-content">
 
-                            <?php $property_images = get_post_meta( $post->ID, 'property_image_set', true ); ?>
+                            <?php $property_images = get_post_meta( $post->ID, 'bulk_image_set', true ); ?>
 
                             <?php if ( empty( $property_images ) ) : ?>
 
@@ -91,7 +98,7 @@
                                 </div>
 
                             <?php endif; ?>
-                            
+
                             <div id="property-details">
 
                                 <!-- Nav tabs -->
@@ -105,62 +112,62 @@
 
                                 <!-- Tab panes -->
                                 <div class="tab-content">
-                                    
+
                                     <div role="tabpanel" class="tab-pane fade in active" id="features">
-                                        
+
                                         <div id="property-excerpt">
-                                            
+
                                             <?php if ( has_excerpt() ) : ?>
-                                            
+
                                                 <div class="sub-section">
                                                     <h4 class="prop-sub-heading"><?php _e( 'Summary', 'ytre' ); ?></h4>
                                                     <p>
                                                         <?php echo get_the_excerpt(); ?>
                                                     </p>
                                                 </div>
-                                            
+
                                             <?php endif; ?>
-                                            
+
                                             <div class="sub-section">
                                                 <h4 class="prop-sub-heading"><?php _e( 'Full Description', 'ytre' ); ?></h4>
                                                 <?php the_content(); ?>
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                         <h4 class="prop-sub-heading"><?php _e( 'Property Features', 'ytre' ); ?></h4>
                                         <div class="epl-tab-section epl-tab-section-features">
                                             <?php do_action('epl_property_tab_section'); ?>
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                     <div id="load-in-house-features">
-                                        
+
                                         <ul id="extra-house-features">
-                                            
+
                                             <?php if ( get_post_meta( get_the_ID(), 'house_feature_style', true ) ) : ?>
                                                 <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_style', true ) ); ?></li>
                                             <?php endif; ?>
-                                            
+
                                             <?php if ( get_post_meta( get_the_ID(), 'house_feature_bedroom_details', true ) ) : ?>
                                                 <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_bedroom_details', true ) ); ?></li>
                                             <?php endif; ?>
-                                            
+
                                             <?php if ( get_post_meta( get_the_ID(), 'house_feature_bathroom_details', true ) ) : ?>
                                                 <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_bathroom_details', true ) ); ?></li>
                                             <?php endif; ?>
-                                            
+
                                             <?php if ( get_post_meta( get_the_ID(), 'house_feature_garage_details', true ) ) : ?>
                                                 <li><?php echo esc_html( get_post_meta( get_the_ID(), 'house_feature_garage_details', true ) ); ?></li>
                                             <?php endif; ?>
-                                            
+
                                         </ul>
-                                        
+
                                     </div>
-                                    
+
                                     <?php if ( get_post_meta( get_the_ID(), 'property_address_hide_map', true ) != 'yes' ) : ?>
-                                    
+
                                         <div role="tabpanel" class="tab-pane fade" id="directions">
 
                                             <h4 class="prop-sub-heading"><?php _e( 'Show Location on Google Maps', 'ytre' ); ?></h4>
@@ -169,13 +176,13 @@
                                             </a>
 
                                         </div>
-                                    
+
                                     <?php endif; ?>
-                                    
+
                                 </div>
 
                             </div>
-                            
+
                         </div><!-- .entry-content -->
 
                     </div>
@@ -193,9 +200,9 @@
                 </div>
 
             </div>
-            
+
         </div>
-            
+
     </article>
-        
+
 </div>

@@ -54,9 +54,13 @@ add_action( 'wp_enqueue_scripts', 'ytre_scripts' );
  * Media Uploader Enqueue
  */
 function ytre_load_admin_libs() {
+    
+    wp_enqueue_style( 'ytre-admin-style', get_template_directory_uri() . '/inc/css/ytre-admin.css', array(), YTRE_VERSION );
+    wp_enqueue_style( 'ytre-admin-jqueryui', '//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css', array(), YTRE_VERSION );
+    
     wp_enqueue_media();
-    wp_enqueue_script( 'wp-media-uploader', get_template_directory_uri() . '/inc/js/wp_media_uploader.js', array( 'jquery' ), YTRE_VERSION );
-    wp_enqueue_script( 'ytre-main-admin-script', get_template_directory_uri() . '/inc/js/admin_script.js', array( 'jquery' ), YTRE_VERSION );
+    wp_enqueue_script( 'wp-media-uploader', get_template_directory_uri() . '/inc/js/wp_media_uploader.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable' ), YTRE_VERSION );
+    wp_enqueue_script( 'ytre-main-admin-script', get_template_directory_uri() . '/inc/js/admin_script.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable' ), YTRE_VERSION );
 }
 add_action( 'admin_enqueue_scripts', 'ytre_load_admin_libs' );
 
@@ -742,6 +746,14 @@ function ytre_render_featured_listings() { ?>
                                             
                                                 <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
 
+                                                    <?php if ( !empty( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) && strtotime( get_post_meta( get_the_ID(), 'property_date_sold', true ) ) >= strtotime( '-7 day' ) ) : ?>
+                                                    
+                                                        <div class="sold-banner">
+                                                            <?php _e( 'SOLD', 'ytre' ); ?>
+                                                        </div>
+                                                    
+                                                    <?php endif; ?>
+                                                    
                                                     <div class="price-banner">
 
                                                         <h4 class="listing-price">

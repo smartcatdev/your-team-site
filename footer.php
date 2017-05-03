@@ -14,11 +14,11 @@
     </div><!-- #content -->
 
     <footer id="colophon" class="site-footer" role="contentinfo">
-        
+
         <?php do_action( 'ytre_footer' ); ?>
         
     </footer><!-- #colophon -->
-    
+
 </div><!-- #page -->
 
 <?php wp_footer(); ?>

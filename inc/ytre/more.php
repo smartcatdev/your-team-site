@@ -4,13 +4,6 @@ function ytre_add_ajax_url() { ?>
     <script type="text/javascript">
         var ajaxurl = '<?php echo admin_url( 'admin-ajax.php' ); ?>';
     </script>
-    <script>
-
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-        ga('create', 'UA-94073645-1', 'auto');
-        ga('send', 'pageview');
-
-    </script>
 <?php }
 add_action('wp_head', 'ytre_add_ajax_url', 0);
 
@@ -828,6 +821,9 @@ class Your_Team_Combined_Features_Meta_Box {
         $house_feature_garage_details   = get_post_meta( $post->ID, 'house_feature_garage_details', true );
         
         $property_images                = get_post_meta( $post->ID, 'property_image_set' );
+        $bulk_images                    = get_post_meta( $post->ID, 'bulk_image_set' );
+        
+        $date_sold                      = get_post_meta( $post->ID, 'property_date_sold', true );
         
         // Set Default Values
         
@@ -839,6 +835,9 @@ class Your_Team_Combined_Features_Meta_Box {
         if ( empty( $house_feature_garage_details ) )   { $house_feature_garage_details = ''; } 
         
         if ( empty( $property_images ) )                { $property_images = array(); } 
+        if ( empty( $bulk_images ) )                    { $bulk_images = array(); } 
+        
+        if ( empty( $date_sold ) )                      { $date_sold = ''; } 
         
         // FORM : MLS Listing Number
         
@@ -886,55 +885,51 @@ class Your_Team_Combined_Features_Meta_Box {
         
         echo '<hr>';
         
-        // FORM : Property Images
-        echo '<h1 style="color: #3bafda;">' . __( 'Property Images' , 'ytre' ) . '</h1>';
+        // Form bulk upload
+        echo '<h1 style="color: #3bafda;">' . __( 'Bulk Image upload' , 'ytre' ) . '</h1>'; ?>
+        
+        <div class="ytre-sortable">
+            
+            <?php if ( !empty( $bulk_images ) && is_array( $bulk_images[0] ) ) :
+
+                foreach( $bulk_images[0] as $image ) : ?>
+
+                    <div class=" bulk-image-section">
+
+                            <input type="hidden" value="<?php echo esc_url( $image ); ?>" style="width: 100%" name="bulk_image_set[]"/>
+                            <img src="<?php echo esc_url( $image ); ?>" style="max-height: 100px"/>
+                            <div class="delete-uploaded-row"><span class="dashicons dashicons-trash"></span></div>
+
+                    </div>
+
+
+                <?php endforeach; ?>
+
+                <div style="vertical-align: middle;" class="smartcat-uploader"></div>
+
+            <?php else : ?>
+
+                <div style="vertical-align: middle;" class="smartcat-uploader"></div>    
+
+            <?php endif; ?>
+    
+        </div>
+    
+        <hr>
+    
+        <?php 
+        
+        echo '<h1 style="color: #3bafda;">' . __( 'Date Sold' , 'ytre' ) . '</h1>';
+        
         echo '<table class="form-table">';
-        if ( !empty( $property_images ) && is_array( $property_images[0] ) ) :
-        
-            /**
-             * Multiple Images Set 
-             */
-            $ctr = 1;
-            foreach ( $property_images[0] as $image ) :
+        echo '	<tr>';
+        echo '		<th><label for="date_sold" class="date_sold_label">' . __( 'Sell Date: ', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="date" id="date_sold" name="date_sold" class="date_sold_field" placeholder="' . esc_attr__( '', 'ytre' ) . '" value="' . esc_attr__( $date_sold ) . '">';
+        echo '		</td>';
+        echo '	</tr>';
+        echo '</table>'; 
 
-                echo '	<tr>';
-                echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="property_image_set_label">' . __( 'Image #' . $ctr, 'ytre' ) . '</label></th>';    
-                echo '		<td>';
-                echo '		    <div class="form-group smartcat-uploader">';
-                echo '	                <input type="text" id="property_image_set" name="property_image_set[]" value="' . esc_url($image) . '" class="property_image_set_field">';
-                echo '		    </div>';
-                echo '		</td>';
-                echo '		<td>';
-                echo '              <div><img src="' . esc_url($image) . '" style="height: 100px; margin: 1px 3px; border-radius: 4px;"></div>';
-                echo '		</td>';
-                echo '		<td>';
-                echo '              <div class="delete-uploaded-row"><span class="dashicons dashicons-trash"></span></div>';
-                echo '		</td>';
-                echo '	</tr>';
-
-                $ctr++;
-
-            endforeach;
-            
-            /**
-             * Add New Image Field
-             */
-            echo '	<tr>';
-            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row" style="color: #3bafda;">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
-            echo '	</tr>';
-            
-        else :
-            
-            /**
-             * Add New Image Field
-             */
-            echo '	<tr>';
-            echo '		<th style="vertical-align: middle;"><label for="property_image_set" class="add_new_image_row" style="color: #3bafda;">' . __( 'Add an image?', 'ytre' ) . '</label></th>';    
-            echo '	</tr>';
-            
-        endif;
-        echo '</table>';
-        
     }
     
     public function save_metabox( $post_id, $post ) {
@@ -961,7 +956,15 @@ class Your_Team_Combined_Features_Meta_Box {
         else : 
             $property_images = array();
         endif;
+        
+        if ( isset( $_POST[ 'bulk_image_set' ] ) ) :
+            $bulk_images = $_POST[ 'bulk_image_set' ];
+        else : 
+            $bulk_images = array();
+        endif;
 
+        $date_sold = isset( $_POST[ 'date_sold' ] ) ? sanitize_text_field( $_POST[ 'date_sold' ] ) : '';
+        
         // Update the meta field in the database
         update_post_meta( $post_id, 'mls_listing_number', $mls_listing_number );
         
@@ -971,7 +974,9 @@ class Your_Team_Combined_Features_Meta_Box {
         update_post_meta( $post_id, 'house_feature_garage_details', $house_feature_garage_details );
         
         update_post_meta( $post_id, 'property_image_set', $property_images );
+        update_post_meta( $post_id, 'bulk_image_set', $bulk_images );
         
+        update_post_meta( $post_id, 'property_date_sold', $date_sold );
         
     }
     

@@ -1,0 +1,34 @@
+.ui-sortable-helper {
+    opacity: 0.8;
+    background: #90c5ee;
+    transform: rotate(5deg);
+    border: 1px dashed #303030;
+}
+
+.ui-sortable-placeholder {
+    border: 1px solid #e9e9e9;
+    height: 100px;
+    background: #d9d9d9;
+    width: 100%;
+}
+
+.smartcat-uploader {
+    margin: 15px 0;
+}
+
+.delete-uploaded-row {
+    height: 100px;
+    line-height: 100px;
+    display: inline-block;
+}
+
+.bulk-image-section {
+    height: 100px;
+    margin-bottom: 10px;
+    cursor: move;
+    overflow: hidden;
+}
+
+.delete-uploaded-row {
+    cursor: pointer;
+}

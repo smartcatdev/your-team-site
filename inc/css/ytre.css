@@ -2241,3 +2241,26 @@ a#additional-listing-link:hover {
 div#load-in-house-features {
     display: none;
 }
+
+.sold-banner {
+    background-color: rgba(221, 47, 57, .8);
+    display: inline-block;
+    float: right;
+    padding: 10px;
+    color: #fff;
+    font-family: Montserrat, sans-serif;
+    border-bottom-left-radius: 5px;
+} 
+
+.sold-banner.single-prop {
+    border-radius: 5px;
+    font-size: 10px;
+    margin-right: 12px;
+}
+
+@media (max-width:991px) {
+    .sold-banner.single-prop {    
+        float: none;
+        margin-bottom: 15px;
+    }
+}

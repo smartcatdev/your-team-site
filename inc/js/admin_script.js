@@ -1,5 +1,13 @@
 jQuery(document).ready( function( $ ) {
 
+    $( '.ytre-sortable' ).sortable({
+        
+        forcePlaceholderSize : true,
+        
+        start: function( event, ui ){},
+        stop: function( event, ui ){}        
+    });
+
     $.wpMediaUploader({
 
         target : '.smartcat-uploader', // The class wrapping the textbox
@@ -16,9 +24,7 @@ jQuery(document).ready( function( $ ) {
             fontSize : '12px',                
             padding : '10px 15px',                
             textDecoration : 'none',
-            borderRadius : '4px',
-        },
-
+            borderRadius : '4px'
+        }
     });
-    
 });
