@@ -72,6 +72,13 @@ get_header(); ?>
                                         <?php if ( has_post_thumbnail() ) : ?>
 
                                             <div class="prop-image" style="background-image: url(<?php echo esc_url( get_the_post_thumbnail_url( get_the_ID(), 'large' ) ); ?>);">
+                                                <?php if ( !empty( get_post_meta( get_the_ID(), 'event_is_openhouse', true ) ) ) : ?>
+
+                                                    <div class="sold-banner">
+                                                        <?php _e( 'OPEN HOUSE', 'ytre' ); ?>
+                                                    </div>
+
+                                                <?php endif; ?>
                                             </div>
 
                                         <?php endif; ?>
@@ -80,7 +87,11 @@ get_header(); ?>
 
                                             <h3 class="event-title">
                                                 <a href="<?php echo esc_url( get_the_permalink( get_the_ID() ) ); ?>">
-                                                    <?php echo get_the_title(); ?>
+                                                    <?php if ( !empty( get_post_meta( get_the_ID(), 'event_is_openhouse', true ) ) && !empty( get_post_meta( get_the_ID(), 'event_openhouse_id', true ) ) ) : ?>
+                                                        <?php echo get_the_title( get_post_meta( get_the_ID(), 'event_openhouse_id', true ) ); ?>
+                                                    <?php else : ?>
+                                                        <?php echo get_the_title(); ?>
+                                                    <?php endif; ?>
                                                 </a>
                                             </h3>
 

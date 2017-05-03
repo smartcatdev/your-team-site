@@ -139,6 +139,34 @@ function ytre_add_chatx_caps() {
         $author->add_cap( 'scx_see_logs' ); 
     endif;
 
+    if ( !$author->has_cap('edit_contact') ) :
+        $author->add_cap( 'edit_contact' ); 
+    endif;
+
+    if ( !$author->has_cap('edit_contacts') ) :
+        $author->add_cap( 'edit_contacts' ); 
+    endif;
+
+    if ( !$author->has_cap('edit_other_contacts') ) :
+        $author->add_cap( 'edit_other_contacts' ); 
+    endif;
+
+    if ( !$author->has_cap('publish_contacts') ) :
+        $author->add_cap( 'publish_contacts' ); 
+    endif;
+
+    if ( !$author->has_cap('read_contact') ) :
+        $author->add_cap( 'read_contact' ); 
+    endif;
+
+    if ( !$author->has_cap('read_private_contacts') ) :
+        $author->add_cap( 'read_private_contacts' ); 
+    endif;
+
+    if ( !$author->has_cap('delete_contact') ) :
+        $author->add_cap( 'delete_contact' ); 
+    endif;
+
     // Get the Editor role
     $editor = get_role( 'editor' );
 
@@ -148,6 +176,73 @@ function ytre_add_chatx_caps() {
 
     if ( !$editor->has_cap('scx_see_logs') ) :
         $editor->add_cap( 'scx_see_logs' ); 
+    endif;
+
+	if ( !$editor->has_cap('edit_contact') ) :
+        $editor->add_cap( 'edit_contact' ); 
+    endif;
+
+	if ( !$editor->has_cap('edit_contacts') ) :
+        $editor->add_cap( 'edit_contacts' ); 
+    endif;
+
+    if ( !$editor->has_cap('edit_other_contacts') ) :
+        $editor->add_cap( 'edit_other_contacts' ); 
+    endif;
+
+    if ( !$editor->has_cap('publish_contacts') ) :
+        $editor->add_cap( 'publish_contacts' ); 
+    endif;
+
+    if ( !$editor->has_cap('read_contact') ) :
+        $editor->add_cap( 'read_contact' ); 
+    endif;
+
+    if ( !$editor->has_cap('read_private_contacts') ) :
+        $editor->add_cap( 'read_private_contacts' ); 
+    endif;
+
+    if ( !$editor->has_cap('delete_contact') ) :
+        $editor->add_cap( 'delete_contact' ); 
+    endif;
+
+    // Get the Admin role
+    $admin = get_role( 'administrator' );
+
+    if ( !$admin->has_cap('scx_answer_visitor') ) :
+        $admin->add_cap( 'scx_answer_visitor' ); 
+    endif;
+
+    if ( !$admin->has_cap('scx_see_logs') ) :
+        $admin->add_cap( 'scx_see_logs' ); 
+    endif;
+
+	if ( !$admin->has_cap('edit_contact') ) :
+        $admin->add_cap( 'edit_contact' ); 
+    endif;
+
+	if ( !$admin->has_cap('edit_contacts') ) :
+        $admin->add_cap( 'edit_contacts' ); 
+    endif;
+
+    if ( !$admin->has_cap('edit_other_contacts') ) :
+        $admin->add_cap( 'edit_other_contacts' ); 
+    endif;
+
+    if ( !$admin->has_cap('publish_contacts') ) :
+        $admin->add_cap( 'publish_contacts' ); 
+    endif;
+
+    if ( !$admin->has_cap('read_contact') ) :
+        $admin->add_cap( 'read_contact' ); 
+    endif;
+
+    if ( !$admin->has_cap('read_private_contacts') ) :
+        $admin->add_cap( 'read_private_contacts' ); 
+    endif;
+
+    if ( !$admin->has_cap('delete_contact') ) :
+        $admin->add_cap( 'delete_contact' ); 
     endif;
     
 }

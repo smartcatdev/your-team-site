@@ -288,13 +288,19 @@ class Your_Team_Event_Meta_Box {
         $event_time_start   = get_post_meta( $post->ID, 'event_meta_time_start', true );
         $event_time_end     = get_post_meta( $post->ID, 'event_meta_time_end', true );
         $event_location     = get_post_meta( $post->ID, 'event_meta_location', true );
+        $event_is_openhouse = get_post_meta( $post->ID, 'event_is_openhouse', true );
+        $event_openhouse_id = get_post_meta( $post->ID, 'event_openhouse_id', true );
 
         // Set default values.
         if ( empty( $event_date ) )         { $event_date = ''; } 
         if ( empty( $event_time_start ) )   { $event_time_start = ''; }
         if ( empty( $event_time_end ) )     { $event_time_end = ''; }
         if ( empty( $event_location ) )     { $event_location = ''; }
-            
+        if ( empty( $event_is_openhouse ) ) { $event_is_openhouse = ''; }
+        if ( empty( $event_openhouse_id ) ) { $event_openhouse_id = ''; }
+
+        $properties = ytre_get_simple_properties_array();
+        
         // Form fields.
         echo '<table class="form-table">';
 
@@ -326,6 +332,24 @@ class Your_Team_Event_Meta_Box {
         echo '		</td>';
         echo '	</tr>';
 
+        echo '	<tr>';
+        echo '		<th><label for="event_is_openhouse" class="event_is_openhouse_label">' . __( 'Is this an Open House?', 'ytre' ) . '</label></th>';
+        echo '		<td>';
+        echo '			<input type="checkbox" id="event_is_openhouse" name="event_is_openhouse" class="event_is_openhouse_field" value="1"' . ( $event_is_openhouse == 1 ? 'checked' : '' ) . '>';
+        echo '		</td>';
+        echo '	</tr>';
+        
+        echo '	<tr>';
+        echo '		<th><label for="event_openhouse_id" class="event_openhouse_id_label">' . __( 'Which property is the Open House for?', 'juno' ) . '</label></th>';
+        echo '		<td>';
+        echo '	                <select id="event_openhouse_id" name="event_openhouse_id" class="event_openhouse_id_field">';
+                                    foreach( $properties as $key => $value ) :
+        echo '                          <option value="' . $key . '" ' . selected( $event_openhouse_id, $key, false ) . '> ' . $value . '</option>';
+                                    endforeach;
+        echo '	                </select>';
+        echo '		</td>';
+        echo '	</tr>';
+
         echo '</table>';
         
     }
@@ -345,12 +369,16 @@ class Your_Team_Event_Meta_Box {
         $event_time_start = isset( $_POST[ 'event_meta_time_start' ] ) ? sanitize_text_field( $_POST[ 'event_meta_time_start' ] ) : '';
         $event_time_end = isset( $_POST[ 'event_meta_time_end' ] ) ? sanitize_text_field( $_POST[ 'event_meta_time_end' ] ) : '';
         $event_location = isset( $_POST[ 'event_meta_location' ] ) ? sanitize_text_field( $_POST[ 'event_meta_location' ] ) : '';
+        $event_is_openhouse = isset( $_POST[ 'event_is_openhouse' ] ) && $_POST[ 'event_is_openhouse' ] != 0 ? true : false;
+        $event_openhouse_id = isset( $_POST[ 'event_openhouse_id' ] ) ? sanitize_text_field( $_POST[ 'event_openhouse_id' ] ) : '';
 
         // Update the meta field in the database.
         update_post_meta( $post_id, 'event_meta_date', $event_date );
         update_post_meta( $post_id, 'event_meta_time_start', $event_time_start );
         update_post_meta( $post_id, 'event_meta_time_end', $event_time_end );
         update_post_meta( $post_id, 'event_meta_location', $event_location );
+        update_post_meta( $post_id, 'event_is_openhouse', $event_is_openhouse );
+        update_post_meta( $post_id, 'event_openhouse_id', $event_openhouse_id );
         
     }
     
@@ -560,6 +588,15 @@ $args = array(
     'exclude_from_search'   => true,
     'publicly_queryable'    => false,
     'capability_type'       => 'post',
+    'capabilities'          => array(
+        'edit_post'             => 'edit_contact',
+        'edit_posts'            => 'edit_contacts',
+        'edit_others_posts'     => 'edit_other_contacts',
+        'publish_posts'         => 'publish_contacts',
+        'read_post'             => 'read_contact',
+        'read_private_posts'    => 'read_private_contacts',
+        'delete_post'           => 'delete_contact'
+    ),
     
 );
 register_post_type( 'contact', $args );
@@ -979,5 +1016,25 @@ class Your_Team_Combined_Features_Meta_Box {
         update_post_meta( $post_id, 'property_date_sold', $date_sold );
         
     }
+    
+}
+
+function ytre_get_simple_properties_array() {
+    
+    $properties = array();
+    
+    $results = new WP_Query(array(
+        'post_type' => 'property',
+        'post_status' => 'publish',
+        'posts_per_page' => -1,
+    ));
+    
+    foreach ( $results->posts as $property ) :
+        
+        $properties[$property->ID] = $property->post_title;
+        
+    endforeach;
+        
+    return $properties;
     
 }

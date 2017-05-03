@@ -2264,3 +2264,23 @@ div#load-in-house-features {
         margin-bottom: 15px;
     }
 }
+
+.sold-banner.single-event {
+    float: none;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.ytre-member-details .title.price {
+    font-size: 36px;
+}
+
+.gmap-wrapper {
+    margin-top: 15px;
+}
+
+.ytre-member-details .title.price span {
+    font-size: 18px;
+    display: block;
+    margin: 10px 0 30px;
+}
