@@ -136,6 +136,27 @@ get_header(); ?>
                                             'location'		=> '',
                                             'meta_query'	=> array(
                                                 array(
+                                                    'relation' => 'OR',
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'value'     => array( 
+                                                            date( 'Y-m-d', strtotime( '-6 day' ) ), 
+                                                            date( 'Y-m-d'),
+                                                        ),
+                                                        'type'      => 'DATE',
+                                                        'compare'   => 'BETWEEN',
+                                                    ),
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'value'     => '',
+                                                        'compare'   => '=',
+                                                    ), 
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'compare'   => 'NOT EXISTS',
+                                                    ), 
+                                                ),
+                                                array(
                                                     'key'       => 'property_address_coordinates',
                                                     'value'	=> '',
                                                     'compare'	=> '!=',                // As long as the coordinates are not blank

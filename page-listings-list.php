@@ -118,6 +118,29 @@ get_header(); ?>
                                             
                                             'post_type'         => 'property',          // Post Type
                                             'limit'             => '30',                // Number of maximum posts to show
+                                            'meta_query'        => array(
+                                                array(
+                                                    'relation' => 'OR',
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'value'     => array( 
+                                                            date( 'Y-m-d', strtotime( '-6 day' ) ), 
+                                                            date( 'Y-m-d'),
+                                                        ),
+                                                        'type'      => 'DATE',
+                                                        'compare'   => 'BETWEEN',
+                                                    ),
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'value'     => '',
+                                                        'compare'   => '=',
+                                                    ), 
+                                                    array(
+                                                        'key'       => 'property_date_sold',
+                                                        'compare'   => 'NOT EXISTS',
+                                                    ), 
+                                                ),
+                                            ),
                                             
                                         );
 
